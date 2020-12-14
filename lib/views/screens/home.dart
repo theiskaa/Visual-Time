@@ -12,8 +12,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: CustomAppBar(),
+      backgroundColor: Colors.white,
+      appBar: CustomAppBar(title: "Time Visualer",),
       floatingActionButton: buildCustomFAB(context),
       body: buildBody(),
     );
@@ -24,7 +24,7 @@ class _HomeState extends State<Home> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          
+
         ],
       ),
     );

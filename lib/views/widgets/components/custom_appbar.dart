@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Function onTap;
-  CustomAppBar({this.onTap});
+  final String title;
+  final Widget leading;
+  CustomAppBar({this.onTap, this.title,this.leading,});
   @override
   Size get preferredSize => Size.fromHeight(55);
 
@@ -13,6 +15,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       centerTitle: true,
       title: buildTitle(),
+      leading: leading,
       actions: [buildActButton()],
     );
   }
@@ -21,7 +24,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: IconButton(
-        icon: Icon(Icons.info_outline, color: Colors.white),
+        icon: Icon(Icons.info_outline, color: Colors.black),
         onPressed: onTap,
       ),
     );
@@ -29,10 +32,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   Text buildTitle() {
     return Text(
-      "Time Visualer",
-      style: TextStyle( 
+      "$title",
+      style: TextStyle(
         fontWeight: FontWeight.w700,
         fontSize: 23,
+        color: Colors.black
       ),
     );
   }
