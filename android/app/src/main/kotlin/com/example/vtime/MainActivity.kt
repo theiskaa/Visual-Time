@@ -1,4 +1,4 @@
-package com.example.timevisualer
+package com.example.vtime
 
 import io.flutter.embedding.android.FlutterActivity
 

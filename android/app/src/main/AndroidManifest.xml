@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.timevisualer">
+    package="com.example.vtime">
    <application
-        android:label="timevisualer"
+        android:label="vtime"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
