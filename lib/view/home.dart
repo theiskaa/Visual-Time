@@ -1,12 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:vtime/core/model/day.dart';
-import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/services/local_db_service.dart';
 import 'package:vtime/view/create.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vtime/view/day_view.dart';
+import 'package:vtime/view/widgets/mini_day_card.dart';
+
+import 'widgets/appbars.dart';
+import 'widgets/utils.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -34,63 +36,12 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const TransparentAppBar(disableLeading: true),
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ValueListenableBuilder<Box<Task>>(
-              valueListenable: todaysBox,
-              builder: (context, box, _) {
-                final tasks = box.values.toList().cast<Task>();
-                return ListView(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: tasks
-                      .map(
-                        (e) => Card(
-                          child: ListTile(
-                            title: Text(e.title!),
-                            subtitle: Text(e.description!),
-                            trailing: IconButton(
-                              icon: const Icon(Icons.delete),
-                              onPressed: () {
-                                box.delete(e.key);
-                              },
-                            ),
-                          ),
-                        ),
-                      )
-                      .toList(),
-                );
-              },
-            ),
-            GridView.count(
-              crossAxisCount: 3,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              children: weekDays
-                  .map(
-                    (e) => GestureDetector(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DayView(
-                            day: e,
-                            dayBox: localDbService.rightListenableValue(e),
-                          ),
-                        ),
-                      ),
-                      child: Container(
-                        margin: const EdgeInsets.all(30),
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.grey,
-                        ),
-                        child: Center(child: Text(e.name!)),
-                      ),
-                    ),
-                  )
-                  .toList(),
-            )
+            WeekView(weeks: weekDays),
           ],
         ),
       ),
@@ -101,6 +52,51 @@ class _HomeState extends State<Home> {
           MaterialPageRoute(
             builder: (context) => CreateTaskPage(todaysBox: todaysBox),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class WeekView extends StatelessWidget {
+  final List<Day>? weeks;
+  const WeekView({Key? key, this.weeks}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        children: [
+          Wrap(
+            children: [
+              for (var i = 0; i < 4; i++)
+                MiniDayChart(
+                  title: ViewUtils().rightDayNameGenerator(i),
+                  onTap: () => openNewDay(i, context),
+                ),
+            ],
+          ),
+          Wrap(
+            children: [
+              for (var i = 4; i < 7; i++)
+                MiniDayChart(
+                  title: ViewUtils().rightDayNameGenerator(i),
+                  onTap: () => openNewDay(i, context),
+                )
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  void openNewDay(int i, BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DayView(
+          day: weeks![i],
+          dayBox: LocalDBService().rightListenableValue(weeks![i]),
         ),
       ),
     );

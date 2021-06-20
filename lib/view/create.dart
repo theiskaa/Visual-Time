@@ -96,7 +96,7 @@ class CreateTaskPageState extends State<CreateTaskPage> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            rightDayNameGenerator(i),
+            ViewUtils().rightDayNameGenerator(i),
             style: const TextStyle(fontSize: 11),
           ),
           Checkbox(
@@ -110,20 +110,6 @@ class CreateTaskPageState extends State<CreateTaskPage> {
         ],
       ),
     );
-  }
-
-  // Generates right name for checkbox by checkbox index.
-  String rightDayNameGenerator(int index) {
-    var values = {
-      0: 'Monday',
-      1: 'Tuesday',
-      2: 'Wednesday',
-      3: 'Thursday',
-      4: 'Friday',
-      5: 'Saturday',
-      6: 'Sunday',
-    };
-    return values[index]!;
   }
 
   // Returns right value by gave checkbox index.
@@ -179,10 +165,9 @@ class CreateTaskPageState extends State<CreateTaskPage> {
     );
 
     for (var i in managableDaysIndexes!) {
-      localDbService.rightBoxByCheckBoxId(i).putAt(
-            0,
-            task.copyWith(uniquekey: localDbService.rightTaskKeyCheckBoxId(i)),
-          );
+      localDbService.rightBoxByCheckBoxId(i).add(task.copyWith(
+            uniquekey: localDbService.rightTaskKeyCheckBoxId(i),
+          ));
     }
   }
 }
