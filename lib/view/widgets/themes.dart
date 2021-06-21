@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 
 class Themes {
   final defaultTheme = ThemeData(
-    // Define the default brightness and colors.
     brightness: Brightness.light,
-    primaryColor: Colors.grey[900],
+    primaryColor: Colors.black,
     accentColor: Colors.black,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(

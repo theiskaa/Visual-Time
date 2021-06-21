@@ -19,9 +19,9 @@ class TaskAdapter extends TypeAdapter<Task> {
     return Task(
       title: fields[0] as String?,
       description: fields[1] as String?,
-      startTime: fields[2] as String?,
-      endTime: fields[3] as String?,
-      uniquekey: fields[4] as String?,
+      uniquekey: fields[2] as String?,
+      hours: fields[3] as int?,
+      minutes: fields[4] as int?,
     );
   }
 
@@ -34,11 +34,11 @@ class TaskAdapter extends TypeAdapter<Task> {
       ..writeByte(1)
       ..write(obj.description)
       ..writeByte(2)
-      ..write(obj.startTime)
+      ..write(obj.uniquekey)
       ..writeByte(3)
-      ..write(obj.endTime)
+      ..write(obj.hours)
       ..writeByte(4)
-      ..write(obj.uniquekey);
+      ..write(obj.minutes);
   }
 
   @override

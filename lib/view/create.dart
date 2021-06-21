@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -20,6 +21,8 @@ class CreateTaskPageState extends State<CreateTaskPage> {
   final formKey = GlobalKey<FormState>();
   final titleTextController = TextEditingController();
   final desTextController = TextEditingController();
+
+  Duration durationOfTask = Duration.zero;
 
   bool? monday = false,
       tuesday = false,
@@ -46,9 +49,23 @@ class CreateTaskPageState extends State<CreateTaskPage> {
               const SizedBox(height: 130),
               Wrap(children: [for (var i = 0; i < 4; i++) dayChecker(i)]),
               Wrap(children: [for (var i = 4; i < 7; i++) dayChecker(i)]),
-              const SizedBox(height: 50),
+              const SizedBox(height: 25),
               const Divider(),
-              const SizedBox(height: 50),
+              const SizedBox(height: 25),
+              GestureDetector(
+                onTap: () => showTimePicker(),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(CupertinoIcons.clock_fill),
+                    const SizedBox(width: 10),
+                    Text(durationOfTask.toHumanLang())
+                  ],
+                ),
+              ),
+              const SizedBox(height: 25),
+              const Divider(),
+              const SizedBox(height: 25),
               TextFormField(
                 controller: titleTextController,
                 maxLines: 2,
@@ -63,6 +80,7 @@ class CreateTaskPageState extends State<CreateTaskPage> {
               const SizedBox(width: 15),
               TextFormField(
                 controller: desTextController,
+                minLines: 1,
                 maxLines: 15,
                 decoration: ViewUtils().nonBorderInputDecoration(
                   hint:
@@ -73,6 +91,30 @@ class CreateTaskPageState extends State<CreateTaskPage> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> showTimePicker() async {
+    showModalBottomSheet(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+      backgroundColor: Colors.white,
+      context: context,
+      builder: (builder) {
+        return SizedBox(
+          height: MediaQuery.of(context).copyWith().size.height / 3,
+          child: SizedBox.expand(
+            child: CupertinoTimerPicker(
+              mode: CupertinoTimerPickerMode.hm,
+              minuteInterval: 1,
+              secondInterval: 1,
+              initialTimerDuration: durationOfTask,
+              onTimerDurationChanged: (newTime) {
+                setState(() => durationOfTask = newTime);
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -156,12 +198,15 @@ class CreateTaskPageState extends State<CreateTaskPage> {
       return;
     }
 
+    if (durationOfTask == Duration.zero) {
+      return;
+    }
     Task task = Task(
       uniquekey: '',
       title: titleTextController.text,
       description: desTextController.text,
-      startTime: '12:00',
-      endTime: '19:00',
+      hours: durationOfTask.inHours,
+      minutes: durationOfTask.inMinutes.remainder(60),
     );
 
     for (var i in managableDaysIndexes!) {

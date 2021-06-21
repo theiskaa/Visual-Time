@@ -29,3 +29,25 @@ class ViewUtils {
     );
   }
 }
+
+extension DurationToHumanLangEXT on Duration {
+  String toHumanLang() {
+    var inMinutes = this.inMinutes.remainder(60).toString();
+    var inHours = this.inHours.toString();
+
+    if (this == Duration.zero) {
+      return "Haven't selected yet";
+    }
+    if (inMinutes != '0' && inHours != '0') {
+      return '$inHours hours and $inMinutes minutes';
+    }
+    if (inHours != '0' && inMinutes == '0') {
+      return '$inHours hours';
+    }
+    if (inMinutes != '0' && inHours != '0') {
+      return '$inMinutes minutes';
+    }
+
+    return '';
+  }
+}

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:vtime/core/model/day.dart';
 import 'package:vtime/core/model/task.dart';
+import 'package:vtime/view/widgets/utils.dart';
 
 class DayView extends StatefulWidget {
   final Day? day;
@@ -33,7 +34,12 @@ class _DayViewState extends State<DayView> {
                   (e) => Card(
                     child: ListTile(
                       title: Text(e.title!),
-                      subtitle: Text(e.description!),
+                      subtitle: Text(
+                        e.description! +
+                            ' ' +
+                            Duration(hours: e.hours!, minutes: e.minutes!)
+                                .toHumanLang(),
+                      ),
                       trailing: IconButton(
                         icon: const Icon(Icons.delete),
                         onPressed: () {

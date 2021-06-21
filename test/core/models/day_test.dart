@@ -7,12 +7,7 @@ void main() {
 
   List<Task> tasks = List<Task>.generate(
     4,
-    (i) => Task(
-      title: 'Task $i',
-      description: 'Des $i',
-      startTime: '1$i:00',
-      endTime: '2$i:00',
-    ),
+    (i) => Task(title: 'Task $i', description: 'Des $i'),
   );
 
   Map<String, dynamic> jsonModel = {

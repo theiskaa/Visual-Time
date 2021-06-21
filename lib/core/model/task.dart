@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:vtime/core/model/vt_model.dart';
 
@@ -13,37 +12,36 @@ class Task extends HiveObject implements VTModel {
   final String? description;
 
   @HiveField(2)
-  final String? startTime;
+  final String? uniquekey;
 
   @HiveField(3)
-  final String? endTime;
-
+  final int? hours;
 
   @HiveField(4)
-  final String? uniquekey;
+  final int? minutes;
 
   Task({
     this.title,
     this.description,
-    this.startTime,
-    this.endTime,
     this.uniquekey,
+    this.hours,
+    this.minutes,
   });
 
   @override
   Task copyWith({
     String? title,
     String? description,
-    String? startTime,
-    String? endTime,
     String? uniquekey,
+    int? hours,
+    int? minutes,
   }) {
     return Task(
       title: title ?? this.title,
       description: description ?? this.description,
-      startTime: startTime ?? this.startTime,
-      endTime: endTime ?? this.endTime,
       uniquekey: uniquekey ?? this.uniquekey,
+      hours: hours ?? this.hours,
+      minutes: minutes ?? this.minutes,
     );
   }
 
@@ -51,16 +49,16 @@ class Task extends HiveObject implements VTModel {
   Task.fromJson(Map<String, dynamic>? json)
       : title = json?['title'],
         description = json?['description'],
-        startTime = json?['startTime'],
-        endTime = json?['endTime'],
-        uniquekey = json?['uniquekey'];
+        uniquekey = json?['uniquekey'],
+        hours = json?['hours'],
+        minutes = json?['minutes'];
 
   @override
   Map<String, dynamic> toJson() => {
         'title': title,
         'description': description,
-        'startTime': startTime,
-        'endTime': endTime,
         'uniquekey': uniquekey,
+        'hours': hours,
+        'minutes': minutes,
       };
 }

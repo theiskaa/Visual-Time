@@ -7,8 +7,8 @@ void main() {
   const Map<String, dynamic> jsonModel = {
     'title': 'Test title',
     'description': 'Test description',
-    'startTime': '12:00',
-    'endTime': '18:00',
+    'hours': 5,
+    'minutes': 15,
     'uniquekey': '',
   };
 
@@ -16,9 +16,9 @@ void main() {
     task = Task(
       title: 'Test title',
       description: 'Test description',
-      startTime: '12:00',
-      endTime: '18:00',
       uniquekey: '',
+      hours: 5,
+      minutes: 15,
     );
   });
 
@@ -29,9 +29,9 @@ void main() {
       // Need to match properties rather than instances.
       expect(task.title, taskFromJson.title);
       expect(task.description, taskFromJson.description);
-      expect(task.startTime, taskFromJson.startTime);
-      expect(task.endTime, taskFromJson.endTime);
       expect(task.uniquekey, taskFromJson.uniquekey);
+      expect(task.hours, taskFromJson.hours);
+      expect(task.minutes, taskFromJson.minutes);
     });
 
     test('converts to json correctly', () {
@@ -45,24 +45,24 @@ void main() {
       final customTask = task.copyWith(
         title: 'different task',
         description: 'different description',
-        startTime: '18:00',
-        endTime: '12:00',
         uniquekey: 'Uniquekey',
+        hours: 3,
+        minutes: 10,
       );
 
       // Expect nothing was changed in for sameCopiedTask.
       expect(sameCopiedTask.title, task.title);
       expect(sameCopiedTask.description, task.description);
-      expect(sameCopiedTask.startTime, task.startTime);
-      expect(sameCopiedTask.endTime, task.endTime);
       expect(sameCopiedTask.uniquekey, task.uniquekey);
+      expect(sameCopiedTask.hours, task.hours);
+      expect(sameCopiedTask.minutes, task.minutes);
 
       // Expect difference between [task] and [customTask].
       expect(customTask.title == task.title, false);
       expect(customTask.description == task.description, false);
-      expect(customTask.startTime == task.startTime, false);
-      expect(customTask.endTime == task.endTime, false);
       expect(customTask.uniquekey == task.uniquekey, false);
+      expect(customTask.hours == task.hours, false);
+      expect(customTask.minutes == task.minutes, false);
     });
   });
 }
