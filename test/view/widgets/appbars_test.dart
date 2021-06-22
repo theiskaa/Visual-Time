@@ -7,7 +7,9 @@ void main() {
   late Widget mainWidget;
 
   setUpAll(() {
-    transparentAppBar = const TransparentAppBar();
+    transparentAppBar = TransparentAppBar(
+      onLeadingTap: () {},
+    );
     mainWidget = MaterialApp(home: Scaffold(appBar: transparentAppBar));
   });
 
