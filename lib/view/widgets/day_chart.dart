@@ -22,7 +22,7 @@ class _DayChartState extends State<DayChart> {
   @override
   Widget build(BuildContext context) {
     int? remainingHours = 24;
-    int? remainingMinutes = 24;
+    int? remainingMinutes = 60;
 
     for (var i = 0; i < widget.tasks.length; i++) {
       int currentHours = 24;

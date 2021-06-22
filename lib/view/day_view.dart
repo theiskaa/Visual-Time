@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:vtime/core/model/day.dart';
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/view/widgets/day_chart.dart';
-import 'package:vtime/view/widgets/utils.dart';
+import 'package:vtime/view/widgets/task_card.dart';
 
 import 'widgets/appbars.dart';
 
@@ -27,6 +27,7 @@ class _DayViewState extends State<DayView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TransparentAppBar(
+        onLeadingTap: () => Navigator.pop(context),
         titleWidget: Text(
           widget.day?.name ?? '',
           style: const TextStyle(color: Colors.black),
@@ -46,20 +47,9 @@ class _DayViewState extends State<DayView> {
                 Column(
                   children: tasks
                       .map(
-                        (e) => Dismissible(
-                          secondaryBackground: Container(color: Colors.red),
-                          background: Container(color: Colors.red),
-                          key: UniqueKey(),
-                          onDismissed: (_) => box.delete(e.key),
-                          child: ListTile(
-                            title: Text(e.title!),
-                            subtitle: Text(
-                              e.description! +
-                                  ' | ' +
-                                  Duration(hours: e.hours!, minutes: e.minutes!)
-                                      .toHumanLang(),
-                            ),
-                          ),
+                        (task) => TaskCard(
+                          task: task,
+                          onDismissed: () => box.delete(task.key),
                         ),
                       )
                       .toList(),
