@@ -1,16 +1,23 @@
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:vtime/core/model/task.dart';
+
+import 'day_chart.dart';
 
 class MiniDayChart extends StatelessWidget {
   final String title;
   final Function? onTap;
   final Color? circleColor;
+  final ValueListenable<Box<Task>> todaysBox;
 
   const MiniDayChart({
     Key? key,
     required this.title,
     required this.onTap,
+    required this.todaysBox,
     this.circleColor = const Color(0xFFFFFFFF),
   }) : super(key: key);
 
@@ -27,14 +34,18 @@ class MiniDayChart extends StatelessWidget {
               title,
               style: const TextStyle(fontSize: 12),
             ),
-            const SizedBox(height: 10),
-            Container(
-              height: 25,
-              width: 25,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: circleColor,
-                border: Border.all(),
+            GestureDetector(
+              onTap: () => onTap!(),
+              child: ValueListenableBuilder<Box<Task>>(
+                valueListenable: todaysBox,
+                builder: (context, box, _) {
+                  final tasks = box.values.toList().cast<Task>();
+                  return SizedBox(
+                    height: 60,
+                    width: 60,
+                    child: DayChart(tasks: tasks),
+                  );
+                },
               ),
             ),
           ],

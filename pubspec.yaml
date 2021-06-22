@@ -16,6 +16,7 @@ dependencies:
   hive_flutter: ^1.1.0
   flutter_bloc: ^7.0.1
   logger:
+  syncfusion_flutter_charts: ^19.1.69+1
 
   cupertino_icons: ^1.0.2
 

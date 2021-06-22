@@ -28,6 +28,15 @@ class ViewUtils {
       focusedErrorBorder: InputBorder.none,
     );
   }
+
+  Widget get divider {
+    return const Divider(
+      height: 5,
+      thickness: 1,
+      indent: 50,
+      endIndent: 50,
+    );
+  }
 }
 
 extension DurationToHumanLangEXT on Duration {
@@ -36,7 +45,7 @@ extension DurationToHumanLangEXT on Duration {
     var inHours = this.inHours.toString();
 
     if (this == Duration.zero) {
-      return "Haven't selected yet";
+      return 'Tap to select how long the todo will take';
     }
     if (inMinutes != '0' && inHours != '0') {
       return '$inHours hours and $inMinutes minutes';
@@ -44,7 +53,7 @@ extension DurationToHumanLangEXT on Duration {
     if (inHours != '0' && inMinutes == '0') {
       return '$inHours hours';
     }
-    if (inMinutes != '0' && inHours != '0') {
+    if (inMinutes != '0' && inHours == '0') {
       return '$inMinutes minutes';
     }
 

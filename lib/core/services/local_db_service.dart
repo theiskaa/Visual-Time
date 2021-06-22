@@ -15,13 +15,13 @@ class LocalDBService {
 
   ValueListenable<Box<Task>> rightListenableValue(Day day) {
     var values = {
-      'monday': LocalDBService.mondayBox().listenable(),
-      'tuesday': LocalDBService.tuesdayBox().listenable(),
-      'wednesday': LocalDBService.wednesdayBox().listenable(),
-      'thursday': LocalDBService.thursdayBox().listenable(),
-      'friday': LocalDBService.fridayBox().listenable(),
-      'saturday': LocalDBService.fridayBox().listenable(),
-      'sunday': LocalDBService.sundayBox().listenable(),
+      'Monday': LocalDBService.mondayBox().listenable(),
+      'Tuesday': LocalDBService.tuesdayBox().listenable(),
+      'Wednesday': LocalDBService.wednesdayBox().listenable(),
+      'Thursday': LocalDBService.thursdayBox().listenable(),
+      'Friday': LocalDBService.fridayBox().listenable(),
+      'Saturday': LocalDBService.fridayBox().listenable(),
+      'Sunday': LocalDBService.sundayBox().listenable(),
     };
     return values[day.name]!;
   }
@@ -42,13 +42,13 @@ class LocalDBService {
 
   String rightTaskKeyCheckBoxId(int i) {
     var values = {
-      0: 'monday',
-      1: 'tuesday',
-      2: 'wednesday',
-      3: 'thursday',
-      4: 'friday',
-      5: 'saturday',
-      6: 'sunday',
+      0: 'Monday',
+      1: 'Tuesday',
+      2: 'Wednesday',
+      3: 'Thursday',
+      4: 'Friday',
+      5: 'Saturday',
+      6: 'Sunday',
     };
 
     return values[i]!;

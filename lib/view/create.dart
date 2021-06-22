@@ -6,6 +6,7 @@ import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/services/local_db_service.dart';
 import 'package:vtime/view/widgets/utils.dart';
 
+import 'home.dart';
 import 'widgets/appbars.dart';
 
 class CreateTaskPage extends StatefulWidget {
@@ -38,7 +39,13 @@ class CreateTaskPageState extends State<CreateTaskPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: const TransparentAppBar(),
+      appBar: TransparentAppBar(
+        onLeadingTap: () => Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const Home()),
+          (route) => false,
+        ),
+      ),
       bottomNavigationBar: createButton(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(10),
@@ -47,8 +54,27 @@ class CreateTaskPageState extends State<CreateTaskPage> {
           child: Column(
             children: [
               const SizedBox(height: 130),
-              Wrap(children: [for (var i = 0; i < 4; i++) dayChecker(i)]),
-              Wrap(children: [for (var i = 4; i < 7; i++) dayChecker(i)]),
+              TextFormField(
+                controller: titleTextController,
+                maxLines: 2,
+                decoration: ViewUtils().nonBorderInputDecoration(
+                  hint: 'What are you going to do?',
+                ),
+                validator: (v) {
+                  if (v!.isEmpty) return 'Title can\'t be empty';
+                },
+              ),
+              const SizedBox(width: 15),
+              const Divider(),
+              const SizedBox(width: 15),
+              TextFormField(
+                controller: desTextController,
+                minLines: 1,
+                maxLines: 15,
+                decoration: ViewUtils().nonBorderInputDecoration(
+                  hint: 'Describe your task...',
+                ),
+              ),
               const SizedBox(height: 25),
               const Divider(),
               const SizedBox(height: 25),
@@ -66,27 +92,8 @@ class CreateTaskPageState extends State<CreateTaskPage> {
               const SizedBox(height: 25),
               const Divider(),
               const SizedBox(height: 25),
-              TextFormField(
-                controller: titleTextController,
-                maxLines: 2,
-                decoration: ViewUtils().nonBorderInputDecoration(
-                    hint: 'What are you going to do?'),
-                validator: (v) {
-                  if (v!.isEmpty) return 'Title can\'t be empty';
-                },
-              ),
-              const SizedBox(width: 15),
-              const Divider(),
-              const SizedBox(width: 15),
-              TextFormField(
-                controller: desTextController,
-                minLines: 1,
-                maxLines: 15,
-                decoration: ViewUtils().nonBorderInputDecoration(
-                  hint:
-                      'You can write why you need to do this task here. So by doing that, you can easily remember it later',
-                ),
-              ),
+              Wrap(children: [for (var i = 0; i < 4; i++) dayChecker(i)]),
+              Wrap(children: [for (var i = 4; i < 7; i++) dayChecker(i)]),
             ],
           ),
         ),
@@ -210,9 +217,29 @@ class CreateTaskPageState extends State<CreateTaskPage> {
     );
 
     for (var i in managableDaysIndexes!) {
-      localDbService.rightBoxByCheckBoxId(i).add(task.copyWith(
-            uniquekey: localDbService.rightTaskKeyCheckBoxId(i),
-          ));
+      int? v = 24;
+      for (var i = 0;
+          i < localDbService.rightBoxByCheckBoxId(i).values.length;
+          i++) {
+        v = localDbService.rightBoxByCheckBoxId(i).values.toList()[i].hours;
+      }
+      if ((24 - v!) > 24) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Yer yoxdi alaa')),
+        );
+      } else {
+        localDbService.rightBoxByCheckBoxId(i).add(task.copyWith(
+              uniquekey: localDbService.rightTaskKeyCheckBoxId(i),
+            ));
+      }
     }
+
+    // if(durationOfTask.inHours+)
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const Home()),
+      (route) => false,
+    );
   }
 }
