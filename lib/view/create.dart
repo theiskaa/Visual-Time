@@ -208,6 +208,7 @@ class CreateTaskPageState extends State<CreateTaskPage> {
     if (durationOfTask == Duration.zero) {
       return;
     }
+
     Task task = Task(
       uniquekey: '',
       title: titleTextController.text,
@@ -234,12 +235,6 @@ class CreateTaskPageState extends State<CreateTaskPage> {
       }
     }
 
-    // if(durationOfTask.inHours+)
-
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => const Home()),
-      (route) => false,
-    );
+    Navigator.pop(context);
   }
 }

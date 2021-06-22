@@ -38,22 +38,22 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const TransparentAppBar(disableLeading: true),
+      appBar: TransparentAppBar(
+        disableLeading: true,
+        titleWidget: Text(
+          weekDays[1].name ?? 'Today',
+          style: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.w600,
+            fontSize: 25,
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(vertical: 15),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Align(
-              alignment: Alignment.center,
-              child: Text(
-                weekDays[1].name ?? 'Today',
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 25,
-                ),
-              ),
-            ),
             ValueListenableBuilder<Box<Task>>(
               valueListenable: todaysBox,
               builder: (context, box, _) {

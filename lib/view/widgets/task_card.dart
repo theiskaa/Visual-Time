@@ -28,9 +28,12 @@ class TaskCard extends StatelessWidget {
         ),
       ),
       onDismissed: (_) => onDismissed(),
-      child: ListTile(
-        title: Text(task.title!),
-        subtitle: Text(generateSubtitle()),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: ListTile(
+          title: Text(task.title!),
+          subtitle: Text(generateSubtitle()),
+        ),
       ),
     );
   }

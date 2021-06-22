@@ -19,14 +19,27 @@ class DayChart extends StatefulWidget {
 }
 
 class _DayChartState extends State<DayChart> {
+  List<Color> colorPalette = <Color>[
+    Colors.grey.shade900,
+    const Color.fromRGBO(192, 108, 132, 1),
+    const Color.fromRGBO(246, 114, 128, 1),
+    const Color.fromRGBO(248, 177, 149, 1),
+    const Color.fromRGBO(116, 180, 155, 1),
+    const Color.fromRGBO(0, 168, 181, 1),
+    const Color.fromRGBO(73, 76, 162, 1),
+    const Color.fromRGBO(255, 205, 96, 1),
+    const Color.fromRGBO(255, 240, 219, 1),
+    const Color.fromRGBO(238, 238, 238, 1)
+  ];
+
   @override
   Widget build(BuildContext context) {
-    int? remainingHours = 24;
-    int? remainingMinutes = 60;
+    int? remainingHours = 23;
+    int? remainingMinutes = 59;
 
     for (var i = 0; i < widget.tasks.length; i++) {
-      int currentHours = 24;
-      int currentMinutes = 60;
+      int currentHours = 23;
+      int currentMinutes = 59;
 
       currentHours = (currentHours - widget.tasks[i].hours!);
       currentMinutes = (currentMinutes - widget.tasks[i].minutes!);
@@ -46,6 +59,7 @@ class _DayChartState extends State<DayChart> {
     );
 
     return SfCircularChart(
+      palette: colorPalette,
       tooltipBehavior: widget.tooltipBehaviorEnabled
           ? tooltipBehavior(remainingHours)
           : null,
