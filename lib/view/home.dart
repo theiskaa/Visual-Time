@@ -40,12 +40,15 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: TransparentAppBar(
         disableLeading: true,
-        titleWidget: Text(
-          weekDays[1].name ?? 'Today',
-          style: const TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.w600,
-            fontSize: 25,
+        titleWidget: GestureDetector(
+          onTap: () => openNewDay(1, context, weeks: weekDays),
+          child: Text(
+            weekDays[1].name ?? 'Today',
+            style: const TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+              fontSize: 25,
+            ),
           ),
         ),
       ),
@@ -95,7 +98,7 @@ class WeekView extends StatelessWidget {
               for (var i = 0; i < 4; i++)
                 MiniDayChart(
                   title: ViewUtils().rightDayNameGenerator(i),
-                  onTap: () => openNewDay(i, context),
+                  onTap: () => openNewDay(i, context, weeks: weeks),
                   todaysBox: LocalDBService().rightListenableValue(weeks![i]),
                 ),
             ],
@@ -106,7 +109,7 @@ class WeekView extends StatelessWidget {
                 MiniDayChart(
                   todaysBox: LocalDBService().rightListenableValue(weeks![i]),
                   title: ViewUtils().rightDayNameGenerator(i),
-                  onTap: () => openNewDay(i, context),
+                  onTap: () => openNewDay(i, context, weeks: weeks),
                 ),
             ],
           ),
@@ -114,16 +117,16 @@ class WeekView extends StatelessWidget {
       ),
     );
   }
+}
 
-  void openNewDay(int i, BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => DayView(
-          day: weeks![i],
-          dayBox: LocalDBService().rightListenableValue(weeks![i]),
-        ),
+void openNewDay(int i, BuildContext context, {List? weeks}) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => DayView(
+        day: weeks?[i],
+        dayBox: LocalDBService().rightListenableValue(weeks?[i]),
       ),
-    );
-  }
+    ),
+  );
 }
