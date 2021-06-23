@@ -41,7 +41,7 @@ class _HomeState extends State<Home> {
       appBar: TransparentAppBar(
         disableLeading: true,
         titleWidget: GestureDetector(
-          onTap: () => openNewDay(1, context, weeks: weekDays),
+          onTap: () => openNewDay(2, context, weeks: weekDays),
           child: Text(
             weekDays[2].name ?? 'Today',
             style: const TextStyle(
