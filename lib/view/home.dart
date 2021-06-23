@@ -23,7 +23,7 @@ class _HomeState extends State<Home> {
   final titleTextController = TextEditingController();
   final localDbService = LocalDBService();
 
-  var todaysBox = LocalDBService.tuesdayBox().listenable();
+  var todaysBox = LocalDBService.wednesdayBox().listenable();
 
   List<Day> weekDays = <Day>[
     const Day(name: 'Monday'),
@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
         titleWidget: GestureDetector(
           onTap: () => openNewDay(1, context, weeks: weekDays),
           child: Text(
-            weekDays[1].name ?? 'Today',
+            weekDays[2].name ?? 'Today',
             style: const TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.w600,

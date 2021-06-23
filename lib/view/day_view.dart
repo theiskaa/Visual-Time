@@ -37,13 +37,11 @@ class _DayViewState extends State<DayView> {
         valueListenable: widget.dayBox!,
         builder: (context, box, _) {
           final tasks = box.values.toList().cast<Task>();
+
           return SingleChildScrollView(
             child: Column(
               children: [
-                DayChart(
-                  tasks: tasks,
-                  tooltipBehaviorEnabled: true,
-                ),
+                DayChart(tasks: tasks, tooltipBehaviorEnabled: true),
                 Column(
                   children: tasks
                       .map(
