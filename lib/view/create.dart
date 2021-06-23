@@ -205,7 +205,13 @@ class CreateTaskPageState extends State<CreateTaskPage> {
       return;
     }
 
-    if (durationOfTask == Duration.zero) {
+    if (durationOfTask == Duration.zero || durationOfTask.inHours == 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.red,
+          content: Text('Please add duration for your task'),
+        ),
+      );
       return;
     }
 
@@ -214,27 +220,30 @@ class CreateTaskPageState extends State<CreateTaskPage> {
       title: titleTextController.text,
       description: desTextController.text,
       hours: durationOfTask.inHours,
-      minutes: durationOfTask.inMinutes.remainder(60),
+      minutes: 0, // durationOfTask.inMinutes.remainder(60),
     );
 
     for (var i in managableDaysIndexes!) {
-      int? v = 24;
-      for (var i = 0;
-          i < localDbService.rightBoxByCheckBoxId(i).values.length;
-          i++) {
-        v = localDbService.rightBoxByCheckBoxId(i).values.toList()[i].hours;
-      }
-      if ((24 - v!) > 24) {
+      List<Task> tasksList =
+          localDbService.rightBoxByCheckBoxId(i).values.toList();
+      double remainingTime = 24 - calculateTasksTotalTime(tasksList);
+
+      if (task.totalTime > remainingTime) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Yer yoxdi alaa')),
+          const SnackBar(
+            backgroundColor: Colors.red,
+            content: Text(
+              'You selected duration which exceeds the remaining time of your selected day',
+            ),
+          ),
         );
       } else {
         localDbService.rightBoxByCheckBoxId(i).add(task.copyWith(
               uniquekey: localDbService.rightTaskKeyCheckBoxId(i),
             ));
+
+        Navigator.pop(context);
       }
     }
-
-    Navigator.pop(context);
   }
 }

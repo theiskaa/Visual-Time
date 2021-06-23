@@ -53,6 +53,25 @@ class Task extends HiveObject implements VTModel {
         hours = json?['hours'],
         minutes = json?['minutes'];
 
+  double get totalTime {
+    double rightMinute = double.parse('0.$minutes');
+    double total = hours! + rightMinute;
+    return total;
+  }
+
+  Task remainingTimeFiller(double totalTime) {
+    int hours = totalTime.floor();
+    int minutes = int.parse('$totalTime'.replaceAll('$hours.', ''));
+
+    return Task(
+      title: 'Remaining Time {#@!@#!@#8&**%@#%}',
+      description: '',
+      uniquekey: '',
+      hours: hours,
+      minutes: minutes,
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
         'title': title,

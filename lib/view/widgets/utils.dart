@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vtime/core/model/task.dart';
 
 class ViewUtils {
   // Generates right name by index.
@@ -47,6 +48,9 @@ extension DurationToHumanLangEXT on Duration {
     if (this == Duration.zero) {
       return 'Tap to select how long the todo will take';
     }
+    if (inMinutes == '60') {
+      return '${this.inHours + 1} hours +++++';
+    }
     if (inMinutes != '0' && inHours != '0') {
       return '$inHours hours and $inMinutes minutes';
     }
@@ -60,3 +64,16 @@ extension DurationToHumanLangEXT on Duration {
     return '';
   }
 }
+
+
+
+double calculateTasksTotalTime(List<Task>? tasks) {
+  var filledAmount = 0.0;
+
+  for (var i = 0; i < tasks!.length; i++) {
+    filledAmount = filledAmount + tasks[i].totalTime;
+  }
+
+  return filledAmount;
+}
+

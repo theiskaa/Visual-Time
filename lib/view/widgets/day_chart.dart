@@ -34,53 +34,31 @@ class _DayChartState extends State<DayChart> {
 
   @override
   Widget build(BuildContext context) {
-    int? remainingHours = 23;
-    int? remainingMinutes = 59;
-
-    for (var i = 0; i < widget.tasks.length; i++) {
-      int currentHours = 23;
-      int currentMinutes = 59;
-
-      currentHours = (currentHours - widget.tasks[i].hours!);
-      currentMinutes = (currentMinutes - widget.tasks[i].minutes!);
-
-      remainingHours = currentHours;
-      remainingMinutes = currentMinutes;
-    }
-
     widget.tasks.add(
-      Task(
-        title: 'Remaining Time {#@!@#!@#8&**%@#%}',
-        description: '',
-        uniquekey: '',
-        hours: remainingHours,
-        minutes: remainingMinutes,
-      ),
+      Task().remainingTimeFiller(24 - calculateTasksTotalTime(widget.tasks)),
     );
 
     return SfCircularChart(
       palette: colorPalette,
-      tooltipBehavior: widget.tooltipBehaviorEnabled
-          ? tooltipBehavior(remainingHours)
-          : null,
+      tooltipBehavior: widget.tooltipBehaviorEnabled ? tooltipBehavior() : null,
       series: <PieSeries<Task, String>>[
         PieSeries<Task, String>(
           dataSource: widget.tasks,
-          xValueMapper: (Task data, _) => getTotal(data).toString(),
-          yValueMapper: (Task data, _) => getTotal(data),
+          xValueMapper: (Task data, _) => data.totalTime.toString(),
+          yValueMapper: (Task data, _) => data.totalTime,
         ),
       ],
     );
   }
 
-  TooltipBehavior tooltipBehavior(int? remainingHours) {
+  TooltipBehavior tooltipBehavior() {
     return TooltipBehavior(
       enable: true,
       builder: (dynamic data, dynamic point, dynamic series, int pointIndex,
           int seriesIndex) {
         return Container(
           height: 20,
-          width: data.hours == remainingHours ? 135 : 100,
+          width: data.title == 'Remaining Time {#@!@#!@#8&**%@#%}' ? 140 : 100,
           decoration: BoxDecoration(
             color: Colors.black,
             borderRadius: BorderRadius.circular(10),
@@ -94,12 +72,6 @@ class _DayChartState extends State<DayChart> {
         );
       },
     );
-  }
-
-  double getTotal(Task task) {
-    double rightMinute = double.parse('0.${task.minutes}');
-    double total = task.hours! + rightMinute;
-    return total;
   }
 
   String generateTooltipText(Task data) {
