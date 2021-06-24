@@ -18,6 +18,7 @@ class TransparentAppBar extends StatelessWidget with PreferredSizeWidget {
       elevation: 0,
       backgroundColor: Colors.transparent,
       title: titleWidget,
+      centerTitle: true,
       leading: disableLeading
           ? const SizedBox.shrink()
           : IconButton(

@@ -53,12 +53,14 @@ class Task extends HiveObject implements VTModel {
         hours = json?['hours'],
         minutes = json?['minutes'];
 
+  // Calculates task's total time
   double get totalTime {
     double rightMinute = double.parse('0.$minutes');
     double total = hours! + rightMinute;
     return total;
   }
 
+  // An already built task to fill the day chart.
   Task remainingTimeFiller(double totalTime) {
     int hours = totalTime.floor();
     int minutes = int.parse('$totalTime'.replaceAll('$hours.', ''));

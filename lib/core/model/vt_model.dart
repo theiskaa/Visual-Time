@@ -8,5 +8,6 @@ abstract class VTModel {
   // Get data to json format.
   Map<String, dynamic> toJson();
 
+  // A decorator for concrete model.
   dynamic copyWith();
 }
