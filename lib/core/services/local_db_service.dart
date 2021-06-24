@@ -57,4 +57,11 @@ class LocalDBService {
 
     return values[i]!;
   }
+
+  // Clears all boxes' (whole weeks') data.
+  Future<void> clearWeek() async {
+    for (var i = 0; i < 7; i++) {
+      await rightBoxByCheckBoxId(i).clear();
+    }
+  }
 }

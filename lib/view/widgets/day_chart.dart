@@ -20,7 +20,7 @@ class DayChart extends StatefulWidget {
 
 class _DayChartState extends State<DayChart> {
   List<Color> colorPalette = <Color>[
-    Colors.grey.shade900,
+    Colors.grey.shade300,
     const Color.fromRGBO(192, 108, 132, 1),
     const Color.fromRGBO(246, 114, 128, 1),
     const Color.fromRGBO(248, 177, 149, 1),

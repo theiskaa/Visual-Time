@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:vtime/core/model/day.dart';
@@ -11,6 +12,7 @@ import 'package:vtime/view/widgets/mini_day_card.dart';
 
 import 'widgets/appbars.dart';
 import 'widgets/day_chart.dart';
+import 'widgets/themes.dart';
 import 'widgets/utils.dart';
 
 class Home extends StatefulWidget {
@@ -75,6 +77,10 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: TransparentAppBar(
         disableLeading: true,
+        action: Padding(
+          padding: const EdgeInsets.only(right: 15),
+          child: popUpMenuButton(),
+        ),
         titleWidget: GestureDetector(
           onTap: () => openNewDay(0, context, day: today, todaysBox: todaysBox),
           child: Text(
@@ -115,6 +121,50 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
+    );
+  }
+
+  PopupMenuButton<dynamic> popUpMenuButton() {
+    return PopupMenuButton(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: const Icon(Icons.more_horiz, color: Colors.black),
+      onSelected: (_) => showDialog(
+        context: context,
+        builder: (context) => clearWeekDialog(),
+      ),
+      itemBuilder: (index) => [
+        PopupMenuItem(
+          value: 0,
+          child: Row(
+            children: const [
+              Icon(CupertinoIcons.clear_circled_solid, color: Colors.red),
+              SizedBox(width: 10),
+              Text('Clear week'),
+            ],
+          ),
+        )
+      ],
+    );
+  }
+
+  AlertDialog clearWeekDialog() {
+    return AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      title: const Text('Are you sure you want to clear your whole week?'),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('No', style: TextStyle(color: Colors.black)),
+        ),
+        TextButton(
+          style: simpleButtonStyle(Colors.red),
+          onPressed: () {
+            localDbService.clearWeek();
+            Navigator.pop(context);
+          },
+          child: const Text('Yes', style: TextStyle(color: Colors.red)),
+        ),
+      ],
     );
   }
 }

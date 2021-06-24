@@ -4,12 +4,14 @@ class TransparentAppBar extends StatelessWidget with PreferredSizeWidget {
   final bool disableLeading;
   final Function? onLeadingTap;
   final Widget? titleWidget;
+  final Widget? action;
 
   const TransparentAppBar({
     Key? key,
     this.disableLeading = false,
     this.onLeadingTap,
     this.titleWidget,
+    this.action,
   }) : super(key: key);
 
   @override
@@ -19,6 +21,7 @@ class TransparentAppBar extends StatelessWidget with PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       title: titleWidget,
       centerTitle: true,
+      actions: (action != null) ? [action!] : null,
       leading: disableLeading
           ? const SizedBox.shrink()
           : IconButton(

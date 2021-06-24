@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/services/local_db_service.dart';
 import 'package:vtime/view/widgets/utils.dart';
@@ -254,7 +255,10 @@ class CreateTaskPageState extends State<CreateTaskPage> {
               uniquekey: localDbService.rightTaskKeyCheckBoxId(i),
             ));
         ScaffoldMessenger.of(context).removeCurrentSnackBar();
-        Navigator.pop(context);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const Home()),
+        );
       }
     }
   }
