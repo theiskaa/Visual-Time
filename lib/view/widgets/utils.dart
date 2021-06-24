@@ -45,17 +45,20 @@ extension DurationToHumanLangEXT on Duration {
     var inMinutes = this.inMinutes.remainder(60).toString();
     var inHours = this.inHours.toString();
 
+    String hour = this.inHours > 1 ? 'hours' : 'hour';
+    String minute = int.parse(inMinutes) > 1 ? 'minutes' : 'minute';
+
     if (this == Duration.zero) {
       return 'How long the todo will take?';
     }
     if (inMinutes != '0' && inHours != '0') {
-      return '$inHours hours and $inMinutes minutes';
+      return '$inHours $hour and $inMinutes $minute';
     }
     if (inHours != '0' && inMinutes == '0') {
-      return '$inHours hours';
+      return '$inHours $hour';
     }
     if (inMinutes != '0' && inHours == '0') {
-      return '$inMinutes minutes';
+      return '$inMinutes $minute';
     }
 
     return '';
@@ -72,7 +75,6 @@ double calculateTasksTotalTime(List<Task>? tasks) {
   return filledAmount;
 }
 
-/// Custom divider.
 Widget get divider {
   return const Divider(
     height: 5,

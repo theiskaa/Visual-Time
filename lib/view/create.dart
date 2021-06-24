@@ -20,6 +20,7 @@ class CreateTaskPage extends StatefulWidget {
 
 class CreateTaskPageState extends State<CreateTaskPage> {
   final localDbService = LocalDBService();
+
   final formKey = GlobalKey<FormState>();
   final titleTextController = TextEditingController();
   final desTextController = TextEditingController();
@@ -48,7 +49,7 @@ class CreateTaskPageState extends State<CreateTaskPage> {
           key: formKey,
           child: Column(
             children: [
-              const SizedBox(height: 130),
+              const SizedBox(height: 150),
               Wrap(children: [for (var i = 0; i < 4; i++) dayChecker(i)]),
               Wrap(children: [for (var i = 4; i < 7; i++) dayChecker(i)]),
               const SizedBox(height: 50),
@@ -87,7 +88,7 @@ class CreateTaskPageState extends State<CreateTaskPage> {
       titleWidget: GestureDetector(
         onTap: () => showTimePicker(),
         child: Wrap(
-          alignment: WrapAlignment.center,
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             const Icon(CupertinoIcons.clock_fill, color: Colors.black),
             const SizedBox(width: 10),
