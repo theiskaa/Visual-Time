@@ -39,13 +39,7 @@ class CreateTaskPageState extends State<CreateTaskPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: TransparentAppBar(
-        onLeadingTap: () => Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => const Home()),
-          (route) => false,
-        ),
-      ),
+      appBar: appBar(context),
       bottomNavigationBar: createButton(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(10),
@@ -54,6 +48,11 @@ class CreateTaskPageState extends State<CreateTaskPage> {
           child: Column(
             children: [
               const SizedBox(height: 130),
+              Wrap(children: [for (var i = 0; i < 4; i++) dayChecker(i)]),
+              Wrap(children: [for (var i = 4; i < 7; i++) dayChecker(i)]),
+              const SizedBox(height: 50),
+              divider,
+              const SizedBox(height: 50),
               TextFormField(
                 controller: titleTextController,
                 maxLines: 2,
@@ -75,25 +74,6 @@ class CreateTaskPageState extends State<CreateTaskPage> {
                   hint: 'Describe your task...',
                 ),
               ),
-              const SizedBox(height: 25),
-              const Divider(),
-              const SizedBox(height: 25),
-              GestureDetector(
-                onTap: () => showTimePicker(),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(CupertinoIcons.clock_fill),
-                    const SizedBox(width: 10),
-                    Text(durationOfTask.toHumanLang())
-                  ],
-                ),
-              ),
-              const SizedBox(height: 25),
-              const Divider(),
-              const SizedBox(height: 25),
-              Wrap(children: [for (var i = 0; i < 4; i++) dayChecker(i)]),
-              Wrap(children: [for (var i = 4; i < 7; i++) dayChecker(i)]),
             ],
           ),
         ),
@@ -101,9 +81,41 @@ class CreateTaskPageState extends State<CreateTaskPage> {
     );
   }
 
+  TransparentAppBar appBar(BuildContext context) {
+    return TransparentAppBar(
+      titleWidget: GestureDetector(
+        onTap: () => showTimePicker(),
+        child: Wrap(
+          alignment: WrapAlignment.center,
+          children: [
+            const Icon(CupertinoIcons.clock_fill, color: Colors.black),
+            const SizedBox(width: 10),
+            Text(
+              durationOfTask.toHumanLang(),
+              style: const TextStyle(color: Colors.black, fontSize: 15),
+            )
+          ],
+        ),
+      ),
+      onLeadingTap: () {
+        ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const Home()),
+          (route) => false,
+        );
+      },
+    );
+  }
+
   Future<void> showTimePicker() async {
     showModalBottomSheet(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+      ),
       backgroundColor: Colors.white,
       context: context,
       builder: (builder) {
@@ -241,7 +253,7 @@ class CreateTaskPageState extends State<CreateTaskPage> {
         localDbService.rightBoxByCheckBoxId(i).add(task.copyWith(
               uniquekey: localDbService.rightTaskKeyCheckBoxId(i),
             ));
-
+        ScaffoldMessenger.of(context).removeCurrentSnackBar();
         Navigator.pop(context);
       }
     }

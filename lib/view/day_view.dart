@@ -42,6 +42,9 @@ class _DayViewState extends State<DayView> {
             child: Column(
               children: [
                 DayChart(tasks: tasks, tooltipBehaviorEnabled: true),
+                const SizedBox(height: 15),
+                const Divider(),
+                const SizedBox(height: 15),
                 Column(
                   children: tasks
                       .map(

@@ -46,10 +46,7 @@ extension DurationToHumanLangEXT on Duration {
     var inHours = this.inHours.toString();
 
     if (this == Duration.zero) {
-      return 'Tap to select how long the todo will take';
-    }
-    if (inMinutes == '60') {
-      return '${this.inHours + 1} hours +++++';
+      return 'How long the todo will take?';
     }
     if (inMinutes != '0' && inHours != '0') {
       return '$inHours hours and $inMinutes minutes';
@@ -65,8 +62,6 @@ extension DurationToHumanLangEXT on Duration {
   }
 }
 
-
-
 double calculateTasksTotalTime(List<Task>? tasks) {
   var filledAmount = 0.0;
 
@@ -77,3 +72,12 @@ double calculateTasksTotalTime(List<Task>? tasks) {
   return filledAmount;
 }
 
+/// Custom divider.
+Widget get divider {
+  return const Divider(
+    height: 5,
+    thickness: 1,
+    indent: 50,
+    endIndent: 50,
+  );
+}

@@ -39,7 +39,7 @@ void main() {
       Duration hour = const Duration(hours: 5, minutes: 0);
       Duration hourAndMinute = const Duration(hours: 5, minutes: 10);
 
-      expect(Duration.zero.toHumanLang(), 'Tap to select how long the todo will take');
+      expect(Duration.zero.toHumanLang(), 'How long the todo will take?');
       expect(minute.toHumanLang(), '10 minutes');
       expect(hour.toHumanLang(), '5 hours');
       expect(hourAndMinute.toHumanLang(), '5 hours and 10 minutes');
