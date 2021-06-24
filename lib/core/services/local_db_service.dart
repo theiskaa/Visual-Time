@@ -4,6 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vtime/core/model/day.dart';
 import 'package:vtime/core/model/task.dart';
 
+/// A utilities class which contains shortcuts for hive db.
 class LocalDBService {
   static Box<Task> mondayBox() => Hive.box<Task>('monday');
   static Box<Task> tuesdayBox() => Hive.box<Task>('tuesday');
@@ -13,6 +14,7 @@ class LocalDBService {
   static Box<Task> saturdayBox() => Hive.box<Task>('saturday');
   static Box<Task> sundayBox() => Hive.box<Task>('sunday');
 
+  // Get right box listenable by day's name.
   ValueListenable<Box<Task>> rightListenableValue(Day day) {
     var values = {
       'Monday': LocalDBService.mondayBox().listenable(),
@@ -26,6 +28,7 @@ class LocalDBService {
     return values[day.name]!;
   }
 
+  // Get right hive box by index.
   Box<Task> rightBoxByCheckBoxId(int i) {
     var values = {
       0: mondayBox(),
@@ -40,6 +43,7 @@ class LocalDBService {
     return values[i]!;
   }
 
+  // Get right task key by checkbox id.
   String rightTaskKeyCheckBoxId(int i) {
     var values = {
       0: 'Monday',
