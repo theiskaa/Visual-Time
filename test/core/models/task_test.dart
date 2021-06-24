@@ -64,5 +64,27 @@ void main() {
       expect(customTask.hours == task.hours, false);
       expect(customTask.minutes == task.minutes, false);
     });
+
+    test('calculates totalTime correctly', () {
+      double val = task.totalTime;
+
+      double rightMinute = double.parse('0.${task.minutes}');
+      double total = task.hours! + rightMinute;
+
+      expect(total, val);
+    });
+
+    test('test remainingTimeFiller', () {
+      Task remainingTimeFiller = Task().remainingTimeFiller(task.totalTime);
+
+      int hours = task.totalTime.floor();
+      int minutes = int.parse('${task.totalTime}'.replaceAll('$hours.', ''));
+
+      expect(remainingTimeFiller.title, 'Remaining Time {#@!@#!@#8&**%@#%}');
+      expect(remainingTimeFiller.description, '');
+      expect(remainingTimeFiller.uniquekey, '');
+      expect(remainingTimeFiller.hours, hours);
+      expect(remainingTimeFiller.minutes, minutes);
+    });
   });
 }
