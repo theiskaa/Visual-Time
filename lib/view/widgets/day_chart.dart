@@ -34,9 +34,9 @@ class _DayChartState extends State<DayChart> {
 
   @override
   Widget build(BuildContext context) {
-    widget.tasks.add(
-      Task().remainingTimeFiller(24 - calculateTasksTotalTime(widget.tasks)),
-    );
+    var total = (fullDay - calculateTotalDuration(widget.tasks));
+
+    widget.tasks.add(Task().remainingTimeFiller(total));
 
     return SfCircularChart(
       palette: colorPalette,

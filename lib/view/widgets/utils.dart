@@ -29,15 +29,6 @@ class ViewUtils {
       focusedErrorBorder: InputBorder.none,
     );
   }
-
-  Widget get divider {
-    return const Divider(
-      height: 5,
-      thickness: 1,
-      indent: 50,
-      endIndent: 50,
-    );
-  }
 }
 
 extension DurationToHumanLangEXT on Duration {
@@ -63,13 +54,18 @@ extension DurationToHumanLangEXT on Duration {
 
     return '';
   }
+
+  int get minute => inMinutes.remainder(60);
 }
 
-double calculateTasksTotalTime(List<Task>? tasks) {
-  var filledAmount = 0.0;
+const Duration fullDay = Duration(hours: 24);
+
+Duration calculateTotalDuration(List<Task>? tasks) {
+  Duration filledAmount = Duration.zero;
 
   for (var i = 0; i < tasks!.length; i++) {
-    filledAmount = filledAmount + tasks[i].totalTime;
+    filledAmount = filledAmount +
+        Duration(hours: tasks[i].hours!, minutes: tasks[i].minutes!);
   }
 
   return filledAmount;

@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vtime/core/model/task.dart';
+import 'package:vtime/view/widgets/utils.dart';
 
 void main() {
   late Task task;
@@ -74,8 +75,14 @@ void main() {
       expect(total, val);
     });
 
+    test('converts to duration correctly', () {
+      var val = task.duration;
+      expect(val.inHours, task.hours);
+      expect(val.minute, task.minutes);
+    });
+
     test('test remainingTimeFiller', () {
-      Task remainingTimeFiller = Task().remainingTimeFiller(task.totalTime);
+      Task remainingTimeFiller = Task().remainingTimeFiller(task.duration);
 
       int hours = task.totalTime.floor();
       int minutes = int.parse('${task.totalTime}'.replaceAll('$hours.', ''));

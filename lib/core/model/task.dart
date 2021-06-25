@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:vtime/core/model/vt_model.dart';
+import 'package:vtime/view/widgets/utils.dart';
 
 part 'task.g.dart';
 
@@ -54,23 +55,19 @@ class Task extends HiveObject implements VTModel {
         minutes = json?['minutes'];
 
   // Calculates task's total time
-  double get totalTime {
-    double rightMinute = double.parse('0.$minutes');
-    double total = hours! + rightMinute;
-    return total;
-  }
+  double get totalTime => hours! + (minutes! / 100);
 
-  // An already built task to fill the day chart.
-  Task remainingTimeFiller(double totalTime) {
-    int hours = totalTime.floor();
-    int minutes = int.parse('$totalTime'.replaceAll('$hours.', ''));
+  // Makes general duration of task by [hours] and [minutes].
+  Duration get duration => Duration(hours: hours!, minutes: minutes!);
 
+  // Already built task to fill the day chart.
+  Task remainingTimeFiller(Duration totalTime) {
     return Task(
       title: 'Remaining Time {#@!@#!@#8&**%@#%}',
       description: '',
       uniquekey: '',
-      hours: hours,
-      minutes: minutes,
+      hours: totalTime.inHours,
+      minutes: totalTime.minute,
     );
   }
 

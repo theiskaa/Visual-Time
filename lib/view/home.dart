@@ -106,7 +106,7 @@ class _HomeState extends State<Home> {
               },
             ),
             const SizedBox(height: 50),
-            ViewUtils().divider,
+            divider,
             const SizedBox(height: 50),
             const WeekView(weeks: weekDays),
           ],
