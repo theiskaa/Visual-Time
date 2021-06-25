@@ -45,4 +45,8 @@ void main() {
       expect(hourAndMinute.toHumanLang(), '5 hours and 10 minutes');
     });
   });
+
+  test('test divider', () {
+    expect(divider.runtimeType, Divider);
+  });
 }

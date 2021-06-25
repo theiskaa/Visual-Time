@@ -22,7 +22,7 @@ class LocalDBService {
       'Wednesday': LocalDBService.wednesdayBox().listenable(),
       'Thursday': LocalDBService.thursdayBox().listenable(),
       'Friday': LocalDBService.fridayBox().listenable(),
-      'Saturday': LocalDBService.fridayBox().listenable(),
+      'Saturday': LocalDBService.saturdayBox().listenable(),
       'Sunday': LocalDBService.sundayBox().listenable(),
     };
     return values[day.name]!;

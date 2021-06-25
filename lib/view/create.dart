@@ -219,7 +219,7 @@ class CreateTaskPageState extends State<CreateTaskPage> {
       return;
     }
 
-    if (durationOfTask == Duration.zero || durationOfTask.inHours == 0) {
+    if (durationOfTask == Duration.zero) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           backgroundColor: Colors.red,
@@ -234,15 +234,15 @@ class CreateTaskPageState extends State<CreateTaskPage> {
       title: titleTextController.text,
       description: desTextController.text,
       hours: durationOfTask.inHours,
-      minutes: 0, // durationOfTask.inMinutes.remainder(60),
+      minutes: durationOfTask.minute,
     );
 
     for (var i in managableDaysIndexes!) {
       List<Task> tasksList =
           localDbService.rightBoxByCheckBoxId(i).values.toList();
-      double remainingTime = 24 - calculateTasksTotalTime(tasksList);
+      Duration remainingTime = fullDay - calculateTotalDuration(tasksList);
 
-      if (task.totalTime > remainingTime) {
+      if (task.duration > remainingTime) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             backgroundColor: Colors.red,
