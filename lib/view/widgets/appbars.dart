@@ -17,15 +17,13 @@ class TransparentAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      elevation: 0,
-      backgroundColor: Colors.transparent,
       title: titleWidget,
       centerTitle: true,
       actions: (action != null) ? [action!] : null,
       leading: disableLeading
           ? const SizedBox.shrink()
           : IconButton(
-              icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+              icon: const Icon(Icons.arrow_back_ios),
               onPressed: () => onLeadingTap!(),
             ),
     );

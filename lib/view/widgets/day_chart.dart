@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/view/widgets/utils.dart';
 
@@ -21,28 +22,13 @@ class DayChart extends StatefulWidget {
 class _DayChartState extends State<DayChart> {
   final viewUtils = ViewUtils();
 
-  List<Color> colorPalette = <Color>[
-    Colors.grey.shade300,
-    const Color.fromRGBO(192, 108, 132, 1),
-    const Color.fromRGBO(246, 114, 128, 1),
-    const Color.fromRGBO(248, 177, 149, 1),
-    const Color.fromRGBO(116, 180, 155, 1),
-    const Color.fromRGBO(0, 168, 181, 1),
-    const Color.fromRGBO(73, 76, 162, 1),
-    const Color.fromRGBO(255, 205, 96, 1),
-    const Color.fromRGBO(255, 240, 219, 1),
-    const Color.fromRGBO(238, 238, 238, 1)
-  ];
-
   @override
   Widget build(BuildContext context) {
     var total =
         (ViewUtils.fullDay - viewUtils.calculateTotalDuration(widget.tasks));
-
     widget.tasks.add(Task().remainingTimeFiller(total));
 
     return SfCircularChart(
-      palette: colorPalette,
       tooltipBehavior: widget.tooltipBehaviorEnabled ? tooltipBehavior() : null,
       series: <PieSeries<Task, String>>[
         PieSeries<Task, String>(

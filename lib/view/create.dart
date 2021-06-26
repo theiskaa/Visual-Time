@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'package:vtime/core/cubits/preference_cubit.dart';
 
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/services/local_db_service.dart';
@@ -91,11 +93,11 @@ class CreateTaskPageState extends State<CreateTaskPage> {
         child: Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
-            const Icon(CupertinoIcons.clock_fill, color: Colors.black),
+            const Icon(CupertinoIcons.clock_fill),
             const SizedBox(width: 10),
             Text(
               durationOfTask.toHumanLang(),
-              style: const TextStyle(color: Colors.black, fontSize: 15),
+              style: const TextStyle(fontSize: 15),
             )
           ],
         ),
@@ -113,13 +115,6 @@ class CreateTaskPageState extends State<CreateTaskPage> {
 
   Future<void> showTimePicker() async {
     showModalBottomSheet(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
-        ),
-      ),
-      backgroundColor: Colors.white,
       context: context,
       builder: (builder) {
         return SizedBox(
@@ -147,7 +142,14 @@ class CreateTaskPageState extends State<CreateTaskPage> {
         widthFactor: .8,
         child: ElevatedButton(
           onPressed: () => createTask(),
-          child: const Text('Create'),
+          child: Text(
+            'Create',
+            style: BlocProvider.of<PreferenceCubit>(context)
+                .state
+                .theme!
+                .textTheme
+                .button,
+          ),
         ),
       ),
     );
