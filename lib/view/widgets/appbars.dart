@@ -23,7 +23,7 @@ class TransparentAppBar extends StatelessWidget with PreferredSizeWidget {
       leading: disableLeading
           ? const SizedBox.shrink()
           : IconButton(
-              icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+              icon: const Icon(Icons.arrow_back_ios),
               onPressed: () => onLeadingTap!(),
             ),
     );

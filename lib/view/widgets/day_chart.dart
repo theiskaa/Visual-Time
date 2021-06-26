@@ -22,7 +22,7 @@ class _DayChartState extends State<DayChart> {
   final viewUtils = ViewUtils();
 
   List<Color> colorPalette = <Color>[
-    Colors.grey.shade300,
+    Colors.grey.shade700,
     const Color.fromRGBO(192, 108, 132, 1),
     const Color.fromRGBO(246, 114, 128, 1),
     const Color.fromRGBO(248, 177, 149, 1),
