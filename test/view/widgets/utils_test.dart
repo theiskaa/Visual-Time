@@ -47,6 +47,6 @@ void main() {
   });
 
   test('test divider', () {
-    expect(divider.runtimeType, Divider);
+    expect(ViewUtils.divider.runtimeType, Divider);
   });
 }

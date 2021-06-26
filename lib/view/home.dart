@@ -106,19 +106,10 @@ class _HomeState extends State<Home> {
               },
             ),
             const SizedBox(height: 50),
-            divider,
+            ViewUtils.divider,
             const SizedBox(height: 50),
             const WeekView(weeks: weekDays),
           ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => CreateTaskPage(todaysBox: todaysBox),
-          ),
         ),
       ),
     );
@@ -128,10 +119,21 @@ class _HomeState extends State<Home> {
     return PopupMenuButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: const Icon(Icons.more_horiz, color: Colors.black),
-      onSelected: (_) => showDialog(
-        context: context,
-        builder: (context) => clearWeekDialog(),
-      ),
+      onSelected: (seleted) {
+        if (seleted == 0) {
+          showDialog(
+            context: context,
+            builder: (context) => clearWeekDialog(),
+          );
+          return;
+        }
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CreateTaskPage(todaysBox: todaysBox),
+          ),
+        );
+      },
       itemBuilder: (index) => [
         PopupMenuItem(
           value: 0,
@@ -140,6 +142,16 @@ class _HomeState extends State<Home> {
               Icon(CupertinoIcons.clear_circled_solid, color: Colors.red),
               SizedBox(width: 10),
               Text('Clear week'),
+            ],
+          ),
+        ),
+        PopupMenuItem(
+          value: 1,
+          child: Row(
+            children: const [
+              Icon(CupertinoIcons.add_circled_solid, color: Colors.black),
+              SizedBox(width: 10),
+              Text('Add task'),
             ],
           ),
         )

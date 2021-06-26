@@ -20,6 +20,7 @@ class CreateTaskPage extends StatefulWidget {
 
 class CreateTaskPageState extends State<CreateTaskPage> {
   final localDbService = LocalDBService();
+  final viewUtils = ViewUtils();
 
   final formKey = GlobalKey<FormState>();
   final titleTextController = TextEditingController();
@@ -53,7 +54,7 @@ class CreateTaskPageState extends State<CreateTaskPage> {
               Wrap(children: [for (var i = 0; i < 4; i++) dayChecker(i)]),
               Wrap(children: [for (var i = 4; i < 7; i++) dayChecker(i)]),
               const SizedBox(height: 50),
-              divider,
+              ViewUtils.divider,
               const SizedBox(height: 50),
               TextFormField(
                 controller: titleTextController,
@@ -240,7 +241,8 @@ class CreateTaskPageState extends State<CreateTaskPage> {
     for (var i in managableDaysIndexes!) {
       List<Task> tasksList =
           localDbService.rightBoxByCheckBoxId(i).values.toList();
-      Duration remainingTime = fullDay - calculateTotalDuration(tasksList);
+      Duration remainingTime =
+          ViewUtils.fullDay - viewUtils.calculateTotalDuration(tasksList);
 
       if (task.duration > remainingTime) {
         ScaffoldMessenger.of(context).showSnackBar(

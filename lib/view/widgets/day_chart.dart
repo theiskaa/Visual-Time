@@ -19,6 +19,8 @@ class DayChart extends StatefulWidget {
 }
 
 class _DayChartState extends State<DayChart> {
+  final viewUtils = ViewUtils();
+
   List<Color> colorPalette = <Color>[
     Colors.grey.shade300,
     const Color.fromRGBO(192, 108, 132, 1),
@@ -34,7 +36,8 @@ class _DayChartState extends State<DayChart> {
 
   @override
   Widget build(BuildContext context) {
-    var total = (fullDay - calculateTotalDuration(widget.tasks));
+    var total =
+        (ViewUtils.fullDay - viewUtils.calculateTotalDuration(widget.tasks));
 
     widget.tasks.add(Task().remainingTimeFiller(total));
 

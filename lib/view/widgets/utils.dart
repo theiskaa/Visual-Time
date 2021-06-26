@@ -29,6 +29,27 @@ class ViewUtils {
       focusedErrorBorder: InputBorder.none,
     );
   }
+
+
+static const Duration fullDay = Duration(hours: 24);
+
+Duration calculateTotalDuration(List<Task>? tasks) {
+  Duration filledAmount = Duration.zero;
+
+  for (var i = 0; i < tasks!.length; i++) {
+    filledAmount = filledAmount +
+        Duration(hours: tasks[i].hours!, minutes: tasks[i].minutes!);
+  }
+
+  return filledAmount;
+}
+
+static const  divider = Divider(
+    height: 5,
+    thickness: 1,
+    indent: 50,
+    endIndent: 50,
+  );
 }
 
 extension DurationToHumanLangEXT on Duration {
@@ -58,24 +79,3 @@ extension DurationToHumanLangEXT on Duration {
   int get minute => inMinutes.remainder(60);
 }
 
-const Duration fullDay = Duration(hours: 24);
-
-Duration calculateTotalDuration(List<Task>? tasks) {
-  Duration filledAmount = Duration.zero;
-
-  for (var i = 0; i < tasks!.length; i++) {
-    filledAmount = filledAmount +
-        Duration(hours: tasks[i].hours!, minutes: tasks[i].minutes!);
-  }
-
-  return filledAmount;
-}
-
-Widget get divider {
-  return const Divider(
-    height: 5,
-    thickness: 1,
-    indent: 50,
-    endIndent: 50,
-  );
-}
