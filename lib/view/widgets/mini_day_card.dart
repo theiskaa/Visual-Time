@@ -39,8 +39,8 @@ class MiniDayChart extends StatelessWidget {
                 builder: (context, box, _) {
                   final tasks = box.values.toList().cast<Task>();
                   return SizedBox(
-                    height: 60,
-                    width: 60,
+                    height: 65,
+                    width: 65,
                     child: DayChart(tasks: tasks),
                   );
                 },

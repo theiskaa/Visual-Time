@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'package:vtime/core/cubits/preference_cubit.dart';
 
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/services/local_db_service.dart';
@@ -140,7 +142,14 @@ class CreateTaskPageState extends State<CreateTaskPage> {
         widthFactor: .8,
         child: ElevatedButton(
           onPressed: () => createTask(),
-          child: const Text('Create'),
+          child: Text(
+            'Create',
+            style: BlocProvider.of<PreferenceCubit>(context)
+                .state
+                .theme!
+                .textTheme
+                .button,
+          ),
         ),
       ),
     );

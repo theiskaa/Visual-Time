@@ -13,6 +13,7 @@ class Themes {
     primaryColor: Colors.black,
     accentColor: Colors.black,
     primarySwatch: Colors.grey,
+    hoverColor: Colors.grey.shade300,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         textStyle:
@@ -29,7 +30,7 @@ class Themes {
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
         textStyle: MaterialStateProperty.all(
-          const TextStyle(color: Colors.black),
+          const TextStyle(color: Colors.white),
         ),
         overlayColor: MaterialStateProperty.all(
           const Color(0xFF000000).withOpacity(.3),
@@ -52,6 +53,7 @@ class Themes {
       headline4: TextStyle(color: Colors.black),
       headline5: TextStyle(color: Colors.black),
       headline6: TextStyle(color: Colors.black),
+      button: TextStyle(color: Colors.white),
     ),
     primaryTextTheme: const TextTheme(
       headline6: TextStyle(color: Colors.black),
@@ -66,11 +68,12 @@ class Themes {
   );
 
   final dark = ThemeData(
-    scaffoldBackgroundColor: Colors.grey[900],
+    scaffoldBackgroundColor: const Color(0xFF141414),
     brightness: Brightness.dark,
     primaryColor: Colors.white,
     accentColor: Colors.white,
     primarySwatch: Colors.grey,
+    hoverColor: Colors.grey.shade900,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         textStyle:
@@ -114,6 +117,7 @@ class Themes {
       headline4: TextStyle(color: Colors.white),
       headline5: TextStyle(color: Colors.white),
       headline6: TextStyle(color: Colors.white),
+      button: TextStyle(color: Colors.black),
     ),
     primaryTextTheme: const TextTheme(
       headline6: TextStyle(color: Colors.white),

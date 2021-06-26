@@ -2,9 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vtime/core/cubits/preference_cubit.dart';
-import 'package:vtime/core/services/local_db_service.dart';
-import 'package:vtime/view/widgets/utils.dart';
-
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
 
@@ -40,9 +37,11 @@ class _SettingsState extends State<Settings> {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
+            const SizedBox(height: 10),
             ListTile(
               shape: RoundedRectangleBorder(
                 side: BorderSide(
+                  width: .5,
                   color: BlocProvider.of<PreferenceCubit>(context)
                       .state
                       .theme!
@@ -66,8 +65,6 @@ class _SettingsState extends State<Settings> {
                 },
               ),
             ),
-            const SizedBox(height: 30),
-            ViewUtils.divider
           ],
         ),
       ),
