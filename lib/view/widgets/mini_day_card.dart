@@ -10,7 +10,6 @@ import 'day_chart.dart';
 class MiniDayChart extends StatelessWidget {
   final String title;
   final Function? onTap;
-  final Color? circleColor;
   final ValueListenable<Box<Task>> todaysBox;
 
   const MiniDayChart({
@@ -18,7 +17,6 @@ class MiniDayChart extends StatelessWidget {
     required this.title,
     required this.onTap,
     required this.todaysBox,
-    this.circleColor = const Color(0xFFFFFFFF),
   }) : super(key: key);
 
   @override
@@ -32,7 +30,7 @@ class MiniDayChart extends StatelessWidget {
           children: [
             Text(
               title,
-              style: const TextStyle(fontSize: 12),
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
             ),
             GestureDetector(
               onTap: () => onTap!(),

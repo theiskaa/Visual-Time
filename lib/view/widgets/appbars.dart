@@ -17,8 +17,6 @@ class TransparentAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      elevation: 0,
-      backgroundColor: Colors.transparent,
       title: titleWidget,
       centerTitle: true,
       actions: (action != null) ? [action!] : null,

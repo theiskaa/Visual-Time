@@ -91,11 +91,11 @@ class CreateTaskPageState extends State<CreateTaskPage> {
         child: Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
-            const Icon(CupertinoIcons.clock_fill, color: Colors.black),
+            const Icon(CupertinoIcons.clock_fill),
             const SizedBox(width: 10),
             Text(
               durationOfTask.toHumanLang(),
-              style: const TextStyle(color: Colors.black, fontSize: 15),
+              style: const TextStyle(fontSize: 15),
             )
           ],
         ),
@@ -113,13 +113,6 @@ class CreateTaskPageState extends State<CreateTaskPage> {
 
   Future<void> showTimePicker() async {
     showModalBottomSheet(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
-        ),
-      ),
-      backgroundColor: Colors.white,
       context: context,
       builder: (builder) {
         return SizedBox(

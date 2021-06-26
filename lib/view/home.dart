@@ -10,6 +10,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vtime/view/day_view.dart';
 import 'package:vtime/view/widgets/mini_day_card.dart';
 
+import 'settings.dart';
 import 'widgets/appbars.dart';
 import 'widgets/day_chart.dart';
 import 'widgets/themes.dart';
@@ -85,11 +86,7 @@ class _HomeState extends State<Home> {
           onTap: () => openNewDay(0, context, day: today, todaysBox: todaysBox),
           child: Text(
             today.name ?? 'Today',
-            style: const TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.w600,
-              fontSize: 25,
-            ),
+            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 25),
           ),
         ),
       ),
@@ -118,25 +115,29 @@ class _HomeState extends State<Home> {
   PopupMenuButton<dynamic> popUpMenuButton() {
     return PopupMenuButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      child: const Icon(Icons.more_horiz, color: Colors.black),
-      onSelected: (seleted) {
-        if (seleted == 0) {
-          showDialog(
-            context: context,
-            builder: (context) => clearWeekDialog(),
-          );
-          return;
-        }
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => CreateTaskPage(todaysBox: todaysBox),
-          ),
-        );
-      },
-      itemBuilder: (index) => [
+      child: const Icon(Icons.more_horiz),
+      onSelected: onPopUpItemSelected,
+      itemBuilder: (_) => [
         PopupMenuItem(
           value: 0,
+          child: Column(
+            children: [
+              const SizedBox(height: 15),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.settings),
+                  SizedBox(width: 10),
+                  Text('Settings'),
+                ],
+              ),
+              const SizedBox(height: 8),
+              const Divider(),
+            ],
+          ),
+        ),
+        PopupMenuItem(
+          value: 1,
           child: Row(
             children: const [
               Icon(CupertinoIcons.clear_circled_solid, color: Colors.red),
@@ -146,17 +147,44 @@ class _HomeState extends State<Home> {
           ),
         ),
         PopupMenuItem(
-          value: 1,
+          value: 2,
           child: Row(
             children: const [
-              Icon(CupertinoIcons.add_circled_solid, color: Colors.black),
+              Icon(CupertinoIcons.add_circled_solid),
               SizedBox(width: 10),
               Text('Add task'),
             ],
           ),
-        )
+        ),
       ],
     );
+  }
+
+  void onPopUpItemSelected(seleted) {
+    var methods = {
+      0: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Settings()),
+        );
+      },
+      1: () {
+        showDialog(
+          context: context,
+          builder: (context) => clearWeekDialog(),
+        );
+      },
+      2: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CreateTaskPage(todaysBox: todaysBox),
+          ),
+        );
+      },
+    };
+
+    return methods[seleted]!.call();
   }
 
   AlertDialog clearWeekDialog() {
@@ -166,7 +194,7 @@ class _HomeState extends State<Home> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('No', style: TextStyle(color: Colors.black)),
+          child: const Text('No'),
         ),
         TextButton(
           style: simpleButtonStyle(Colors.red),

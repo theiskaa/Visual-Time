@@ -9,7 +9,7 @@ import 'package:vtime/view/widgets/task_card.dart';
 import 'widgets/appbars.dart';
 
 class DayView extends StatefulWidget {
-  final Day? day;
+  final Day day;
   final ValueListenable<Box<Task>>? dayBox;
 
   const DayView({
@@ -28,10 +28,7 @@ class _DayViewState extends State<DayView> {
     return Scaffold(
       appBar: TransparentAppBar(
         onLeadingTap: () => Navigator.pop(context),
-        titleWidget: Text(
-          widget.day?.name ?? '',
-          style: const TextStyle(color: Colors.black),
-        ),
+        titleWidget: Text(widget.day.name ?? '404'),
       ),
       body: ValueListenableBuilder<Box<Task>>(
         valueListenable: widget.dayBox!,
