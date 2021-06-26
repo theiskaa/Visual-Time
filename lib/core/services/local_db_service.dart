@@ -6,6 +6,8 @@ import 'package:vtime/core/model/task.dart';
 
 /// A utilities class which contains shortcuts for hive db.
 class LocalDBService {
+  static Box preferences() => Hive.box('preferences');
+
   static Box<Task> mondayBox() => Hive.box<Task>('monday');
   static Box<Task> tuesdayBox() => Hive.box<Task>('tuesday');
   static Box<Task> wednesdayBox() => Hive.box<Task>('wednesday');
