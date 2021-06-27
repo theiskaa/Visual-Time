@@ -135,20 +135,23 @@ class CreateTaskPageState extends State<CreateTaskPage> {
     );
   }
 
-  Padding createButton() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 30),
-      child: FractionallySizedBox(
-        widthFactor: .8,
-        child: ElevatedButton(
-          onPressed: () => createTask(),
-          child: Text(
-            'Create',
-            style: BlocProvider.of<PreferenceCubit>(context)
-                .state
-                .theme!
-                .textTheme
-                .button,
+  Widget createButton() {
+    return Transform.translate(
+      offset: Offset(0, -1 * MediaQuery.of(context).viewInsets.bottom),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 30),
+        child: FractionallySizedBox(
+          widthFactor: .8,
+          child: ElevatedButton(
+            onPressed: () => createTask(),
+            child: Text(
+              'Create',
+              style: BlocProvider.of<PreferenceCubit>(context)
+                  .state
+                  .theme!
+                  .textTheme
+                  .button,
+            ),
           ),
         ),
       ),
