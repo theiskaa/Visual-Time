@@ -7,7 +7,7 @@ class TaskCard extends VTStatelessWidget {
   final Task task;
   final Function onDismissed;
 
-   TaskCard({
+  TaskCard({
     Key? key,
     required this.task,
     required this.onDismissed,
@@ -40,8 +40,8 @@ class TaskCard extends VTStatelessWidget {
   }
 
   String generateSubtitle(BuildContext context) {
-    var time =
-        Duration(hours: task.hours!, minutes: task.minutes!).toHumanLang(vt, context);
+    var time = Duration(hours: task.hours!, minutes: task.minutes!)
+        .toHumanLang(vt, context);
     if (task.description!.isNotEmpty) {
       return '${task.description!}  |  $time';
     }

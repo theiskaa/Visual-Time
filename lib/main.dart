@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vtime/core/services/local_db_service.dart';
-import 'package:vtime/core/utils/inlt.dart';
+import 'package:vtime/core/utils/intl.dart';
 
 import 'app.dart';
 import 'core/model/task.dart';

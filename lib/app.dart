@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vtime/core/cubits/preference_cubit.dart';
 import 'package:vtime/core/cubits/preference_state.dart';
 
-import 'core/utils/inlt.dart';
+import 'core/utils/intl.dart';
 import 'core/utils/widgets.dart';
 import 'view/home.dart';
 

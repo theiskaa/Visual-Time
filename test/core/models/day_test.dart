@@ -1,55 +1,47 @@
-// import 'package:flutter_test/flutter_test.dart';
-// import 'package:vtime/core/model/day.dart';
-// import 'package:vtime/core/model/task.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:vtime/core/model/day.dart';
 
-// void main() {
-//   late Day day;
+void main() {
+  late Day day;
 
-//   List<Task> tasks = List<Task>.generate(
-//     4,
-//     (i) => Task(title: 'Task $i', description: 'Des $i'),
-//   );
+  Map<String, dynamic> jsonModel = {
+    'name': 'Saturday',
+    'title': 'Saturday',
+  };
 
-//   Map<String, dynamic> jsonModel = {
-//     'name': 'Saturday',
-//     'tasks': tasks,
-//   };
+  setUpAll(() {
+    day = const Day(name: 'Saturday', title: 'Saturday');
+  });
 
-//   setUpAll(() {
-//     day = Day(name: 'Saturday', tasks: tasks);
-//   });
+  group('[Day]', () {
+    test('converts from json correctly', () {
+      final dayFromJson = Day.fromJson(jsonModel);
 
-//   group('[Day]', () {
-//     test('converts from json correctly', () {
-//       final dayFromJson = Day.fromJson(jsonModel);
+      // Need to match properties rather than instances.
+      expect(dayFromJson.name, day.name);
+      expect(dayFromJson.title, day.title);
+    });
 
-//       // Need to match properties rather than instances.
-//       expect(dayFromJson.name, day.name);
-//       expect(dayFromJson.tasks, day.tasks);
-//     });
+    test('converts to json correctly', () {
+      final dayToJson = day.toJson();
 
-//     test('converts to json correctly', () {
-//       final dayToJson = day.toJson();
+      expect(jsonModel, dayToJson);
+    });
 
-//       expect(jsonModel, dayToJson);
-//     });
+    test('executes copyWith correctly', () {
+      final sameCopiedDay = day.copyWith();
+      final customDay = day.copyWith(
+        name: 'different name',
+        title: 'different title',
+      );
 
-//     test('executes copyWith correctly', () {
-//       List<Task> newTasks = tasks.getRange(0, 2).toList();
+      // Expect nothing was changed in for sameCopiedDay.
+      expect(sameCopiedDay.name, day.name);
+      expect(sameCopiedDay.title, day.title);
 
-//       final sameCopiedDay = day.copyWith();
-//       final customDay = day.copyWith(
-//         name: 'different name',
-//         tasks: newTasks,
-//       );
-
-//       // Expect nothing was changed in for sameCopiedDay.
-//       expect(sameCopiedDay.name, day.name);
-//       expect(sameCopiedDay.tasks, day.tasks);
-
-//       // Expect difference between [task] and [customTask].
-//       expect(customDay.name == day.name, false);
-//       expect(customDay.tasks == day.tasks, false);
-//     });
-//   });
-// }
+      // Expect difference between [task] and [customTask].
+      expect(customDay.name == day.name, false);
+      expect(customDay.title == day.title, false);
+    });
+  });
+}
