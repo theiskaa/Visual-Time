@@ -1,4 +1,5 @@
 {
+    "today": "Today",
     "monday": "Monday",
     "tuesday": "Tuesday",
     "wednesday": "Wednesday",
@@ -28,5 +29,7 @@
     "hour": "hour",
     "hours": "hours",
     "minute": "minute",
-    "minutes": "minutes"
+    "minutes": "minutes",
+    "and": "and",
+    "remaining": "Remaining"
 }

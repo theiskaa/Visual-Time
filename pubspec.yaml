@@ -17,11 +17,14 @@ dependencies:
   flutter_bloc: ^7.0.1
   logger:
   syncfusion_flutter_charts: ^19.1.69+1
+  intl: ^0.17.0
 
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
   flutter_test:
+    sdk: flutter
+  flutter_localizations:
     sdk: flutter
   
   build_runner: ^2.0.4
@@ -30,3 +33,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/i18n/en.json
+    - assets/i18n/tr.json

@@ -10,15 +10,15 @@ void main() {
   });
 
   group('[ViewUtils]', () {
-    test('test rightDayNameGenerator', () {
-      expect(viewUtils.rightDayNameGenerator(0), 'Monday');
-      expect(viewUtils.rightDayNameGenerator(1), 'Tuesday');
-      expect(viewUtils.rightDayNameGenerator(2), 'Wednesday');
-      expect(viewUtils.rightDayNameGenerator(3), 'Thursday');
-      expect(viewUtils.rightDayNameGenerator(4), 'Friday');
-      expect(viewUtils.rightDayNameGenerator(5), 'Saturday');
-      expect(viewUtils.rightDayNameGenerator(6), 'Sunday');
-    });
+    // test('test rightDayNameGenerator', () {
+    //   expect(viewUtils.rightDayNameGenerator(0), 'Monday');
+    //   expect(viewUtils.rightDayNameGenerator(1), 'Tuesday');
+    //   expect(viewUtils.rightDayNameGenerator(2), 'Wednesday');
+    //   expect(viewUtils.rightDayNameGenerator(3), 'Thursday');
+    //   expect(viewUtils.rightDayNameGenerator(4), 'Friday');
+    //   expect(viewUtils.rightDayNameGenerator(5), 'Saturday');
+    //   expect(viewUtils.rightDayNameGenerator(6), 'Sunday');
+    // });
 
     test('test nonBorderInputDecoration', () {
       var nonBorderInputDecoration =
@@ -34,16 +34,16 @@ void main() {
   });
 
   group('Exts', () {
-    test('DurationToHumanLangEXT', () {
-      Duration minute = const Duration(minutes: 10, hours: 0);
-      Duration hour = const Duration(hours: 5, minutes: 0);
-      Duration hourAndMinute = const Duration(hours: 5, minutes: 10);
+    // test('DurationToHumanLangEXT', () {
+    //   Duration minute = const Duration(minutes: 10, hours: 0);
+    //   Duration hour = const Duration(hours: 5, minutes: 0);
+    //   Duration hourAndMinute = const Duration(hours: 5, minutes: 10);
 
-      expect(Duration.zero.toHumanLang(), 'How long the todo will take?');
-      expect(minute.toHumanLang(), '10 minutes');
-      expect(hour.toHumanLang(), '5 hours');
-      expect(hourAndMinute.toHumanLang(), '5 hours and 10 minutes');
-    });
+    //   expect(Duration.zero.toHumanLang(), 'How long the todo will take?');
+    //   expect(minute.toHumanLang(), '10 minutes');
+    //   expect(hour.toHumanLang(), '5 hours');
+    //   expect(hourAndMinute.toHumanLang(), '5 hours and 10 minutes');
+    // });
   });
 
   test('test divider', () {

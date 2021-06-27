@@ -5,10 +5,11 @@ import 'package:vtime/core/cubits/preference_cubit.dart';
 import 'package:vtime/core/cubits/preference_state.dart';
 
 import 'package:vtime/core/model/task.dart';
+import 'package:vtime/core/utils/widgets.dart';
 import 'package:vtime/view/widgets/utils.dart';
 
 // ignore: must_be_immutable
-class DayChart extends StatefulWidget {
+class DayChart extends VTStatefulWidget {
   List<Task> tasks;
   final bool tooltipBehaviorEnabled;
 
@@ -22,7 +23,7 @@ class DayChart extends StatefulWidget {
   _DayChartState createState() => _DayChartState();
 }
 
-class _DayChartState extends State<DayChart> {
+class _DayChartState extends VTState<DayChart> {
   final viewUtils = ViewUtils();
 
   var darkPalette = <Color>[
@@ -84,7 +85,7 @@ class _DayChartState extends State<DayChart> {
           int seriesIndex) {
         return Container(
           height: 20,
-          width: data.title == 'Remaining Time {#@!@#!@#8&**%@#%}' ? 140 : 100,
+          width: data.title == 'Remaining Time {#@!@#!@#8&**%@#%}' ? 150 : 100,
           decoration: BoxDecoration(
             color: Colors.black,
             borderRadius: BorderRadius.circular(10),
@@ -101,10 +102,10 @@ class _DayChartState extends State<DayChart> {
   }
 
   String generateTooltipText(Task data) {
-    var time =
-        Duration(hours: data.hours!, minutes: data.minutes!).toHumanLang();
+    var time = Duration(hours: data.hours!, minutes: data.minutes!)
+        .toHumanLang(vt, context);
     if (data.title == 'Remaining Time {#@!@#!@#8&**%@#%}') {
-      return 'Remaining $time';
+      return '${vt.intl.of(context)!.fmt('remaining')} - $time';
     }
     return time;
   }

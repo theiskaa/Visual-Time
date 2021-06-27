@@ -37,4 +37,20 @@ class PreferenceCubit extends Cubit<PreferenceState> {
 
     return themes[themeName] ?? themes['default'];
   }
+
+  // Method to change language and emit new language to cubit state.
+  Future<void> changeLang(dynamic newLang) async {
+    await LocalDBService.preferences().put('lang', newLang);
+
+    emit(state.copyWith(langCode: newLang));
+  }
+
+  // Method to change language and emit new language to cubit state.
+  Future<String?> getCurrentLang() async {
+    var lang = await LocalDBService.preferences().get('lang');
+
+    emit(state.copyWith(langCode: lang ?? 'en'));
+
+    return lang ?? 'en';
+  }
 }

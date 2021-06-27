@@ -7,20 +7,21 @@ import 'package:vtime/core/cubits/preference_cubit.dart';
 
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/services/local_db_service.dart';
+import 'package:vtime/core/utils/widgets.dart';
 import 'package:vtime/view/widgets/utils.dart';
 
 import 'home.dart';
 import 'widgets/appbars.dart';
 
-class CreateTaskPage extends StatefulWidget {
+class CreateTaskPage extends VTStatefulWidget {
   final ValueListenable<Box<Task>> todaysBox;
-  const CreateTaskPage({Key? key, required this.todaysBox}) : super(key: key);
+  CreateTaskPage({Key? key, required this.todaysBox}) : super(key: key);
 
   @override
   CreateTaskPageState createState() => CreateTaskPageState();
 }
 
-class CreateTaskPageState extends State<CreateTaskPage> {
+class CreateTaskPageState extends VTState<CreateTaskPage> {
   final localDbService = LocalDBService();
   final viewUtils = ViewUtils();
 
@@ -62,10 +63,14 @@ class CreateTaskPageState extends State<CreateTaskPage> {
                 controller: titleTextController,
                 maxLines: 2,
                 decoration: ViewUtils().nonBorderInputDecoration(
-                  hint: 'What are you going to do?',
+                  hint: vt.intl.of(context)!.fmt('task.title.hint'),
                 ),
                 validator: (v) {
-                  if (v!.isEmpty) return 'Title can\'t be empty';
+                  if (v!.isEmpty) {
+                    return vt.intl
+                        .of(context)!
+                        .fmt('error.title_field_validation');
+                  }
                 },
               ),
               const SizedBox(width: 15),
@@ -76,7 +81,7 @@ class CreateTaskPageState extends State<CreateTaskPage> {
                 minLines: 1,
                 maxLines: 15,
                 decoration: ViewUtils().nonBorderInputDecoration(
-                  hint: 'Describe your task...',
+                  hint: vt.intl.of(context)!.fmt('task.desc.hint'),
                 ),
               ),
             ],
@@ -96,7 +101,7 @@ class CreateTaskPageState extends State<CreateTaskPage> {
             const Icon(CupertinoIcons.clock_fill),
             const SizedBox(width: 10),
             Text(
-              durationOfTask.toHumanLang(),
+              durationOfTask.toHumanLang(vt, context),
               style: const TextStyle(fontSize: 15),
             )
           ],
@@ -106,7 +111,7 @@ class CreateTaskPageState extends State<CreateTaskPage> {
         ScaffoldMessenger.of(context).removeCurrentSnackBar();
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => const Home()),
+          MaterialPageRoute(builder: (context) => Home()),
           (route) => false,
         );
       },
@@ -145,7 +150,7 @@ class CreateTaskPageState extends State<CreateTaskPage> {
           child: ElevatedButton(
             onPressed: () => createTask(),
             child: Text(
-              'Create',
+              vt.intl.of(context)!.fmt('act.create'),
               style: BlocProvider.of<PreferenceCubit>(context)
                   .state
                   .theme!
@@ -165,7 +170,7 @@ class CreateTaskPageState extends State<CreateTaskPage> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            ViewUtils().rightDayNameGenerator(i),
+            ViewUtils().rightDayNameGenerator(i, vt, context),
             style: const TextStyle(fontSize: 11),
           ),
           Checkbox(
@@ -227,9 +232,9 @@ class CreateTaskPageState extends State<CreateTaskPage> {
 
     if (durationOfTask == Duration.zero) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           backgroundColor: Colors.red,
-          content: Text('Please add duration for your task'),
+          content: Text(vt.intl.of(context)!.fmt('error.not_found_duration')),
         ),
       );
       return;
@@ -251,10 +256,12 @@ class CreateTaskPageState extends State<CreateTaskPage> {
 
       if (task.duration > remainingTime) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
+          SnackBar(
             backgroundColor: Colors.red,
             content: Text(
-              'You selected duration which exceeds the remaining time of your selected day',
+              vt.intl
+                  .of(context)!
+                  .fmt('error.selected_duration_more_than_remaining'),
             ),
           ),
         );
@@ -265,7 +272,7 @@ class CreateTaskPageState extends State<CreateTaskPage> {
         ScaffoldMessenger.of(context).removeCurrentSnackBar();
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const Home()),
+          MaterialPageRoute(builder: (context) => Home()),
         );
       }
     }

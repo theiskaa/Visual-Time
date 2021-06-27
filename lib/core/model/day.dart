@@ -1,25 +1,27 @@
-import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/model/vt_model.dart';
 
 class Day extends VTModel {
   final String? name;
-  final List<Task>? tasks;
+  final String? title;
 
-  const Day({required this.name, this.tasks = const <Task>[]});
+  const Day({
+    required this.name,
+    this.title,
+  });
 
   @override
-  Day copyWith({String? name, List<Task>? tasks}) {
+  Day copyWith({String? name,  String? title}) {
     return Day(
       name: name ?? this.name,
-      tasks: tasks ?? this.tasks,
+      title: title ?? this.title,
     );
   }
 
   @override
   Day.fromJson(Map<String, dynamic>? json)
       : name = json?['name'],
-        tasks = json?['tasks'];
+        title = json?['title'];
 
   @override
-  Map<String, dynamic> toJson() => {'name': name, 'tasks': tasks};
+  Map<String, dynamic> toJson() => {'name': name, 'title': title};
 }

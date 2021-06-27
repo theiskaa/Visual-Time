@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vtime/core/cubits/preference_cubit.dart';
+
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
 
@@ -38,6 +39,16 @@ class _SettingsState extends State<Settings> {
         child: Column(
           children: [
             const SizedBox(height: 10),
+            TextButton(
+              onPressed: () =>
+                  BlocProvider.of<PreferenceCubit>(context).changeLang('tr'),
+              child: const Text('tr'),
+            ),
+            TextButton(
+              onPressed: () =>
+                  BlocProvider.of<PreferenceCubit>(context).changeLang('en'),
+              child: const Text('en'),
+            ),
             ListTile(
               shape: RoundedRectangleBorder(
                 side: BorderSide(
