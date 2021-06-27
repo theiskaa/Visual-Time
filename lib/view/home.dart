@@ -5,6 +5,7 @@ import 'package:vtime/core/model/day.dart';
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/services/local_db_service.dart';
 import 'package:vtime/core/utils/utils.dart';
+import 'package:vtime/core/utils/widgets.dart';
 import 'package:vtime/view/create.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vtime/view/day_view.dart';
@@ -16,24 +17,25 @@ import 'widgets/day_chart.dart';
 import 'widgets/themes.dart';
 import 'widgets/utils.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class Home extends VTStatefulWidget {
+  Home({Key? key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends VTState<Home> {
   final titleTextController = TextEditingController();
   final localDbService = LocalDBService();
 
-  late Day today = weekDays[0];
-  late ValueListenable<Box<Task>> todaysBox;
+  late Day today = weekDays(vt, context)[0];
+  late ValueListenable<Box<Task>> todaysBox =
+      localDbService.rightListenableValue(weekDays(vt, context)[0]);
 
   @override
   void initState() {
     super.initState();
-    _refreshContent();
+    Future.delayed(Duration.zero, () => _refreshContent());
   }
 
   // Just contains cases appertitate to week days.
@@ -41,32 +43,39 @@ class _HomeState extends State<Home> {
   void _refreshContent() {
     var cases = {
       DateTime.monday: () {
-        today = weekDays[0];
-        todaysBox = localDbService.rightListenableValue(weekDays[0]);
+        today = weekDays(vt, context)[0];
+        todaysBox =
+            localDbService.rightListenableValue(weekDays(vt, context)[0]);
       },
       DateTime.tuesday: () {
-        today = weekDays[1];
-        todaysBox = localDbService.rightListenableValue(weekDays[1]);
+        today = weekDays(vt, context)[1];
+        todaysBox =
+            localDbService.rightListenableValue(weekDays(vt, context)[1]);
       },
       DateTime.wednesday: () {
-        today = weekDays[2];
-        todaysBox = localDbService.rightListenableValue(weekDays[2]);
+        today = weekDays(vt, context)[2];
+        todaysBox =
+            localDbService.rightListenableValue(weekDays(vt, context)[2]);
       },
       DateTime.thursday: () {
-        today = weekDays[3];
-        todaysBox = localDbService.rightListenableValue(weekDays[3]);
+        today = weekDays(vt, context)[3];
+        todaysBox =
+            localDbService.rightListenableValue(weekDays(vt, context)[3]);
       },
       DateTime.friday: () {
-        today = weekDays[4];
-        todaysBox = localDbService.rightListenableValue(weekDays[4]);
+        today = weekDays(vt, context)[4];
+        todaysBox =
+            localDbService.rightListenableValue(weekDays(vt, context)[4]);
       },
       DateTime.saturday: () {
-        today = weekDays[5];
-        todaysBox = localDbService.rightListenableValue(weekDays[5]);
+        today = weekDays(vt, context)[5];
+        todaysBox =
+            localDbService.rightListenableValue(weekDays(vt, context)[5]);
       },
       DateTime.sunday: () {
-        today = weekDays[6];
-        todaysBox = localDbService.rightListenableValue(weekDays[6]);
+        today = weekDays(vt, context)[6];
+        todaysBox =
+            localDbService.rightListenableValue(weekDays(vt, context)[6]);
       },
     };
 
@@ -85,7 +94,7 @@ class _HomeState extends State<Home> {
         titleWidget: GestureDetector(
           onTap: () => openNewDay(0, context, day: today, todaysBox: todaysBox),
           child: Text(
-            today.name ?? 'Today',
+            vt.intl.of(context)!.fmt('today'),
             style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 25),
           ),
         ),
@@ -105,7 +114,7 @@ class _HomeState extends State<Home> {
             const SizedBox(height: 50),
             ViewUtils.divider,
             const SizedBox(height: 50),
-            const WeekView(weeks: weekDays),
+            WeekView(weeks: weekDays(vt, context)),
           ],
         ),
       ),
@@ -125,10 +134,10 @@ class _HomeState extends State<Home> {
               const SizedBox(height: 15),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.settings),
-                  SizedBox(width: 10),
-                  Text('Settings'),
+                children: [
+                  const Icon(Icons.settings),
+                  const SizedBox(width: 10),
+                  Text(vt.intl.of(context)!.fmt('prefs.settings')),
                 ],
               ),
               const SizedBox(height: 8),
@@ -139,20 +148,20 @@ class _HomeState extends State<Home> {
         PopupMenuItem(
           value: 1,
           child: Row(
-            children: const [
-              Icon(CupertinoIcons.clear_circled_solid, color: Colors.red),
-              SizedBox(width: 10),
-              Text('Clear week'),
+            children: [
+              const Icon(CupertinoIcons.clear_circled_solid, color: Colors.red),
+              const SizedBox(width: 10),
+              Text(vt.intl.of(context)!.fmt('act.clearWeek')),
             ],
           ),
         ),
         PopupMenuItem(
           value: 2,
           child: Row(
-            children: const [
-              Icon(CupertinoIcons.add_circled_solid),
-              SizedBox(width: 10),
-              Text('Add task'),
+            children: [
+              const Icon(CupertinoIcons.add_circled_solid),
+              const SizedBox(width: 10),
+              Text(vt.intl.of(context)!.fmt('act.addTask')),
             ],
           ),
         ),
@@ -165,7 +174,7 @@ class _HomeState extends State<Home> {
       0: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const Settings()),
+          MaterialPageRoute(builder: (context) => Settings()),
         );
       },
       1: () {
@@ -190,11 +199,11 @@ class _HomeState extends State<Home> {
   AlertDialog clearWeekDialog() {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      title: const Text('Are you sure you want to clear your whole week?'),
+      title: Text(vt.intl.of(context)!.fmt('clear.week.title')),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('No'),
+          child: Text(vt.intl.of(context)!.fmt('act.no')),
         ),
         TextButton(
           style: simpleButtonStyle(Colors.red),
@@ -202,16 +211,19 @@ class _HomeState extends State<Home> {
             localDbService.clearWeek();
             Navigator.pop(context);
           },
-          child: const Text('Yes', style: TextStyle(color: Colors.red)),
+          child: Text(
+            vt.intl.of(context)!.fmt('act.yes'),
+            style: const TextStyle(color: Colors.red),
+          ),
         ),
       ],
     );
   }
 }
 
-class WeekView extends StatelessWidget {
+class WeekView extends VTStatelessWidget {
   final List<Day>? weeks;
-  const WeekView({Key? key, this.weeks}) : super(key: key);
+  WeekView({Key? key, this.weeks}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -222,7 +234,7 @@ class WeekView extends StatelessWidget {
             children: [
               for (var i = 0; i < 4; i++)
                 MiniDayChart(
-                  title: ViewUtils().rightDayNameGenerator(i),
+                  title: ViewUtils().rightDayNameGenerator(i, vt, context),
                   onTap: () => openNewDay(i, context, weeks: weeks),
                   todaysBox: LocalDBService().rightListenableValue(weeks![i]),
                 ),
@@ -233,7 +245,7 @@ class WeekView extends StatelessWidget {
               for (var i = 4; i < 7; i++)
                 MiniDayChart(
                   todaysBox: LocalDBService().rightListenableValue(weeks![i]),
-                  title: ViewUtils().rightDayNameGenerator(i),
+                  title: ViewUtils().rightDayNameGenerator(i, vt, context),
                   onTap: () => openNewDay(i, context, weeks: weeks),
                 ),
             ],

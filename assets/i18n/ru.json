@@ -1,0 +1,38 @@
+{
+    "today": "Сегодня",
+    "monday": "Понедельник",
+    "tuesday": "Вторник",
+    "wednesday": "Среда",
+    "thursday": "Четверг",
+    "friday": "Пятница",
+    "saturday": "Суббота",
+    "sunday": "Воскресенье",
+
+    "act.create": "Создавать",
+    "act.yes": "Да",
+    "act.no": "Нет",
+    "act.addTask": "Добавить задачу",
+    "act.clearWeek": "Ясная неделя",
+    "clear.week.title": "Вы уверены, что хотите очистить всю неделю?",
+
+    "prefs.settings": "Настройки",
+    "prefs.appearance": "Тема",
+    "prefs.appearance.light": "Светлая тема",
+    "prefs.appearance.dark": "Темная тема",
+    "prefs.lang": "Язык",
+
+    "error.not_found_duration": "Пожалуйста, укажите продолжительность вашей задачи",
+    "error.selected_duration_more_than_remaining": "Вы выбрали продолжительность, которая превышает оставшееся время выбранного вами дня",
+    "error.title_field_validation": "Заголовок не может быть пустым",
+
+    "task.title.hint": "Чем ты планируешь заняться?",
+    "task.desc.hint": "Опишите вашу задачу...",
+    "task.duration.hint": "Сколько времени займет задача?",
+
+    "hour": "ч.",
+    "hours": "ч.",
+    "minute": "мин.",
+    "minutes": "мин.",
+    "and": "и",
+    "remaining": "Оставшийся"
+}

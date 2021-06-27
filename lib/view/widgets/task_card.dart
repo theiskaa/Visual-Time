@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:vtime/core/model/task.dart';
+import 'package:vtime/core/utils/widgets.dart';
 import 'package:vtime/view/widgets/utils.dart';
 
-class TaskCard extends StatelessWidget {
+class TaskCard extends VTStatelessWidget {
   final Task task;
   final Function onDismissed;
 
-  const TaskCard({
+  TaskCard({
     Key? key,
     required this.task,
     required this.onDismissed,
@@ -32,15 +33,15 @@ class TaskCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: ListTile(
           title: Text(task.title!),
-          subtitle: Text(generateSubtitle()),
+          subtitle: Text(generateSubtitle(context)),
         ),
       ),
     );
   }
 
-  String generateSubtitle() {
-    var time =
-        Duration(hours: task.hours!, minutes: task.minutes!).toHumanLang();
+  String generateSubtitle(BuildContext context) {
+    var time = Duration(hours: task.hours!, minutes: task.minutes!)
+        .toHumanLang(vt, context);
     if (task.description!.isNotEmpty) {
       return '${task.description!}  |  $time';
     }

@@ -1,0 +1,38 @@
+{
+    "today": "Today",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday",
+
+    "act.create": "Create",
+    "act.yes": "Yes",
+    "act.no": "No",
+    "act.addTask": "Add task",
+    "act.clearWeek": "Clear Week",
+    "clear.week.title": "Are you sure you want to clear your whole week?",
+
+    "prefs.settings": "Settings",
+    "prefs.appearance": "Appearance",
+    "prefs.appearance.light": "Light Theme",
+    "prefs.appearance.dark": "Dark Theme",
+    "prefs.lang": "Language",
+
+    "error.not_found_duration": "Please add duration for your task",
+    "error.selected_duration_more_than_remaining": "You selected duration which exceeds the remaining time of your selected day",
+    "error.title_field_validation": "Title can't be empty",
+
+    "task.title.hint": "What are you going to do?",
+    "task.desc.hint": "Describe your task...",
+    "task.duration.hint": "How long the todo will take?",
+
+    "hour": "hour",
+    "hours": "hours",
+    "minute": "minute",
+    "minutes": "minutes",
+    "and": "and",
+    "remaining": "Remaining"
+}

@@ -1,22 +1,16 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vtime/core/model/day.dart';
-import 'package:vtime/core/model/task.dart';
 
 void main() {
   late Day day;
 
-  List<Task> tasks = List<Task>.generate(
-    4,
-    (i) => Task(title: 'Task $i', description: 'Des $i'),
-  );
-
   Map<String, dynamic> jsonModel = {
     'name': 'Saturday',
-    'tasks': tasks,
+    'title': 'Saturday',
   };
 
   setUpAll(() {
-    day = Day(name: 'Saturday', tasks: tasks);
+    day = const Day(name: 'Saturday', title: 'Saturday');
   });
 
   group('[Day]', () {
@@ -25,7 +19,7 @@ void main() {
 
       // Need to match properties rather than instances.
       expect(dayFromJson.name, day.name);
-      expect(dayFromJson.tasks, day.tasks);
+      expect(dayFromJson.title, day.title);
     });
 
     test('converts to json correctly', () {
@@ -35,21 +29,19 @@ void main() {
     });
 
     test('executes copyWith correctly', () {
-      List<Task> newTasks = tasks.getRange(0, 2).toList();
-
       final sameCopiedDay = day.copyWith();
       final customDay = day.copyWith(
         name: 'different name',
-        tasks: newTasks,
+        title: 'different title',
       );
 
       // Expect nothing was changed in for sameCopiedDay.
       expect(sameCopiedDay.name, day.name);
-      expect(sameCopiedDay.tasks, day.tasks);
+      expect(sameCopiedDay.title, day.title);
 
       // Expect difference between [task] and [customTask].
       expect(customDay.name == day.name, false);
-      expect(customDay.tasks == day.tasks, false);
+      expect(customDay.title == day.title, false);
     });
   });
 }

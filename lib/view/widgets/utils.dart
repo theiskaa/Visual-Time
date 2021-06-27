@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:vtime/core/model/task.dart';
+import 'package:vtime/core/vt.dart';
 
 class ViewUtils {
   // Generates right name by index.
-  String rightDayNameGenerator(int index) {
+  String rightDayNameGenerator(int index, VT vt, context) {
     var values = {
-      0: 'Monday',
-      1: 'Tuesday',
-      2: 'Wednesday',
-      3: 'Thursday',
-      4: 'Friday',
-      5: 'Saturday',
-      6: 'Sunday',
+      0: vt.intl.of(context)?.fmt('monday'),
+      1: vt.intl.of(context)?.fmt('tuesday'),
+      2: vt.intl.of(context)?.fmt('wednesday'),
+      3: vt.intl.of(context)?.fmt('thursday'),
+      4: vt.intl.of(context)?.fmt('friday'),
+      5: vt.intl.of(context)?.fmt('saturday'),
+      6: vt.intl.of(context)?.fmt('sunday'),
     };
     return values[index]!;
   }
@@ -30,21 +31,20 @@ class ViewUtils {
     );
   }
 
+  static const Duration fullDay = Duration(hours: 24);
 
-static const Duration fullDay = Duration(hours: 24);
+  Duration calculateTotalDuration(List<Task>? tasks) {
+    Duration filledAmount = Duration.zero;
 
-Duration calculateTotalDuration(List<Task>? tasks) {
-  Duration filledAmount = Duration.zero;
+    for (var i = 0; i < tasks!.length; i++) {
+      filledAmount = filledAmount +
+          Duration(hours: tasks[i].hours!, minutes: tasks[i].minutes!);
+    }
 
-  for (var i = 0; i < tasks!.length; i++) {
-    filledAmount = filledAmount +
-        Duration(hours: tasks[i].hours!, minutes: tasks[i].minutes!);
+    return filledAmount;
   }
 
-  return filledAmount;
-}
-
-static const  divider = Divider(
+  static const divider = Divider(
     height: 5,
     thickness: 1,
     indent: 50,
@@ -53,18 +53,20 @@ static const  divider = Divider(
 }
 
 extension DurationToHumanLangEXT on Duration {
-  String toHumanLang() {
+  String toHumanLang(VT vt, context) {
     var inMinutes = this.inMinutes.remainder(60).toString();
     var inHours = this.inHours.toString();
 
-    String hour = this.inHours > 1 ? 'hours' : 'hour';
-    String minute = int.parse(inMinutes) > 1 ? 'minutes' : 'minute';
+    String hour = vt.intl.of(context)!.fmt(this.inHours > 1 ? 'hours' : 'hour');
+    String minute = vt.intl
+        .of(context)!
+        .fmt(int.parse(inMinutes) > 1 ? 'minutes' : 'minute');
 
     if (this == Duration.zero) {
-      return 'How long the todo will take?';
+      return vt.intl.of(context)!.fmt('task.duration.hint');
     }
     if (inMinutes != '0' && inHours != '0') {
-      return '$inHours $hour and $inMinutes $minute';
+      return '$inHours $hour ${vt.intl.of(context)!.fmt('and')} $inMinutes $minute';
     }
     if (inHours != '0' && inMinutes == '0') {
       return '$inHours $hour';
@@ -78,4 +80,3 @@ extension DurationToHumanLangEXT on Duration {
 
   int get minute => inMinutes.remainder(60);
 }
-

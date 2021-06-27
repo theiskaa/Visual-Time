@@ -1,0 +1,38 @@
+{
+    "today": "Bugün",
+    "monday": "Pazartesi",
+    "tuesday": "Salı",
+    "wednesday": "Çarşamba",
+    "thursday": "Perşembe",
+    "friday": "Cuma",
+    "saturday": "Cumartesi",
+    "sunday": "Pazar",
+
+    "act.create": "Oluştur",
+    "act.yes": "Evet",
+    "act.no": "Hayır",
+    "act.addTask": "Görev ekle",
+    "act.clearWeek": "Haftayı Temizle",
+    "clear.week.title": "Bütün haftanı temizlemek istediğinden emin misin?",
+
+    "prefs.settings": "Ayarlar",
+    "prefs.appearance": "Görünüm",
+    "prefs.appearance.light": "Açık Tema",
+    "prefs.appearance.dark": "Karanlık Tema",
+    "prefs.lang": "Dil",
+
+    "error.not_found_duration": "Lütfen göreviniz için süre ekleyin",
+    "error.selected_duration_more_than_remaining": "Seçtiğiniz günün kalan süresini aşan bir süre seçtiniz",
+    "error.title_field_validation": "Başlık boş olamaz",
+
+    "task.title.hint": "Ne yapacaksın?",
+    "task.desc.hint": "Görevini anlat...",
+    "task.duration.hint": "Görev ne kadar sürecek?",
+
+    "hour": "saat",
+    "hours": "saat",
+    "minute": "dakika",
+    "minutes": "dakika",
+    "and": "ve",
+    "remaining": "Kalan süre"
+}

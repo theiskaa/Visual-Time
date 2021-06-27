@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:vtime/core/services/local_db_service.dart';
+import 'package:vtime/core/utils/intl.dart';
 
 import 'app.dart';
 import 'core/model/task.dart';
+import 'core/vt.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -19,5 +22,13 @@ void main() async {
   await Hive.openBox<Task>('saturday');
   await Hive.openBox<Task>('sunday');
 
-  runApp(const App());
+  final VT vt = VT();
+
+  vt.intl = Intl();
+  vt.localDbService = LocalDBService();
+
+  vt.intl.locale = const Locale('en');
+  vt.intl.supportedLocales = languages;
+
+  runApp(App());
 }

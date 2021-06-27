@@ -28,7 +28,7 @@ class _DayViewState extends State<DayView> {
     return Scaffold(
       appBar: TransparentAppBar(
         onLeadingTap: () => Navigator.pop(context),
-        titleWidget: Text(widget.day.name ?? '404'),
+        titleWidget: Text(widget.day.title ?? '404'),
       ),
       body: ValueListenableBuilder<Box<Task>>(
         valueListenable: widget.dayBox!,
