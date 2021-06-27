@@ -174,7 +174,7 @@ class _HomeState extends VTState<Home> {
       0: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const Settings()),
+          MaterialPageRoute(builder: (context) => Settings()),
         );
       },
       1: () {

@@ -16,7 +16,10 @@
     "clear.week.title": "Are you sure you want to clear your whole week?",
 
     "prefs.settings": "Settings",
-    "prefs.darkMode": "Dark Mode",
+    "prefs.appearance": "Appearance",
+    "prefs.appearance.light": "Light Theme",
+    "prefs.appearance.dark": "Dark Theme",
+    "prefs.lang": "Language",
 
     "error.not_found_duration": "Please add duration for your task",
     "error.selected_duration_more_than_remaining": "You selected duration which exceeds the remaining time of your selected day",
