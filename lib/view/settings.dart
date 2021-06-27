@@ -14,7 +14,8 @@ class Settings extends VTStatefulWidget {
 class _SettingsState extends VTState<Settings> {
   final langSegments = const <int, Widget>{
     0: Text('English'),
-    1: Text('Türkçe')
+    1: Text('Türkçe'),
+    2: Text('Русский')
   };
 
   int themeSegmentedValue = 0;
@@ -36,6 +37,8 @@ class _SettingsState extends VTState<Settings> {
         return langSegmentedValue = 0;
       case 'tr':
         return langSegmentedValue = 1;
+      case 'ru':
+        return langSegmentedValue = 2;
     }
     return 0;
   }
@@ -123,16 +126,21 @@ class _SettingsState extends VTState<Settings> {
             groupValue: langSegmentedValue,
             children: langSegments,
             onValueChanged: (dynamic i) {
-              if (i == 0) {
-                BlocProvider.of<PreferenceCubit>(context).changeLang('en');
-              } else {
-                BlocProvider.of<PreferenceCubit>(context).changeLang('tr');
-              }
+              changeLanguage(i);
               setState(() => langSegmentedValue = i);
             },
           ),
         ),
       ],
     );
+  }
+
+  void changeLanguage(int i) {
+    var args = {
+      0: () => BlocProvider.of<PreferenceCubit>(context).changeLang('en'),
+      1: () => BlocProvider.of<PreferenceCubit>(context).changeLang('tr'),
+      2: () => BlocProvider.of<PreferenceCubit>(context).changeLang('ru'),
+    };
+    args[i]!.call();
   }
 }
