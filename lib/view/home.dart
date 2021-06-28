@@ -111,7 +111,7 @@ class _HomeState extends VTState<Home> {
                 return DayChart(tasks: tasks, tooltipBehaviorEnabled: true);
               },
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 30),
             ViewUtils.divider,
             const SizedBox(height: 50),
             WeekView(weeks: weekDays(vt, context)),
@@ -208,7 +208,8 @@ class _HomeState extends VTState<Home> {
         TextButton(
           style: simpleButtonStyle(Colors.red),
           onPressed: () {
-            localDbService.clearWeek();
+            LocalDBService.preferences().clear();
+            // localDbService.clearWeek();
             Navigator.pop(context);
           },
           child: Text(

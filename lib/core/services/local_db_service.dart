@@ -66,4 +66,7 @@ class LocalDBService {
       await rightBoxByCheckBoxId(i).clear();
     }
   }
+
+  // Checks if preferences box contains any value, and returns boolean.
+  bool isPreferencesSetted() => preferences().isNotEmpty;
 }
