@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vtime/core/cubits/preference_cubit.dart';
 import 'package:vtime/core/utils/widgets.dart';
-import 'package:vtime/view/widgets/appbars.dart';
+import 'package:vtime/view/home.dart';
 
-class Settings extends VTStatefulWidget {
-  Settings({Key? key}) : super(key: key);
+class AppSetup extends VTStatefulWidget {
+  AppSetup({Key? key}) : super(key: key);
 
   @override
-  _SettingsState createState() => _SettingsState();
+  _AppSetupState createState() => _AppSetupState();
 }
 
-class _SettingsState extends VTState<Settings> {
+class _AppSetupState extends VTState<AppSetup> {
   final langSegments = const <int, Widget>{
     0: Text('English'),
     1: Text('Türkçe'),
@@ -23,57 +23,30 @@ class _SettingsState extends VTState<Settings> {
   int themeSegmentedValue = 0;
   int langSegmentedValue = 0;
 
-  dynamic detectTheme() {
-    switch (BlocProvider.of<PreferenceCubit>(context).state.themeName) {
-      case 'default':
-        return themeSegmentedValue = 0;
-      case 'dark':
-        return themeSegmentedValue = 1;
-    }
-    return 0;
-  }
-
-  dynamic detectLang() {
-    switch (BlocProvider.of<PreferenceCubit>(context).state.langCode) {
-      case 'en':
-        return langSegmentedValue = 0;
-      case 'tr':
-        return langSegmentedValue = 1;
-      case 'ru':
-        return langSegmentedValue = 2;
-      case 'ka':
-        return langSegmentedValue = 3;
-    }
-    return 0;
-  }
-
-  @override
-  void initState() {
-    detectTheme();
-    detectLang();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     var themeSegments = <int, Widget>{
       0: Text(vt.intl.of(context)!.fmt('prefs.appearance.light')),
       1: Text(vt.intl.of(context)!.fmt('prefs.appearance.dark'))
     };
+
     return Scaffold(
-      appBar: TransparentAppBar(
-        titleWidget: Text(vt.intl.of(context)!.fmt('prefs.settings')),
-        onLeadingTap: () => Navigator.pop(context),
-      ),
+      appBar: AppBar(title: Text(vt.intl.of(context)!.fmt('app.setup'))),
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.miniCenterFloat,
+      floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.done), onPressed: completeSetup),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 50),
+              const SizedBox(height: 130),
               themeSelecting(themeSegments),
-              const SizedBox(height: 50),
+              const SizedBox(height: 100),
               langSelecting(),
+              const SizedBox(height: 30),
             ],
           ),
         ),
@@ -100,12 +73,7 @@ class _SettingsState extends VTState<Settings> {
             groupValue: themeSegmentedValue,
             children: themeSegments,
             onValueChanged: (dynamic i) {
-              if (i == 0) {
-                BlocProvider.of<PreferenceCubit>(context)
-                    .changeTheme('default');
-              } else {
-                BlocProvider.of<PreferenceCubit>(context).changeTheme('dark');
-              }
+              changeTheme(i);
               setState(() => themeSegmentedValue = i);
             },
           ),
@@ -142,6 +110,17 @@ class _SettingsState extends VTState<Settings> {
     );
   }
 
+  void completeSetup() {
+    changeTheme(themeSegmentedValue);
+    changeLanguage(langSegmentedValue);
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => Home()),
+      (route) => false,
+    );
+  }
+
   void changeLanguage(int i) {
     var args = {
       0: () => BlocProvider.of<PreferenceCubit>(context).changeLang('en'),
@@ -150,5 +129,13 @@ class _SettingsState extends VTState<Settings> {
       3: () => BlocProvider.of<PreferenceCubit>(context).changeLang('ka'),
     };
     args[i]!.call();
+  }
+
+  void changeTheme(int i) {
+    if (i == 0) {
+      BlocProvider.of<PreferenceCubit>(context).changeTheme('default');
+    } else {
+      BlocProvider.of<PreferenceCubit>(context).changeTheme('dark');
+    }
   }
 }

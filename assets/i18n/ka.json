@@ -1,4 +1,6 @@
 {
+    "app.setup": "დაასრულეთ აპპ-ის დაყენება",
+
     "today": "დღეს",
     "monday": "ორშაბათი",
     "tuesday": "სამშაბათი",
@@ -17,8 +19,8 @@
 
     "prefs.settings": "პარამეტრები",
     "prefs.appearance": "გარეგნობა",
-    "prefs.appearance.light": "ღია თემა",
-    "prefs.appearance.dark": "მუქი თემა",
+    "prefs.appearance.light": "ღია",
+    "prefs.appearance.dark": "მუქი",
     "prefs.lang": "Ენა",
 
     "error.not_found_duration": "გთხოვთ, დაამატოთ თქვენი დავალების ხანგრძლივობა",
