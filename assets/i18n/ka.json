@@ -1,0 +1,38 @@
+{
+    "today": "დღეს",
+    "monday": "ორშაბათი",
+    "tuesday": "სამშაბათი",
+    "wednesday": "ოთხშაბათი",
+    "thursday": "ხუთშაბათი",
+    "friday": "პარასკევი",
+    "saturday": "შაბათი",
+    "sunday": "კვირა",
+
+    "act.create": "Შექმნა",
+    "act.yes": "დიახ",
+    "act.no": "არა",
+    "act.addTask": "დავალების დამატება",
+    "act.clearWeek": "გაასუფთავე კვირა",
+    "clear.week.title": "დარწმუნებული ხართ, რომ გსურთ თქვენი მთელი კვირის წაშლა?",
+
+    "prefs.settings": "პარამეტრები",
+    "prefs.appearance": "გარეგნობა",
+    "prefs.appearance.light": "ღია თემა",
+    "prefs.appearance.dark": "მუქი თემა",
+    "prefs.lang": "Ენა",
+
+    "error.not_found_duration": "გთხოვთ, დაამატოთ თქვენი დავალების ხანგრძლივობა",
+    "error.selected_duration_more_than_remaining": "თქვენ შეარჩიეთ ხანგრძლივობა, რომელიც აჭარბებს არჩეული დღის დანარჩენ დროს",
+    "error.title_field_validation": "სათაური არ შეიძლება იყოს ცარიელი",
+
+    "task.title.hint": "Რის გაკეთებას აპირებ?",
+    "task.desc.hint": "აღწერეთ თქვენი დავალება...",
+    "task.duration.hint": "რამდენ ხანს დაიკავებს დავალება?",
+
+    "hour": "სთ.",
+    "hours": "სთ.",
+    "minute": "წთ.",
+    "minutes": "წთ.",
+    "and": "და",
+    "remaining": "დარჩენილი დრო"
+}

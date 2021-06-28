@@ -37,3 +37,4 @@ flutter:
     - assets/i18n/en.json
     - assets/i18n/tr.json
     - assets/i18n/ru.json
+    - assets/i18n/ka.json

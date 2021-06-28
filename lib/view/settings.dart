@@ -15,7 +15,8 @@ class _SettingsState extends VTState<Settings> {
   final langSegments = const <int, Widget>{
     0: Text('English'),
     1: Text('Türkçe'),
-    2: Text('Русский')
+    2: Text('Русский'),
+    3: Text('ქართული')
   };
 
   int themeSegmentedValue = 0;
@@ -39,6 +40,8 @@ class _SettingsState extends VTState<Settings> {
         return langSegmentedValue = 1;
       case 'ru':
         return langSegmentedValue = 2;
+      case 'ka':
+        return langSegmentedValue = 3;
     }
     return 0;
   }
@@ -120,7 +123,7 @@ class _SettingsState extends VTState<Settings> {
         ),
         const SizedBox(height: 15),
         SizedBox(
-          width: 300,
+          width: 500,
           child: CupertinoSlidingSegmentedControl(
             padding: const EdgeInsets.all(0),
             groupValue: langSegmentedValue,
@@ -140,6 +143,7 @@ class _SettingsState extends VTState<Settings> {
       0: () => BlocProvider.of<PreferenceCubit>(context).changeLang('en'),
       1: () => BlocProvider.of<PreferenceCubit>(context).changeLang('tr'),
       2: () => BlocProvider.of<PreferenceCubit>(context).changeLang('ru'),
+      3: () => BlocProvider.of<PreferenceCubit>(context).changeLang('ka'),
     };
     args[i]!.call();
   }

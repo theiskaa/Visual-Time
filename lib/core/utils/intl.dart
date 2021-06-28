@@ -3,7 +3,7 @@ import 'dart:async' show Future;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
-const languages = ['en', 'tr', 'ru'];
+const languages = ['en', 'tr', 'ru', 'ka'];
 
 /// Internationalization class
 /// which generates language codes by [ISO 639-1].
