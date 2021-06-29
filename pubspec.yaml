@@ -1,6 +1,5 @@
 name: vtime
-description: A new Flutter project.
-
+description: An advanced, minimalist and powerful time management application.
 publish_to: "none"
 
 version: 1.0.0+1
