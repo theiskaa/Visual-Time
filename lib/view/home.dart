@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -29,14 +31,7 @@ class _HomeState extends VTState<Home> {
   final localDbService = LocalDBService();
 
   late Day today = weekDays(vt, context)[0];
-  late ValueListenable<Box<Task>> todaysBox =
-      localDbService.rightListenableValue(weekDays(vt, context)[0]);
-
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(Duration.zero, () => _refreshContent());
-  }
+  ValueListenable<Box<Task>>? todaysBox;
 
   // Just contains cases appertitate to week days.
   // And listens now(WeekDay) and makes right fun. calling.
@@ -84,6 +79,7 @@ class _HomeState extends VTState<Home> {
 
   @override
   Widget build(BuildContext context) {
+    _refreshContent();
     return Scaffold(
       appBar: TransparentAppBar(
         disableLeading: true,
@@ -105,7 +101,7 @@ class _HomeState extends VTState<Home> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ValueListenableBuilder<Box<Task>>(
-              valueListenable: todaysBox,
+              valueListenable: todaysBox!,
               builder: (context, box, _) {
                 final tasks = box.values.toList().cast<Task>();
                 return DayChart(tasks: tasks, tooltipBehaviorEnabled: true);
@@ -187,7 +183,7 @@ class _HomeState extends VTState<Home> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => CreateTaskPage(todaysBox: todaysBox),
+            builder: (context) => CreateTaskPage(todaysBox: todaysBox!),
           ),
         );
       },
@@ -209,7 +205,7 @@ class _HomeState extends VTState<Home> {
           style: simpleButtonStyle(Colors.red),
           onPressed: () {
             LocalDBService.preferences().clear();
-            // localDbService.clearWeek();
+            localDbService.clearWeek();
             Navigator.pop(context);
           },
           child: Text(
