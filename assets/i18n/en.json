@@ -29,7 +29,7 @@
 
     "task.title.hint": "What are you going to do?",
     "task.desc.hint": "Describe your task...",
-    "task.duration.hint": "How long the todo will take?",
+    "task.duration.hint": "How long will the task take?",
 
     "hour": "hour",
     "hours": "hours",
