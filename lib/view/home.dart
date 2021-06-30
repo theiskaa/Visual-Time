@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -204,7 +202,6 @@ class _HomeState extends VTState<Home> {
         TextButton(
           style: simpleButtonStyle(Colors.red),
           onPressed: () {
-            LocalDBService.preferences().clear();
             localDbService.clearWeek();
             Navigator.pop(context);
           },
