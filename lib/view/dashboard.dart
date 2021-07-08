@@ -9,6 +9,7 @@ import 'package:vtime/core/utils/widgets.dart';
 import 'package:vtime/view/create.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vtime/view/day_view.dart';
+import 'package:vtime/view/pomodoro/dashboard.dart';
 import 'package:vtime/view/widgets/mini_day_card.dart';
 
 import 'settings.dart';
@@ -17,14 +18,14 @@ import 'widgets/day_chart.dart';
 import 'widgets/themes.dart';
 import 'widgets/utils.dart';
 
-class Home extends VTStatefulWidget {
-  Home({Key? key}) : super(key: key);
+class Dashboard extends VTStatefulWidget {
+  Dashboard({Key? key}) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState();
+  _DashboardState createState() => _DashboardState();
 }
 
-class _HomeState extends VTState<Home> {
+class _DashboardState extends VTState<Dashboard> {
   final titleTextController = TextEditingController();
   final localDbService = LocalDBService();
 
@@ -159,6 +160,26 @@ class _HomeState extends VTState<Home> {
             ],
           ),
         ),
+        PopupMenuItem(
+          value: 3,
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: const Color(0xffFF6347),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(
+              children: const [
+                Icon(CupertinoIcons.time_solid, color: Colors.white),
+                SizedBox(width: 10),
+                Text(
+                  'Pomodoro',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -172,10 +193,7 @@ class _HomeState extends VTState<Home> {
         );
       },
       1: () {
-        showDialog(
-          context: context,
-          builder: (context) => clearWeekDialog(),
-        );
+        showDialog(context: context, builder: (context) => clearWeekDialog());
       },
       2: () {
         Navigator.push(
@@ -183,6 +201,12 @@ class _HomeState extends VTState<Home> {
           MaterialPageRoute(
             builder: (context) => CreateTaskPage(todaysBox: todaysBox!),
           ),
+        );
+      },
+      3: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => PomodoroDashboard()),
         );
       },
     };

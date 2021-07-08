@@ -10,7 +10,7 @@ import 'package:vtime/view/set_up.dart';
 
 import 'core/utils/intl.dart';
 import 'core/utils/widgets.dart';
-import 'view/home.dart';
+import 'view/dashboard.dart';
 
 class App extends VTStatefulWidget {
   App({Key? key}) : super(key: key);
@@ -27,7 +27,7 @@ class _AppState extends VTState<App> {
   @override
   void initState() {
     super.initState();
-    home = _dbService.isPreferencesSetted() ? Home() : AppSetup();
+    home = _dbService.isPreferencesSetted() ? Dashboard() : AppSetup();
   }
 
   @override

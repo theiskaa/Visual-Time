@@ -16,6 +16,8 @@
     "act.addTask": "Добавить задачу",
     "act.clearWeek": "Ясная неделя",
     "clear.week.title": "Вы уверены, что хотите очистить всю неделю?",
+    "act.start": "Начало",
+    "act.stop": "Стоп",
 
     "prefs.settings": "Настройки",
     "prefs.appearance": "Тема",

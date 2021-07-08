@@ -16,6 +16,8 @@
     "act.addTask": "Görev ekle",
     "act.clearWeek": "Haftayı Temizle",
     "clear.week.title": "Bütün haftanı temizlemek istediğinden emin misin?",
+    "act.start": "Başlat",
+    "act.stop": "Durdur",
 
     "prefs.settings": "Ayarlar",
     "prefs.appearance": "Görünüm",

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vtime/core/cubits/preference_cubit.dart';
 import 'package:vtime/core/utils/widgets.dart';
-import 'package:vtime/view/home.dart';
+import 'package:vtime/view/dashboard.dart';
 
 class AppSetup extends VTStatefulWidget {
   AppSetup({Key? key}) : super(key: key);
@@ -116,7 +116,7 @@ class _AppSetupState extends VTState<AppSetup> {
 
     Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => Home()),
+      MaterialPageRoute(builder: (context) => Dashboard()),
       (route) => false,
     );
   }

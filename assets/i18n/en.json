@@ -16,6 +16,8 @@
     "act.addTask": "Add task",
     "act.clearWeek": "Clear Week",
     "clear.week.title": "Are you sure you want to clear your whole week?",
+    "act.start": "Start",
+    "act.stop": "Stop",
 
     "prefs.settings": "Settings",
     "prefs.appearance": "Appearance",
