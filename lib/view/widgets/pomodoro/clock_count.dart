@@ -5,8 +5,13 @@ import '../loadings.dart';
 
 class ClockCount extends VTStatelessWidget {
   final bool disabled;
+  final String time;
 
-  ClockCount({Key? key, required this.disabled}) : super(key: key);
+  ClockCount({
+    Key? key,
+    required this.disabled,
+    required this.time,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +26,14 @@ class ClockCount extends VTStatelessWidget {
           child: AnimatedContainer(
             duration: const Duration(seconds: 1),
             child: Text(
-              disabled ? '25:00' : '24:59',
+              disabled ? '00:00' : time,
               style: TextStyle(
                 fontSize: 50,
                 fontWeight: FontWeight.bold,
                 foreground: Paint()
                   ..style = PaintingStyle.stroke
                   ..strokeWidth = 1
-                  ..color = disabled ? Colors.black : Colors.white,
+                  ..color = disabled ? const Color(0xffFF6347) : Colors.white,
               ),
             ),
           ),

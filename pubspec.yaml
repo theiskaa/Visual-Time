@@ -17,6 +17,7 @@ dependencies:
   logger:
   syncfusion_flutter_charts: ^19.1.69+1
   intl: ^0.17.0
+  flutter_slidable: ^0.6.0
 
   cupertino_icons: ^1.0.2
 

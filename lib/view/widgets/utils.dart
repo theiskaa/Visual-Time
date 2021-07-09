@@ -3,6 +3,15 @@ import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/vt.dart';
 
 class ViewUtils {
+  String generateSubtitle(BuildContext context, Task task, VT vt) {
+    var time = Duration(hours: task.hours!, minutes: task.minutes!)
+        .toHumanLang(vt, context);
+    if (task.description!.isNotEmpty) {
+      return '${task.description!}  |  $time';
+    }
+    return time;
+  }
+
   // Generates right name by index.
   String rightDayNameGenerator(int index, VT vt, context) {
     var values = {
