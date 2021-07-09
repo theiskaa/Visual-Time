@@ -3,6 +3,8 @@ import 'package:vtime/core/utils/widgets.dart';
 
 import '../loadings.dart';
 
+const pomodoroOrange = Color(0xffFF6347);
+
 class ClockCount extends VTStatelessWidget {
   final bool disabled;
   final String time;
@@ -25,17 +27,16 @@ class ClockCount extends VTStatelessWidget {
           color: const Color(0xffFF6347),
           child: AnimatedContainer(
             duration: const Duration(seconds: 1),
-            child: Text(
-              disabled ? '00:00' : time,
-              style: TextStyle(
-                fontSize: 50,
-                fontWeight: FontWeight.bold,
-                foreground: Paint()
-                  ..style = PaintingStyle.stroke
-                  ..strokeWidth = 1
-                  ..color = disabled ? const Color(0xffFF6347) : Colors.white,
-              ),
-            ),
+            child: time == 'dn'
+                ? const Icon(Icons.done, size: 50, color: Color(0xffFF6347))
+                : Text(
+                    time,
+                    style: TextStyle(
+                      fontSize: 35,
+                      fontWeight: FontWeight.bold,
+                      color: disabled ? const Color(0xffFF6347) : Colors.white,
+                    ),
+                  ),
           ),
         ),
       ),
@@ -43,18 +44,15 @@ class ClockCount extends VTStatelessWidget {
   }
 }
 
-// ignore: must_be_immutable
 class _ThreeRoundCircleGrid extends StatelessWidget {
   final Widget child;
   final double generalSize;
 
-  _ThreeRoundCircleGrid({
+  const _ThreeRoundCircleGrid({
     Key? key,
     required this.child,
     required this.generalSize,
   }) : super(key: key);
-
-  Color color = const Color(0xffFF6347).withOpacity(.1);
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +60,7 @@ class _ThreeRoundCircleGrid extends StatelessWidget {
       height: generalSize + 5,
       width: generalSize + 5,
       decoration: BoxDecoration(
-        border: Border.all(width: 3, color: color),
+        border: Border.all(width: 3, color: pomodoroOrange.withOpacity(.1)),
         shape: BoxShape.circle,
       ),
       padding: const EdgeInsets.all(3),
@@ -70,7 +68,7 @@ class _ThreeRoundCircleGrid extends StatelessWidget {
         height: generalSize,
         width: generalSize,
         decoration: BoxDecoration(
-          border: Border.all(width: 3, color: color),
+          border: Border.all(width: 3, color: pomodoroOrange.withOpacity(.1)),
           shape: BoxShape.circle,
         ),
         child: child,

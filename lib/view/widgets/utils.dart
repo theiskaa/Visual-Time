@@ -88,4 +88,14 @@ extension DurationToHumanLangEXT on Duration {
   }
 
   int get minute => inMinutes.remainder(60);
+
+  String get toHMS {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    String twoDigitMinutes = twoDigits(inMinutes.remainder(60));
+    String twoDigitSeconds = twoDigits(inSeconds.remainder(60));
+    if (inHours > 0) {
+      return '${twoDigits(inHours)}:$twoDigitMinutes:$twoDigitSeconds';
+    }
+    return '$twoDigitMinutes:$twoDigitSeconds';
+  }
 }

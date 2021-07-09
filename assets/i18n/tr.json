@@ -26,6 +26,8 @@
     "prefs.appearance.dark": "Karanlık Tema",
     "prefs.lang": "Dil",
 
+    "live_work.selected_task": "Seçilen Görev",
+
     "error.not_found_duration": "Lütfen göreviniz için süre ekleyin",
     "error.selected_duration_more_than_remaining": "Seçtiğiniz günün kalan süresini aşan bir süre seçtiniz",
     "error.title_field_validation": "Başlık boş olamaz",

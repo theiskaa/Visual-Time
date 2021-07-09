@@ -1,6 +1,6 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vtime/core/cubits/preference_cubit.dart';
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/utils/widgets.dart';
 import 'package:vtime/view/dashboard.dart';
@@ -19,18 +19,55 @@ class PomodoroDashboard extends VTStatefulWidget {
 }
 
 class PomodoroDashboardState extends VTState<PomodoroDashboard> {
-  bool timerIsActive = false;
+  static const oneSecond = Duration(seconds: 1);
+
+  Timer? timer;
+  Duration? duration;
+  String time = '';
+  var watch = Stopwatch();
+
+  @override
+  void initState() {
+    super.initState();
+    duration = Duration(
+      hours: widget.task!.hours!,
+      minutes: widget.task!.minutes!,
+    );
+    time = duration!.toHMS;
+  }
+
+  void startTimer() {
+    watch.start();
+    timer = Timer.periodic(oneSecond, (_) {
+      setState(() {
+        duration = duration! - oneSecond;
+        time = duration!.toHMS;
+      });
+      if (time == '00:00') {
+        stopTimer();
+        setState(() => time = 'dn');
+        return;
+      }
+    });
+  }
+
+  void stopTimer() {
+    watch.stop();
+    timer!.cancel();
+    setState(() {
+      duration = Duration(
+        hours: widget.task!.hours!,
+        minutes: widget.task!.minutes!,
+      );
+      time = duration!.toHMS;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: startButton(),
       appBar: TransparentAppBar(
-        titleWidget: Text(
-          (widget.task != null)
-              ? widget.task!.title!
-              : vt.intl.of(context)!.fmt('prefs.live_work'),
-        ),
         onLeadingTap: () {
           ScaffoldMessenger.of(context).removeCurrentSnackBar();
           Navigator.pushAndRemoveUntil(
@@ -47,10 +84,7 @@ class PomodoroDashboardState extends VTState<PomodoroDashboard> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 30),
-              ClockCount(
-                disabled: !timerIsActive,
-                time: '${widget.task!.totalTime}',
-              ),
+              ClockCount(time: time, disabled: !watch.isRunning),
               const SizedBox(height: 40),
               ViewUtils.divider,
               const SizedBox(height: 40),
@@ -60,10 +94,6 @@ class PomodoroDashboardState extends VTState<PomodoroDashboard> {
         ),
       ),
     );
-  }
-
-  void startTimer() {
-    setState(() => timerIsActive = !timerIsActive);
   }
 
   Widget startButton() {
@@ -87,9 +117,9 @@ class PomodoroDashboardState extends VTState<PomodoroDashboard> {
                 ),
               ),
             ),
-            onPressed: startTimer,
+            onPressed: watch.isRunning ? stopTimer : startTimer,
             child: Text(
-              timerIsActive
+              watch.isRunning
                   ? vt.intl.of(context)!.fmt('act.stop')
                   : vt.intl.of(context)!.fmt('act.start'),
               style: const TextStyle(color: pomodoroOrange),
@@ -111,11 +141,11 @@ class _SelectedTask extends VTStatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          const Align(
+          Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              'Selected Task:',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              vt.intl.of(context)!.fmt('live_work.selected_task') + ':',
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ),
           const SizedBox(height: 10),
@@ -123,19 +153,8 @@ class _SelectedTask extends VTStatelessWidget {
             width: MediaQuery.of(context).size.width - 20,
             padding: const EdgeInsets.all(2),
             decoration: BoxDecoration(
-              border: Border.all(width: .3),
+              border: Border.all(width: .6),
               borderRadius: BorderRadius.circular(20),
-              color: BlocProvider.of<PreferenceCubit>(context)
-                  .state
-                  .theme!
-                  .scaffoldBackgroundColor,
-              boxShadow: [
-                BoxShadow(
-                  color: pomodoroOrange.withOpacity(.2),
-                  blurRadius: 10,
-                  offset: const Offset(0, 10),
-                )
-              ],
             ),
             child: ListTile(
               title: Text(task.title!),

@@ -26,6 +26,8 @@
     "prefs.appearance.dark": "მუქი",
     "prefs.lang": "Ენა",
 
+    "live_work.selected_task": "ამორჩეული დავალება",
+
     "error.not_found_duration": "გთხოვთ, დაამატოთ თქვენი დავალების ხანგრძლივობა",
     "error.selected_duration_more_than_remaining": "თქვენ შეარჩიეთ ხანგრძლივობა, რომელიც აჭარბებს არჩეული დღის დანარჩენ დროს",
     "error.title_field_validation": "სათაური არ შეიძლება იყოს ცარიელი",
