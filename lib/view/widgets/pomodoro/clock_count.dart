@@ -27,7 +27,7 @@ class ClockCount extends VTStatelessWidget {
                 fontWeight: FontWeight.bold,
                 foreground: Paint()
                   ..style = PaintingStyle.stroke
-                  ..strokeWidth = 2
+                  ..strokeWidth = 1
                   ..color = disabled ? Colors.black : Colors.white,
               ),
             ),
@@ -38,14 +38,18 @@ class ClockCount extends VTStatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class _ThreeRoundCircleGrid extends StatelessWidget {
   final Widget child;
   final double generalSize;
-  const _ThreeRoundCircleGrid({
+
+  _ThreeRoundCircleGrid({
     Key? key,
     required this.child,
     required this.generalSize,
   }) : super(key: key);
+
+  Color color = const Color(0xffFF6347).withOpacity(.1);
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +57,7 @@ class _ThreeRoundCircleGrid extends StatelessWidget {
       height: generalSize + 5,
       width: generalSize + 5,
       decoration: BoxDecoration(
-        border: Border.all(width: 5, color: const Color(0xffFF6347)),
+        border: Border.all(width: 3, color: color),
         shape: BoxShape.circle,
       ),
       padding: const EdgeInsets.all(3),
@@ -61,7 +65,7 @@ class _ThreeRoundCircleGrid extends StatelessWidget {
         height: generalSize,
         width: generalSize,
         decoration: BoxDecoration(
-          border: Border.all(width: 5, color: const Color(0xffFF6347)),
+          border: Border.all(width: 3, color: color),
           shape: BoxShape.circle,
         ),
         child: child,

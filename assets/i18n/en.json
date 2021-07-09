@@ -21,6 +21,7 @@
 
     "prefs.settings": "Settings",
     "prefs.appearance": "Appearance",
+    "prefs.live_work": "Start a task",
     "prefs.appearance.light": "Light Theme",
     "prefs.appearance.dark": "Dark Theme",
     "prefs.lang": "Language",

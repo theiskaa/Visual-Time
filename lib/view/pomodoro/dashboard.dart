@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vtime/core/cubits/preference_cubit.dart';
 import 'package:vtime/core/utils/widgets.dart';
 import 'package:vtime/view/dashboard.dart';
 import 'package:vtime/view/widgets/appbars.dart';
@@ -21,7 +19,7 @@ class PomodoroDashboardState extends VTState<PomodoroDashboard> {
     return Scaffold(
       bottomNavigationBar: startButton(),
       appBar: TransparentAppBar(
-        titleWidget: const Text('Pomodoro'),
+        titleWidget: Text(vt.intl.of(context)!.fmt('prefs.live_work')),
         onLeadingTap: () {
           ScaffoldMessenger.of(context).removeCurrentSnackBar();
           Navigator.pushAndRemoveUntil(
@@ -58,8 +56,17 @@ class PomodoroDashboardState extends VTState<PomodoroDashboard> {
           widthFactor: .8,
           child: ElevatedButton(
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(
-                const Color(0xffFF6347),
+              overlayColor: MaterialStateProperty.all(
+                const Color(0xffFF6347).withOpacity(.1),
+              ),
+              fixedSize: MaterialStateProperty.all(const Size(0, 40)),
+              elevation: MaterialStateProperty.all(0),
+              backgroundColor: MaterialStateProperty.all(Colors.transparent),
+              shape: MaterialStateProperty.all(
+                const RoundedRectangleBorder(
+                  side: BorderSide(color: Color(0xffFF6347)),
+                  borderRadius: BorderRadius.all(Radius.circular(30)),
+                ),
               ),
             ),
             onPressed: startTimer,
@@ -67,7 +74,7 @@ class PomodoroDashboardState extends VTState<PomodoroDashboard> {
               timerIsActive
                   ? vt.intl.of(context)!.fmt('act.stop')
                   : vt.intl.of(context)!.fmt('act.start'),
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: Color(0xffFF6347)),
             ),
           ),
         ),

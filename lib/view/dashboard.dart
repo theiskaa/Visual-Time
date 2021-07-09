@@ -169,12 +169,12 @@ class _DashboardState extends VTState<Dashboard> {
               borderRadius: BorderRadius.circular(10),
             ),
             child: Row(
-              children: const [
-                Icon(CupertinoIcons.time_solid, color: Colors.white),
-                SizedBox(width: 10),
+              children: [
+                const Icon(CupertinoIcons.time_solid, color: Colors.white),
+                const SizedBox(width: 10),
                 Text(
-                  'Pomodoro',
-                  style: TextStyle(color: Colors.white),
+                  vt.intl.of(context)!.fmt('prefs.live_work'),
+                  style: const TextStyle(color: Colors.white),
                 ),
               ],
             ),
