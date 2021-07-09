@@ -9,9 +9,10 @@ import 'package:vtime/core/utils/widgets.dart';
 import 'package:vtime/view/create.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vtime/view/day_view.dart';
-import 'package:vtime/view/pomodoro/dashboard.dart';
+
 import 'package:vtime/view/widgets/mini_day_card.dart';
 
+import 'live-task/dashboard.dart';
 import 'settings.dart';
 import 'widgets/appbars.dart';
 import 'widgets/day_chart.dart';
@@ -206,7 +207,7 @@ class _DashboardState extends VTState<Dashboard> {
       3: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => PomodoroDashboard()),
+          MaterialPageRoute(builder: (context) => LiveTaskDashboard()),
         );
       },
     };

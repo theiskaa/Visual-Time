@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/utils/widgets.dart';
-import 'package:vtime/view/pomodoro/dashboard.dart';
+import 'package:vtime/view/live-task/dashboard.dart';
 import 'package:vtime/view/widgets/utils.dart';
 
 class TaskCard extends VTStatelessWidget {
@@ -36,7 +36,7 @@ class TaskCard extends VTStatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => PomodoroDashboard(task: task),
+                builder: (context) => LiveTaskDashboard(task: task),
               ),
             );
           },

@@ -1,24 +1,26 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vtime/core/cubits/preference_cubit.dart';
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/utils/widgets.dart';
 import 'package:vtime/view/dashboard.dart';
 import 'package:vtime/view/widgets/appbars.dart';
-import 'package:vtime/view/widgets/pomodoro/clock_count.dart';
+import 'package:vtime/view/widgets/live-task/clock_count.dart';
 import 'package:vtime/view/widgets/utils.dart';
 
 const pomodoroOrange = Color(0xffFF6347);
 
-class PomodoroDashboard extends VTStatefulWidget {
+class LiveTaskDashboard extends VTStatefulWidget {
   final Task? task;
-  PomodoroDashboard({Key? key, this.task}) : super(key: key);
+  LiveTaskDashboard({Key? key, this.task}) : super(key: key);
 
   @override
-  PomodoroDashboardState createState() => PomodoroDashboardState();
+  LiveTaskDashboardState createState() => LiveTaskDashboardState();
 }
 
-class PomodoroDashboardState extends VTState<PomodoroDashboard> {
+class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
   static const oneSecond = Duration(seconds: 1);
 
   Timer? timer;
@@ -153,8 +155,20 @@ class _SelectedTask extends VTStatelessWidget {
             width: MediaQuery.of(context).size.width - 20,
             padding: const EdgeInsets.all(2),
             decoration: BoxDecoration(
-              border: Border.all(width: .6),
+              color: BlocProvider.of<PreferenceCubit>(context)
+                  .state
+                  .theme!
+                  .scaffoldBackgroundColor,
+              border: Border.all(width: .6, color: pomodoroOrange),
               borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  spreadRadius: 1,
+                  offset: const Offset(0, 10),
+                  blurRadius: 15,
+                  color: pomodoroOrange.withOpacity(.2),
+                )
+              ],
             ),
             child: ListTile(
               title: Text(task.title!),

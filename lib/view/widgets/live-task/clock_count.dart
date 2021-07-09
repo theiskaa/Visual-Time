@@ -27,7 +27,7 @@ class ClockCount extends VTStatelessWidget {
           color: const Color(0xffFF6347),
           child: AnimatedContainer(
             duration: const Duration(seconds: 1),
-            child: time == 'dn'
+            child: (time == 'dn')
                 ? const Icon(Icons.done, size: 50, color: Color(0xffFF6347))
                 : Text(
                     time,
