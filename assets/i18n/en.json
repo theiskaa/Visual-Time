@@ -13,6 +13,7 @@
     "act.create": "Create",
     "act.yes": "Yes",
     "act.no": "No",
+    "act.delete": "Delete",
     "act.addTask": "Add task",
     "act.clearWeek": "Clear Week",
     "clear.week.title": "Are you sure you want to clear your whole week?",

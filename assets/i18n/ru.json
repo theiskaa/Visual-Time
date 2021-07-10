@@ -13,6 +13,7 @@
     "act.create": "Создавать",
     "act.yes": "Да",
     "act.no": "Нет",
+    "act.delete": "Удалить",
     "act.addTask": "Добавить задачу",
     "act.clearWeek": "Ясная неделя",
     "clear.week.title": "Вы уверены, что хотите очистить всю неделю?",

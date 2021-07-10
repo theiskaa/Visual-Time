@@ -9,6 +9,7 @@ import 'package:vtime/view/dashboard.dart';
 import 'package:vtime/view/widgets/appbars.dart';
 import 'package:vtime/view/widgets/live-task/clock_count.dart';
 import 'package:vtime/view/widgets/utils.dart';
+import 'package:just_audio/just_audio.dart';
 
 const pomodoroOrange = Color(0xffFF6347);
 
@@ -27,15 +28,25 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
   Duration? duration;
   String time = '';
   var watch = Stopwatch();
+  late AudioPlayer player;
 
   @override
   void initState() {
     super.initState();
+
     duration = Duration(
       hours: widget.task!.hours!,
       minutes: widget.task!.minutes!,
     );
     time = duration!.toHMS;
+    player = AudioPlayer();
+  }
+
+  @override
+  void dispose() {
+    player.dispose();
+    timer!.cancel();
+    super.dispose();
   }
 
   void startTimer() {
@@ -45,11 +56,7 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
         duration = duration! - oneSecond;
         time = duration!.toHMS;
       });
-      if (time == '00:00') {
-        stopTimer();
-        setState(() => time = 'dn');
-        return;
-      }
+      if (time == '00:00') onTaskEnd();
     });
   }
 
@@ -63,6 +70,13 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
       );
       time = duration!.toHMS;
     });
+  }
+
+  void onTaskEnd() async {
+    stopTimer();
+    setState(() => time = 'dn');
+    await player.setAsset('assets/alarms/alarm.mp3');
+    player.play();
   }
 
   @override
@@ -99,33 +113,30 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
   }
 
   Widget startButton() {
-    return Transform.translate(
-      offset: Offset(0, -1 * MediaQuery.of(context).viewInsets.bottom),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 30),
-        child: FractionallySizedBox(
-          widthFactor: .8,
-          child: ElevatedButton(
-            style: ButtonStyle(
-              overlayColor:
-                  MaterialStateProperty.all(pomodoroOrange.withOpacity(.1)),
-              fixedSize: MaterialStateProperty.all(const Size(0, 40)),
-              elevation: MaterialStateProperty.all(0),
-              backgroundColor: MaterialStateProperty.all(Colors.transparent),
-              shape: MaterialStateProperty.all(
-                const RoundedRectangleBorder(
-                  side: BorderSide(color: pomodoroOrange),
-                  borderRadius: BorderRadius.all(Radius.circular(30)),
-                ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 30),
+      child: FractionallySizedBox(
+        widthFactor: .8,
+        child: ElevatedButton(
+          style: ButtonStyle(
+            overlayColor:
+                MaterialStateProperty.all(pomodoroOrange.withOpacity(.1)),
+            fixedSize: MaterialStateProperty.all(const Size(0, 40)),
+            elevation: MaterialStateProperty.all(0),
+            backgroundColor: MaterialStateProperty.all(Colors.transparent),
+            shape: MaterialStateProperty.all(
+              const RoundedRectangleBorder(
+                side: BorderSide(color: pomodoroOrange),
+                borderRadius: BorderRadius.all(Radius.circular(30)),
               ),
             ),
-            onPressed: watch.isRunning ? stopTimer : startTimer,
-            child: Text(
-              watch.isRunning
-                  ? vt.intl.of(context)!.fmt('act.stop')
-                  : vt.intl.of(context)!.fmt('act.start'),
-              style: const TextStyle(color: pomodoroOrange),
-            ),
+          ),
+          onPressed: watch.isRunning ? stopTimer : startTimer,
+          child: Text(
+            watch.isRunning
+                ? vt.intl.of(context)!.fmt('act.stop')
+                : vt.intl.of(context)!.fmt('act.start'),
+            style: const TextStyle(color: pomodoroOrange),
           ),
         ),
       ),

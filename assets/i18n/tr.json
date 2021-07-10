@@ -13,6 +13,7 @@
     "act.create": "Oluştur",
     "act.yes": "Evet",
     "act.no": "Hayır",
+    "act.delete": "Sil",
     "act.addTask": "Görev ekle",
     "act.clearWeek": "Haftayı Temizle",
     "clear.week.title": "Bütün haftanı temizlemek istediğinden emin misin?",

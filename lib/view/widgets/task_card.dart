@@ -29,7 +29,7 @@ class TaskCard extends VTStatelessWidget {
       ),
       actions: [
         IconSlideAction(
-          caption: vt.intl.of(context)!.fmt('prefs.live_work'),
+          caption: vt.intl.of(context)!.fmt('act.start'),
           color: const Color(0xffFF6347),
           icon: CupertinoIcons.time_solid,
           onTap: () {
@@ -44,7 +44,7 @@ class TaskCard extends VTStatelessWidget {
       ],
       secondaryActions: <Widget>[
         IconSlideAction(
-          caption: 'Delete',
+          caption: vt.intl.of(context)!.fmt('act.delete'),
           color: Colors.red,
           icon: Icons.delete,
           onTap: () => onDismissed(),
