@@ -22,13 +22,12 @@
 
     "prefs.settings": "Settings",
     "prefs.appearance": "Appearance",
-    "prefs.live_work": "Start a task",
     "prefs.appearance.light": "Light Theme",
     "prefs.appearance.dark": "Dark Theme",
     "prefs.lang": "Language",
 
     "live_work.selected_task": "Selected Task",
-    "live_work.removeTaskAfterCompleting": "Удалить задачу после завершения",
+    "live_work.removeTaskAfterCompleting": "Remove task after completing",
 
     "error.not_found_duration": "Please add duration for your task",
     "error.selected_duration_more_than_remaining": "You selected duration which exceeds the remaining time of your selected day",

@@ -22,13 +22,12 @@
 
     "prefs.settings": "Настройки",
     "prefs.appearance": "Тема",
-    "prefs.live_work": "Начать задачу",
     "prefs.appearance.light": "Светлая тема",
     "prefs.appearance.dark": "Темная тема",
     "prefs.lang": "Язык",
 
     "live_work.selected_task": "Выбранная задача",
-    "live_work.removeTaskAfterCompleting": "წაშალე დავალება დამთავრების შემდეგ",
+    "live_work.removeTaskAfterCompleting": "Удалить задачу после завершения",
 
     "error.not_found_duration": "Пожалуйста, укажите продолжительность вашей задачи",
     "error.selected_duration_more_than_remaining": "Вы выбрали продолжительность, которая превышает оставшееся время выбранного вами дня",

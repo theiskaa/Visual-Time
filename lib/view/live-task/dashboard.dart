@@ -25,13 +25,13 @@ class LiveTaskDashboard extends VTStatefulWidget {
 
 class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
   static const oneSecond = Duration(seconds: 1);
-
   Timer? timer;
   Duration? duration;
   String time = '';
   var watch = Stopwatch();
-  final player = AudioCache(prefix: 'assets/alarms/');
+
   bool removeTaskAfterCompletation = false;
+  AudioCache player = AudioCache(prefix: 'assets/alarms/');
 
   @override
   void initState() {
@@ -46,7 +46,7 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
 
   @override
   void dispose() {
-    timer!.cancel();
+    if (timer != null) timer!.cancel();
     super.dispose();
   }
 
@@ -184,6 +184,8 @@ class _SelectedTask extends VTStatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var padding = task.title!.length.toDouble() / 7;
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -198,7 +200,7 @@ class _SelectedTask extends VTStatelessWidget {
           const SizedBox(height: 10),
           Container(
             width: MediaQuery.of(context).size.width - 20,
-            padding: const EdgeInsets.all(2),
+            padding: EdgeInsets.all(padding),
             decoration: BoxDecoration(
               color: BlocProvider.of<PreferenceCubit>(context)
                   .state
