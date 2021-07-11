@@ -161,27 +161,6 @@ class _DashboardState extends VTState<Dashboard> {
             ],
           ),
         ),
-
-        PopupMenuItem( // TODO: Remove useless live work shortcut
-          value: 3,
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: const Color(0xffFF6347),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Row(
-              children: [
-                const Icon(CupertinoIcons.time_solid, color: Colors.white),
-                const SizedBox(width: 10),
-                Text(
-                  vt.intl.of(context)!.fmt('prefs.live_work'),
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
-          ),
-        ),
       ],
     );
   }
@@ -203,13 +182,6 @@ class _DashboardState extends VTState<Dashboard> {
           MaterialPageRoute(
             builder: (context) => CreateTaskPage(todaysBox: todaysBox!),
           ),
-        );
-      },
-      // Remove useless navigation.
-      3: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => LiveTaskDashboard()),
         );
       },
     };
