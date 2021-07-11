@@ -161,7 +161,8 @@ class _DashboardState extends VTState<Dashboard> {
             ],
           ),
         ),
-        PopupMenuItem(
+
+        PopupMenuItem( // TODO: Remove useless live work shortcut
           value: 3,
           child: Container(
             padding: const EdgeInsets.all(10),
@@ -204,6 +205,7 @@ class _DashboardState extends VTState<Dashboard> {
           ),
         );
       },
+      // Remove useless navigation.
       3: () {
         Navigator.push(
           context,

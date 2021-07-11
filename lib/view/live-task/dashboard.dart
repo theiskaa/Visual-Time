@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vtime/core/cubits/preference_cubit.dart';
@@ -9,13 +11,13 @@ import 'package:vtime/view/dashboard.dart';
 import 'package:vtime/view/widgets/appbars.dart';
 import 'package:vtime/view/widgets/live-task/clock_count.dart';
 import 'package:vtime/view/widgets/utils.dart';
-import 'package:just_audio/just_audio.dart';
 
 const pomodoroOrange = Color(0xffFF6347);
 
 class LiveTaskDashboard extends VTStatefulWidget {
   final Task? task;
-  LiveTaskDashboard({Key? key, this.task}) : super(key: key);
+  final Function? removeTask;
+  LiveTaskDashboard({Key? key, this.task, this.removeTask}) : super(key: key);
 
   @override
   LiveTaskDashboardState createState() => LiveTaskDashboardState();
@@ -28,7 +30,8 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
   Duration? duration;
   String time = '';
   var watch = Stopwatch();
-  late AudioPlayer player;
+  final player = AudioCache(prefix: 'assets/alarms/');
+  bool removeTaskAfterCompletation = false;
 
   @override
   void initState() {
@@ -39,12 +42,10 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
       minutes: widget.task!.minutes!,
     );
     time = duration!.toHMS;
-    player = AudioPlayer();
   }
 
   @override
   void dispose() {
-    player.dispose();
     timer!.cancel();
     super.dispose();
   }
@@ -75,8 +76,16 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
   void onTaskEnd() async {
     stopTimer();
     setState(() => time = 'dn');
-    await player.setAsset('assets/alarms/alarm.mp3');
-    player.play();
+    player.play('0.mp3');
+    await Future.delayed(const Duration(seconds: 2));
+    if (removeTaskAfterCompletation) {
+      await widget.removeTask!();
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => Dashboard()),
+        (route) => false,
+      );
+    }
   }
 
   @override
@@ -103,12 +112,37 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
               ClockCount(time: time, disabled: !watch.isRunning),
               const SizedBox(height: 40),
               ViewUtils.divider,
+              const SizedBox(height: 20),
+              removeAfterSelectorWidget(),
               const SizedBox(height: 40),
               _SelectedTask(task: widget.task ?? Task()),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Row removeAfterSelectorWidget() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            vt.intl.of(context)!.fmt('live_work.removeTaskAfterCompleting'),
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        const SizedBox(width: 10),
+        CupertinoSwitch(
+          activeColor: pomodoroOrange,
+          value: removeTaskAfterCompletation,
+          onChanged: (val) {
+            setState(() => removeTaskAfterCompletation = val);
+          },
+        ),
+      ],
     );
   }
 

@@ -1,32 +1,26 @@
 PODS:
-  - audio_session (0.0.1):
+  - audioplayers (0.0.1):
     - FlutterMacOS
   - FlutterMacOS (1.0.0)
-  - just_audio (0.0.1):
-    - FlutterMacOS
   - path_provider_macos (0.0.1):
     - FlutterMacOS
 
 DEPENDENCIES:
-  - audio_session (from `Flutter/ephemeral/.symlinks/plugins/audio_session/macos`)
+  - audioplayers (from `Flutter/ephemeral/.symlinks/plugins/audioplayers/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
-  - just_audio (from `Flutter/ephemeral/.symlinks/plugins/just_audio/macos`)
   - path_provider_macos (from `Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos`)
 
 EXTERNAL SOURCES:
-  audio_session:
-    :path: Flutter/ephemeral/.symlinks/plugins/audio_session/macos
+  audioplayers:
+    :path: Flutter/ephemeral/.symlinks/plugins/audioplayers/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
-  just_audio:
-    :path: Flutter/ephemeral/.symlinks/plugins/just_audio/macos
   path_provider_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos
 
 SPEC CHECKSUMS:
-  audio_session: dea1f41890dbf1718f04a56f1d6150fd50039b72
+  audioplayers: 8b48e22684b6e0d9df143b2d1bbd61dca9dab6b4
   FlutterMacOS: 57701585bf7de1b3fc2bb61f6378d73bbdea8424
-  just_audio: 1a11463e7e522bd4e8caa925b4247f1360cbe5a2
   path_provider_macos: a0a3fd666cb7cd0448e936fb4abad4052961002b
 
 PODFILE CHECKSUM: 6eac6b3292e5142cfc23bdeb71848a40ec51c14c

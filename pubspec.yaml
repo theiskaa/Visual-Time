@@ -17,7 +17,7 @@ dependencies:
   syncfusion_flutter_charts: ^19.1.69+1
   flutter_slidable: ^0.6.0
   cupertino_icons: ^1.0.2
-  just_audio: ^0.8.0
+  audioplayers: ^0.19.1
 
 dev_dependencies:
   flutter_test:
@@ -38,4 +38,4 @@ flutter:
     - assets/i18n/tr.json
     - assets/i18n/ru.json
     - assets/i18n/ka.json
-    - assets/alarms/alarm.mp3
+    - assets/alarms/0.mp3

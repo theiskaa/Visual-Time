@@ -48,6 +48,7 @@ class _DayViewState extends State<DayView> {
                         (task) => TaskCard(
                           task: task,
                           onDismissed: () => box.delete(task.key),
+                          dayBox: widget.dayBox,
                         ),
                       )
                       .toList(),

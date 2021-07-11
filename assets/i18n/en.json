@@ -28,6 +28,7 @@
     "prefs.lang": "Language",
 
     "live_work.selected_task": "Selected Task",
+    "live_work.removeTaskAfterCompleting": "Удалить задачу после завершения",
 
     "error.not_found_duration": "Please add duration for your task",
     "error.selected_duration_more_than_remaining": "You selected duration which exceeds the remaining time of your selected day",

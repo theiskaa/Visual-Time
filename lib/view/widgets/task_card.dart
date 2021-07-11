@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/utils/widgets.dart';
 import 'package:vtime/view/live-task/dashboard.dart';
@@ -9,11 +11,13 @@ import 'package:vtime/view/widgets/utils.dart';
 class TaskCard extends VTStatelessWidget {
   final Task task;
   final Function onDismissed;
+  final ValueListenable<Box<Task>>? dayBox;
 
   TaskCard({
     Key? key,
     required this.task,
     required this.onDismissed,
+    required this.dayBox,
   }) : super(key: key);
 
   @override
@@ -36,7 +40,10 @@ class TaskCard extends VTStatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => LiveTaskDashboard(task: task),
+                builder: (context) => LiveTaskDashboard(
+                  task: task,
+                  removeTask: onDismissed,
+                ),
               ),
             );
           },

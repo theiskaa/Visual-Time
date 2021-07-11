@@ -28,6 +28,7 @@
     "prefs.lang": "Язык",
 
     "live_work.selected_task": "Выбранная задача",
+    "live_work.removeTaskAfterCompleting": "წაშალე დავალება დამთავრების შემდეგ",
 
     "error.not_found_duration": "Пожалуйста, укажите продолжительность вашей задачи",
     "error.selected_duration_more_than_remaining": "Вы выбрали продолжительность, которая превышает оставшееся время выбранного вами дня",
