@@ -3,8 +3,8 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
   exclude: [build/**]
   strong-mode:
-    implicit-casts: true # false
-    implicit-dynamic: true # false
+    implicit-casts: true
+    implicit-dynamic: true
 linter:
   rules:
     camel_case_types: true
@@ -13,4 +13,4 @@ linter:
     comment_references: true
     control_flow_in_finally: true
     prefer_single_quotes: true
-    prefer_initializing_formals: false # might come in handy to re-enable in the future
+    prefer_initializing_formals: false

@@ -17,10 +17,7 @@ class VT {
   set intl(Intl intl) => instances['intl'] = intl;
   Intl get intl => instances['intl'];
 
-
   set localDbService(LocalDBService localDbService) =>
       instances['localDbService'] = localDbService;
-
   LocalDBService get localDbService => instances['localDbService'];
-
 }
