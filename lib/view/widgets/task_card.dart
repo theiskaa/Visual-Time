@@ -11,7 +11,7 @@ import 'package:vtime/view/widgets/utils.dart';
 class TaskCard extends VTStatelessWidget {
   final Task task;
   final Function onDismissed;
-  final ValueListenable<Box<Task>>? dayBox;
+  final Box<Task> dayBox;
 
   TaskCard({
     Key? key,
@@ -40,10 +40,8 @@ class TaskCard extends VTStatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => LiveTaskDashboard(
-                  task: task,
-                  removeTask: onDismissed,
-                ),
+                builder: (context) =>
+                    LiveTaskDashboard(task: task, dayBox: dayBox),
               ),
             );
           },

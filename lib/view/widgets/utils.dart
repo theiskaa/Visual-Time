@@ -5,34 +5,40 @@ import 'package:vtime/core/vt.dart';
 import 'themes.dart';
 
 class ViewUtils {
-
-
   // A shortcut style method to show full functional alert dialog.
   alert(
     BuildContext context,
     VT vt, {
     required String title,
     required Function onAct,
+    List<TextButton>? buttons,
   }) async {
+    var actions = [
+      TextButton(
+        onPressed: () => Navigator.pop(context),
+        child: Text(vt.intl.of(context)!.fmt('act.no')),
+      ),
+      TextButton(
+        style: simpleButtonStyle(Colors.red.shade700),
+        onPressed: () => onAct(),
+        child: Text(
+          vt.intl.of(context)!.fmt('act.yes'),
+          style: TextStyle(color: Colors.red.shade700),
+        ),
+      ),
+    ];
+    if (buttons != null && buttons.isNotEmpty) {
+      for (var i = 0; i < buttons.length; i++) {
+        actions.add(buttons[i]);
+      }
+    }
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: Text(title),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(vt.intl.of(context)!.fmt('act.no')),
-          ),
-          TextButton(
-            style: simpleButtonStyle(Colors.red),
-            onPressed: () => onAct(),
-            child: Text(
-              vt.intl.of(context)!.fmt('act.yes'),
-              style: const TextStyle(color: Colors.red),
-            ),
-          ),
-        ],
+        actions: actions,
       ),
     );
   }

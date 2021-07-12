@@ -2,22 +2,25 @@ import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vtime/core/cubits/preference_cubit.dart';
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/utils/widgets.dart';
 import 'package:vtime/view/dashboard.dart';
 import 'package:vtime/view/widgets/appbars.dart';
 import 'package:vtime/view/widgets/live-task/clock_count.dart';
+import 'package:vtime/view/widgets/themes.dart';
 import 'package:vtime/view/widgets/utils.dart';
 
 const pomodoroOrange = Color(0xffFF6347);
 
 class LiveTaskDashboard extends VTStatefulWidget {
   final Task? task;
-  final Function? removeTask;
-  LiveTaskDashboard({Key? key, this.task, this.removeTask}) : super(key: key);
+  final Box<Task>? dayBox;
+  LiveTaskDashboard({Key? key, this.task, this.dayBox}) : super(key: key);
 
   @override
   LiveTaskDashboardState createState() => LiveTaskDashboardState();
@@ -80,7 +83,7 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
     player.play('0.mp3');
     await Future.delayed(const Duration(seconds: 2));
     if (removeTaskAfterCompletation) {
-      await widget.removeTask!();
+      widget.dayBox!.delete(widget.task!.key);
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => Dashboard()),
@@ -169,13 +172,23 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
     );
   }
 
-  navigateBack() {
+  void navigateBack() {
     if (watch.isRunning) {
       viewUtils.alert(
         context,
         vt,
         title: vt.intl.of(context)!.fmt('live_work.runtimeLogoutRequestError'),
         onAct: navigateToDashboard,
+        buttons: [
+          TextButton(
+            style: simpleButtonStyle(pomodoroOrange),
+            onPressed: leaveItHalf,
+            child: Text(
+              vt.intl.of(context)!.fmt('live_work.leaveItHalf'),
+              style: const TextStyle(color: pomodoroOrange),
+            ),
+          ),
+        ],
       );
       return;
     }
@@ -184,12 +197,27 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
     navigateToDashboard();
   }
 
-  navigateToDashboard() {
+  void navigateToDashboard() {
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => Dashboard()),
       (route) => false,
     );
+  }
+
+  // Changes selected task's duration by current duration.
+  // And saves modified task to database.
+  void leaveItHalf() {
+    Task currentTask = widget.task!.copyWith(
+      hours: duration!.inHours,
+      minutes: duration!.inMinutes,
+    );
+    if (duration!.inMinutes < 2) {
+      widget.dayBox!.delete(widget.task!.key);
+    } else {
+      widget.dayBox!.put(widget.task!.key, currentTask);
+    }
+    navigateToDashboard();
   }
 }
 

@@ -29,6 +29,7 @@
     "live_work.selected_task": "Выбранная задача",
     "live_work.removeTaskAfterCompleting": "Удалить задачу после завершения",
     "live_work.runtimeLogoutRequestError": "Процесс еще продолжается... Вы уверены, что хотите бросить курить?",
+    "live_work.leaveItHalf": "Приостановить",
 
     "error.not_found_duration": "Пожалуйста, укажите продолжительность вашей задачи",
     "error.selected_duration_more_than_remaining": "Вы выбрали продолжительность, которая превышает оставшееся время выбранного вами дня",
