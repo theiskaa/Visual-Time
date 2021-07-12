@@ -13,15 +13,23 @@
     "act.create": "Создавать",
     "act.yes": "Да",
     "act.no": "Нет",
+    "act.delete": "Удалить",
     "act.addTask": "Добавить задачу",
     "act.clearWeek": "Ясная неделя",
     "clear.week.title": "Вы уверены, что хотите очистить всю неделю?",
+    "act.start": "Начало",
+    "act.stop": "Стоп",
 
     "prefs.settings": "Настройки",
     "prefs.appearance": "Тема",
     "prefs.appearance.light": "Светлая тема",
     "prefs.appearance.dark": "Темная тема",
     "prefs.lang": "Язык",
+
+    "live_work.selected_task": "Выбранная задача",
+    "live_work.removeTaskAfterCompleting": "Удалить задачу после завершения",
+    "live_work.runtimeLogoutRequestError": "Процесс еще продолжается... Вы уверены, что хотите бросить курить?",
+    "live_work.leaveItHalf": "Приостановить",
 
     "error.not_found_duration": "Пожалуйста, укажите продолжительность вашей задачи",
     "error.selected_duration_more_than_remaining": "Вы выбрали продолжительность, которая превышает оставшееся время выбранного вами дня",

@@ -10,25 +10,26 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_lints: ^1.0.2
   hive: ^2.0.4
   hive_flutter: ^1.1.0
   flutter_bloc: ^7.0.1
   logger:
   syncfusion_flutter_charts: ^19.1.69+1
-  intl: ^0.17.0
-
+  flutter_slidable: ^0.6.0
   cupertino_icons: ^1.0.2
+  audioplayers: ^0.19.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  
+
+  intl: ^0.17.0
+  flutter_lints: ^1.0.2
   build_runner: ^2.0.4
   hive_generator: ^1.1.0
-  mockito: 
+  mockito:
 
 flutter:
   uses-material-design: true
@@ -37,3 +38,4 @@ flutter:
     - assets/i18n/tr.json
     - assets/i18n/ru.json
     - assets/i18n/ka.json
+    - assets/alarms/0.mp3

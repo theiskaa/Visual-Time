@@ -6,27 +6,27 @@ import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/services/local_db_service.dart';
 import 'package:vtime/core/utils/utils.dart';
 import 'package:vtime/core/utils/widgets.dart';
-import 'package:vtime/view/create.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:vtime/view/day_view.dart';
-import 'package:vtime/view/widgets/mini_day_card.dart';
 
+import 'day_view.dart';
+import 'create.dart';
 import 'settings.dart';
+import 'widgets/mini_day_card.dart';
 import 'widgets/appbars.dart';
 import 'widgets/day_chart.dart';
-import 'widgets/themes.dart';
 import 'widgets/utils.dart';
 
-class Home extends VTStatefulWidget {
-  Home({Key? key}) : super(key: key);
+class Dashboard extends VTStatefulWidget {
+  Dashboard({Key? key}) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState();
+  _DashboardState createState() => _DashboardState();
 }
 
-class _HomeState extends VTState<Home> {
+class _DashboardState extends VTState<Dashboard> {
   final titleTextController = TextEditingController();
   final localDbService = LocalDBService();
+  final viewUtils = ViewUtils();
 
   late Day today = weekDays(vt, context)[0];
   ValueListenable<Box<Task>>? todaysBox;
@@ -172,9 +172,14 @@ class _HomeState extends VTState<Home> {
         );
       },
       1: () {
-        showDialog(
-          context: context,
-          builder: (context) => clearWeekDialog(),
+        viewUtils.alert(
+          context,
+          vt,
+          title: vt.intl.of(context)!.fmt('clear.week.title'),
+          onAct: () {
+            localDbService.clearWeek();
+            Navigator.pop(context);
+          },
         );
       },
       2: () {
@@ -188,30 +193,6 @@ class _HomeState extends VTState<Home> {
     };
 
     return methods[seleted]!.call();
-  }
-
-  AlertDialog clearWeekDialog() {
-    return AlertDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      title: Text(vt.intl.of(context)!.fmt('clear.week.title')),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: Text(vt.intl.of(context)!.fmt('act.no')),
-        ),
-        TextButton(
-          style: simpleButtonStyle(Colors.red),
-          onPressed: () {
-            localDbService.clearWeek();
-            Navigator.pop(context);
-          },
-          child: Text(
-            vt.intl.of(context)!.fmt('act.yes'),
-            style: const TextStyle(color: Colors.red),
-          ),
-        ),
-      ],
-    );
   }
 }
 

@@ -1,50 +1,60 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/utils/widgets.dart';
+import 'package:vtime/view/live-task/dashboard.dart';
 import 'package:vtime/view/widgets/utils.dart';
 
 class TaskCard extends VTStatelessWidget {
   final Task task;
   final Function onDismissed;
+  final Box<Task> dayBox;
 
   TaskCard({
     Key? key,
     required this.task,
     required this.onDismissed,
+    required this.dayBox,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
-      key: UniqueKey(),
-      background: Container(
-        padding: const EdgeInsets.only(right: 15),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.red,
-        ),
-        child: const Align(
-          child: Icon(Icons.delete, color: Colors.white),
-          alignment: Alignment.centerRight,
-        ),
-      ),
-      onDismissed: (_) => onDismissed(),
+    return Slidable(
+      actionPane: const SlidableDrawerActionPane(),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: ListTile(
           title: Text(task.title!),
-          subtitle: Text(generateSubtitle(context)),
+          subtitle: Text(ViewUtils().generateSubtitle(context, task, vt)),
         ),
       ),
+      actions: [
+        IconSlideAction(
+          caption: vt.intl.of(context)!.fmt('act.start'),
+          color: const Color(0xffFF6347),
+          icon: CupertinoIcons.time_solid,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    LiveTaskDashboard(task: task, dayBox: dayBox),
+              ),
+            );
+          },
+        ),
+      ],
+      secondaryActions: <Widget>[
+        IconSlideAction(
+          caption: vt.intl.of(context)!.fmt('act.delete'),
+          color: Colors.red,
+          icon: Icons.delete,
+          onTap: () => onDismissed(),
+        ),
+      ],
     );
-  }
-
-  String generateSubtitle(BuildContext context) {
-    var time = Duration(hours: task.hours!, minutes: task.minutes!)
-        .toHumanLang(vt, context);
-    if (task.description!.isNotEmpty) {
-      return '${task.description!}  |  $time';
-    }
-    return time;
   }
 }

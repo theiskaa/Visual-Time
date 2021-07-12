@@ -2,7 +2,56 @@ import 'package:flutter/material.dart';
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/vt.dart';
 
+import 'themes.dart';
+
 class ViewUtils {
+  // A shortcut style method to show full functional alert dialog.
+  alert(
+    BuildContext context,
+    VT vt, {
+    required String title,
+    required Function onAct,
+    List<TextButton>? buttons,
+  }) async {
+    var actions = [
+      TextButton(
+        onPressed: () => Navigator.pop(context),
+        child: Text(vt.intl.of(context)!.fmt('act.no')),
+      ),
+      TextButton(
+        style: simpleButtonStyle(Colors.red.shade700),
+        onPressed: () => onAct(),
+        child: Text(
+          vt.intl.of(context)!.fmt('act.yes'),
+          style: TextStyle(color: Colors.red.shade700),
+        ),
+      ),
+    ];
+    if (buttons != null && buttons.isNotEmpty) {
+      for (var i = 0; i < buttons.length; i++) {
+        actions.add(buttons[i]);
+      }
+    }
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: Text(title),
+        actions: actions,
+      ),
+    );
+  }
+
+  String generateSubtitle(BuildContext context, Task task, VT vt) {
+    var time = Duration(hours: task.hours!, minutes: task.minutes!)
+        .toHumanLang(vt, context);
+    if (task.description!.isNotEmpty) {
+      return '${task.description!}  |  $time';
+    }
+    return time;
+  }
+
   // Generates right name by index.
   String rightDayNameGenerator(int index, VT vt, context) {
     var values = {
@@ -79,4 +128,14 @@ extension DurationToHumanLangEXT on Duration {
   }
 
   int get minute => inMinutes.remainder(60);
+
+  String get toHMS {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    String twoDigitMinutes = twoDigits(inMinutes.remainder(60));
+    String twoDigitSeconds = twoDigits(inSeconds.remainder(60));
+    if (inHours > 0) {
+      return '${twoDigits(inHours)}:$twoDigitMinutes:$twoDigitSeconds';
+    }
+    return '$twoDigitMinutes:$twoDigitSeconds';
+  }
 }

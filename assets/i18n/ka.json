@@ -13,15 +13,23 @@
     "act.create": "Შექმნა",
     "act.yes": "დიახ",
     "act.no": "არა",
+    "act.delete": "წაშლა",
     "act.addTask": "დავალების დამატება",
     "act.clearWeek": "გაასუფთავე კვირა",
     "clear.week.title": "დარწმუნებული ხართ, რომ გსურთ თქვენი მთელი კვირის წაშლა?",
+    "act.start": "დაწყება",
+    "act.stop": "გაუქმება",
 
     "prefs.settings": "პარამეტრები",
     "prefs.appearance": "გარეგნობა",
     "prefs.appearance.light": "ღია",
     "prefs.appearance.dark": "მუქი",
     "prefs.lang": "Ენა",
+
+    "live_work.selected_task": "ამორჩეული დავალება",
+    "live_work.removeTaskAfterCompleting": "წაშალე დავალება დამთავრების შემდეგ",
+    "live_work.runtimeLogoutRequestError": "დავალების პროცესი ჯერ კიდევ მიმდინარეობს ... დარწმუნებული ხართ, რომ გსურთ დამთავრება?",
+    "live_work.leaveItHalf": "შეაჩერე",
 
     "error.not_found_duration": "გთხოვთ, დაამატოთ თქვენი დავალების ხანგრძლივობა",
     "error.selected_duration_more_than_remaining": "თქვენ შეარჩიეთ ხანგრძლივობა, რომელიც აჭარბებს არჩეული დღის დანარჩენ დროს",

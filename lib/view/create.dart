@@ -10,7 +10,7 @@ import 'package:vtime/core/services/local_db_service.dart';
 import 'package:vtime/core/utils/widgets.dart';
 import 'package:vtime/view/widgets/utils.dart';
 
-import 'home.dart';
+import 'dashboard.dart';
 import 'widgets/appbars.dart';
 
 class CreateTaskPage extends VTStatefulWidget {
@@ -111,7 +111,7 @@ class CreateTaskPageState extends VTState<CreateTaskPage> {
         ScaffoldMessenger.of(context).removeCurrentSnackBar();
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => Home()),
+          MaterialPageRoute(builder: (context) => Dashboard()),
           (route) => false,
         );
       },
@@ -272,7 +272,7 @@ class CreateTaskPageState extends VTState<CreateTaskPage> {
         ScaffoldMessenger.of(context).removeCurrentSnackBar();
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => Home()),
+          MaterialPageRoute(builder: (context) => Dashboard()),
         );
       }
     }

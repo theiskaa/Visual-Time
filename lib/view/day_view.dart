@@ -47,6 +47,7 @@ class _DayViewState extends State<DayView> {
                       .map(
                         (task) => TaskCard(
                           task: task,
+                          dayBox: box,
                           onDismissed: () => box.delete(task.key),
                         ),
                       )
