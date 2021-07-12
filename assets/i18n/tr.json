@@ -28,6 +28,7 @@
 
     "live_work.selected_task": "Seçilen Görev",
     "live_work.removeTaskAfterCompleting": "Tamamladıktan sonra görevi kaldır",
+    "live_work.runtimeLogoutRequestError": "Görev hala devam ediyor... Sonlandırmak istediğinizden emin misiniz?",
 
     "error.not_found_duration": "Lütfen göreviniz için süre ekleyin",
     "error.selected_duration_more_than_remaining": "Seçtiğiniz günün kalan süresini aşan bir süre seçtiniz",

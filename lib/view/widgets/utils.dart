@@ -2,7 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/vt.dart';
 
+import 'themes.dart';
+
 class ViewUtils {
+
+
+  // A shortcut style method to show full functional alert dialog.
+  alert(
+    BuildContext context,
+    VT vt, {
+    required String title,
+    required Function onAct,
+  }) async {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: Text(title),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(vt.intl.of(context)!.fmt('act.no')),
+          ),
+          TextButton(
+            style: simpleButtonStyle(Colors.red),
+            onPressed: () => onAct(),
+            child: Text(
+              vt.intl.of(context)!.fmt('act.yes'),
+              style: const TextStyle(color: Colors.red),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   String generateSubtitle(BuildContext context, Task task, VT vt) {
     var time = Duration(hours: task.hours!, minutes: task.minutes!)
         .toHumanLang(vt, context);

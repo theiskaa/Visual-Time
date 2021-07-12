@@ -24,11 +24,13 @@ class LiveTaskDashboard extends VTStatefulWidget {
 }
 
 class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
+  final viewUtils = ViewUtils();
+
   static const oneSecond = Duration(seconds: 1);
   Timer? timer;
   Duration? duration;
   String time = '';
-  var watch = Stopwatch();
+  Stopwatch watch = Stopwatch();
 
   bool removeTaskAfterCompletation = false;
   AudioCache player = AudioCache(prefix: 'assets/alarms/');
@@ -36,7 +38,6 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
   @override
   void initState() {
     super.initState();
-
     duration = Duration(
       hours: widget.task!.hours!,
       minutes: widget.task!.minutes!,
@@ -92,16 +93,7 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: startButton(),
-      appBar: TransparentAppBar(
-        onLeadingTap: () {
-          ScaffoldMessenger.of(context).removeCurrentSnackBar();
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => Dashboard()),
-            (route) => false,
-          );
-        },
-      ),
+      appBar: TransparentAppBar(onLeadingTap: navigateBack),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(10),
         child: Center(
@@ -174,6 +166,29 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
           ),
         ),
       ),
+    );
+  }
+
+  navigateBack() {
+    if (watch.isRunning) {
+      viewUtils.alert(
+        context,
+        vt,
+        title: vt.intl.of(context)!.fmt('live_work.runtimeLogoutRequestError'),
+        onAct: navigateToDashboard,
+      );
+      return;
+    }
+
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    navigateToDashboard();
+  }
+
+  navigateToDashboard() {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => Dashboard()),
+      (route) => false,
     );
   }
 }
