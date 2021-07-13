@@ -68,8 +68,6 @@ class _DayViewState extends State<DayView> {
                 const SizedBox(height: 15),
                 ReorderableListView(
                   shrinkWrap: true,
-                  buildDefaultDragHandles:
-                      Platform.isMacOS || kIsWeb ? true : false,
                   physics: const NeverScrollableScrollPhysics(),
                   onReorder: (oldI, newI) => onReorder(oldI, newI, box),
                   children: [
