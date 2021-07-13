@@ -23,6 +23,7 @@ class TaskCard extends VTStatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Slidable(
+      key: key,
       actionPane: const SlidableDrawerActionPane(),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
