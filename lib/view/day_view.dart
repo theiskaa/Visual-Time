@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -7,6 +9,7 @@ import 'package:vtime/view/widgets/day_chart.dart';
 import 'package:vtime/view/widgets/task_card.dart';
 
 import 'widgets/appbars.dart';
+import 'widgets/utils.dart';
 
 class DayView extends StatefulWidget {
   final Day day;
@@ -23,6 +26,27 @@ class DayView extends StatefulWidget {
 }
 
 class _DayViewState extends State<DayView> {
+  List<Task> tasks = [];
+
+  /// Removes element from [oldIndex], and inserts removed element to [newIndex].
+  /// After the local list reordering, it clears old database elements and fills it by new ones.
+  void onReorder(int oldIndex, int newIndex, Box<Task> box) {
+    if (oldIndex < newIndex) newIndex -= 1;
+
+    var item = tasks.removeAt(oldIndex);
+    tasks.insert(newIndex, item);
+
+    setState(() {});
+
+    for (var i = 0; i < tasks.length; i++) {
+      box.delete(tasks[i].key);
+
+      if (tasks[i].title != remainingTimeFillerTaskCode) {
+        box.add(tasks[i]);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +57,7 @@ class _DayViewState extends State<DayView> {
       body: ValueListenableBuilder<Box<Task>>(
         valueListenable: widget.dayBox!,
         builder: (context, box, _) {
-          final tasks = box.values.toList().cast<Task>();
+          tasks = box.values.toList().cast<Task>();
 
           return SingleChildScrollView(
             child: Column(
@@ -42,16 +66,19 @@ class _DayViewState extends State<DayView> {
                 const SizedBox(height: 15),
                 const Divider(),
                 const SizedBox(height: 15),
-                Column(
-                  children: tasks
-                      .map(
-                        (task) => TaskCard(
-                          task: task,
-                          dayBox: box,
-                          onDismissed: () => box.delete(task.key),
-                        ),
-                      )
-                      .toList(),
+                ReorderableListView(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  onReorder: (oldI, newI) => onReorder(oldI, newI, box),
+                  children: [
+                    for (var i = 0; i < tasks.length; i++)
+                      TaskCard(
+                        task: tasks[i],
+                        dayBox: box,
+                        onDismissed: () => box.delete(tasks[i].key),
+                        key: UniqueKey(),
+                      ),
+                  ],
                 ),
               ],
             ),

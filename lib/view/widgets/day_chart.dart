@@ -85,7 +85,7 @@ class _DayChartState extends VTState<DayChart> {
           int seriesIndex) {
         return Container(
           height: 20,
-          width: data.title == 'Remaining Time {#@!@#!@#8&**%@#%}' ? 150 : 100,
+          width: (data.title == remainingTimeFillerTaskCode) ? 150 : 100,
           decoration: BoxDecoration(
             color: Colors.black,
             borderRadius: BorderRadius.circular(10),

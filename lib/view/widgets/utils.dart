@@ -4,6 +4,8 @@ import 'package:vtime/core/vt.dart';
 
 import 'themes.dart';
 
+const remainingTimeFillerTaskCode = 'Remaining Time {#@!@#!@#8&**%@#%}';
+
 class ViewUtils {
   // A shortcut style method to show full functional alert dialog.
   alert(
