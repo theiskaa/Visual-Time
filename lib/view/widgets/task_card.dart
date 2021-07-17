@@ -52,7 +52,7 @@ class TaskCard extends VTStatelessWidget {
       secondaryActions: <Widget>[
         IconSlideAction(
           caption: vt.intl.of(context)!.fmt('act.edit'),
-          color: const Color(0xff00ff00),
+          color: const Color(0xFF07B307),
           icon: Icons.edit,
           onTap: () => Navigator.push(
             context,
