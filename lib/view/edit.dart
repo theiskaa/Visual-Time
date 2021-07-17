@@ -5,7 +5,6 @@ import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/services/local_db_service.dart';
 import 'package:vtime/core/utils/widgets.dart';
 
-import 'dashboard.dart';
 import 'widgets/appbars.dart';
 import 'widgets/buttons.dart';
 import 'widgets/utils.dart';
@@ -134,9 +133,7 @@ class _EditPageState extends VTState<EditPage> {
   }
 
   saveTask() async {
-    if (!formKey.currentState!.validate()) {
-      return;
-    }
+    if (!formKey.currentState!.validate()) return;
 
     if (durationOfTask == Duration.zero) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -154,6 +151,25 @@ class _EditPageState extends VTState<EditPage> {
       hours: durationOfTask.inHours,
       minutes: durationOfTask.minute,
     );
+
+    List<Task> tasksOfSelectedDay = widget.dayBox.values.toList();
+    tasksOfSelectedDay.removeWhere((el) => el.title == widget.task.title);
+    Duration remainingTime = ViewUtils.fullDay -
+        viewUtils.calculateTotalDuration(tasksOfSelectedDay);
+
+    if (editedTask.duration > remainingTime) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.red,
+          content: Text(
+            vt.intl
+                .of(context)!
+                .fmt('error.selected_duration_more_than_remaining'),
+          ),
+        ),
+      );
+      return;
+    }
 
     await widget.dayBox.put(widget.task.key, editedTask);
     ScaffoldMessenger.of(context).removeCurrentSnackBar();

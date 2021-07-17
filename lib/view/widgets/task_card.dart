@@ -40,34 +40,30 @@ class TaskCard extends VTStatelessWidget {
           caption: vt.intl.of(context)!.fmt('act.start'),
           color: const Color(0xffFF6347),
           icon: CupertinoIcons.time_solid,
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    LiveTaskDashboard(task: task, dayBox: dayBox),
-              ),
-            );
-          },
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  LiveTaskDashboard(task: task, dayBox: dayBox),
+            ),
+          ),
         ),
       ],
       secondaryActions: <Widget>[
         IconSlideAction(
           caption: vt.intl.of(context)!.fmt('act.edit'),
-          color: Colors.green,
+          color: const Color(0xff00ff00),
           icon: Icons.edit,
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => EditPage(task: task, dayBox: dayBox),
-              ),
-            );
-          },
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => EditPage(task: task, dayBox: dayBox),
+            ),
+          ),
         ),
         IconSlideAction(
           caption: vt.intl.of(context)!.fmt('act.delete'),
-          color: Colors.red,
+          color: const Color(0xffff0000),
           icon: Icons.delete,
           onTap: () => onDismissed(),
         ),
