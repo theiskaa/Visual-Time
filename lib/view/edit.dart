@@ -106,11 +106,7 @@ class _EditPageState extends VTState<EditPage> {
       ),
       onLeadingTap: () {
         ScaffoldMessenger.of(context).removeCurrentSnackBar();
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => Dashboard()),
-          (route) => false,
-        );
+        Navigator.pop(context);
       },
     );
   }
@@ -161,9 +157,6 @@ class _EditPageState extends VTState<EditPage> {
 
     await widget.dayBox.put(widget.task.key, editedTask);
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => Dashboard()),
-    );
+    Navigator.pop(context);
   }
 }
