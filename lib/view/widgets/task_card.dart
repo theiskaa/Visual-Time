@@ -3,10 +3,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/utils/widgets.dart';
+import 'package:vtime/view/edit.dart';
 import 'package:vtime/view/live-task/dashboard.dart';
-import 'package:vtime/view/widgets/utils.dart';
+
+import 'utils.dart';
 
 class TaskCard extends VTStatelessWidget {
   final Task task;
@@ -49,6 +52,19 @@ class TaskCard extends VTStatelessWidget {
         ),
       ],
       secondaryActions: <Widget>[
+        IconSlideAction(
+          caption: vt.intl.of(context)!.fmt('act.edit'),
+          color: Colors.green,
+          icon: Icons.edit,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EditPage(task: task, dayBox: dayBox),
+              ),
+            );
+          },
+        ),
         IconSlideAction(
           caption: vt.intl.of(context)!.fmt('act.delete'),
           color: Colors.red,

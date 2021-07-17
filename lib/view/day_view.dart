@@ -1,13 +1,11 @@
-import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:vtime/core/model/day.dart';
 import 'package:vtime/core/model/task.dart';
-import 'package:vtime/view/widgets/day_chart.dart';
-import 'package:vtime/view/widgets/task_card.dart';
 
+import 'widgets/day_chart.dart';
+import 'widgets/task_card.dart';
 import 'widgets/appbars.dart';
 import 'widgets/utils.dart';
 

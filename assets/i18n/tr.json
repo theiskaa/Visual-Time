@@ -11,6 +11,8 @@
     "sunday": "Pazar",
 
     "act.create": "Oluştur",
+    "act.edit": "Düzenle",
+    "act.save": " Kayıt et", 
     "act.yes": "Evet",
     "act.no": "Hayır",
     "act.delete": "Sil",

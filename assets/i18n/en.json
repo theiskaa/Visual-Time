@@ -11,6 +11,8 @@
     "sunday": "Sunday",
 
     "act.create": "Create",
+    "act.edit": "Edit",
+    "act.save": "Save",
     "act.yes": "Yes",
     "act.no": "No",
     "act.delete": "Delete",

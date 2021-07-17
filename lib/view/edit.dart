@@ -1,26 +1,30 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/services/local_db_service.dart';
 import 'package:vtime/core/utils/widgets.dart';
-import 'package:vtime/view/widgets/buttons.dart';
-import 'package:vtime/view/widgets/utils.dart';
 
 import 'dashboard.dart';
 import 'widgets/appbars.dart';
+import 'widgets/buttons.dart';
+import 'widgets/utils.dart';
 
-class CreateTaskPage extends VTStatefulWidget {
-  final ValueListenable<Box<Task>> todaysBox;
-  CreateTaskPage({Key? key, required this.todaysBox}) : super(key: key);
+class EditPage extends VTStatefulWidget {
+  final Task task;
+  final Box<Task> dayBox;
+
+  EditPage({
+    Key? key,
+    required this.task,
+    required this.dayBox,
+  }) : super(key: key);
 
   @override
-  CreateTaskPageState createState() => CreateTaskPageState();
+  _EditPageState createState() => _EditPageState();
 }
 
-class CreateTaskPageState extends VTState<CreateTaskPage> {
+class _EditPageState extends VTState<EditPage> {
   final localDbService = LocalDBService();
   final viewUtils = ViewUtils();
 
@@ -30,37 +34,28 @@ class CreateTaskPageState extends VTState<CreateTaskPage> {
 
   Duration durationOfTask = Duration.zero;
 
-  bool? monday = false,
-      tuesday = false,
-      wednesday = false,
-      thursday = false,
-      friday = false,
-      saturday = false,
-      sunday = false;
-
-  List<int>? managableDaysIndexes = [];
+  @override
+  void initState() {
+    durationOfTask = widget.task.duration;
+    titleTextController.text = widget.task.title!;
+    desTextController.text = widget.task.description!;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
       appBar: appBar(context),
       bottomNavigationBar: SaveButton(
-        title: vt.intl.of(context)!.fmt('act.create'),
-        onTap: createTask,
+        title: vt.intl.of(context)!.fmt('act.save'),
+        onTap: saveTask,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 15),
         child: Form(
           key: formKey,
           child: Column(
             children: [
-              const SizedBox(height: 150),
-              Wrap(children: [for (var i = 0; i < 4; i++) dayChecker(i)]),
-              Wrap(children: [for (var i = 4; i < 7; i++) dayChecker(i)]),
-              const SizedBox(height: 50),
-              ViewUtils.divider,
-              const SizedBox(height: 50),
               TextFormField(
                 controller: titleTextController,
                 maxLines: 2,
@@ -142,69 +137,7 @@ class CreateTaskPageState extends VTState<CreateTaskPage> {
     );
   }
 
-  Widget dayChecker(int i) {
-    return Padding(
-      padding: const EdgeInsets.all(5),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            ViewUtils().rightDayNameGenerator(i, vt, context),
-            style: const TextStyle(fontSize: 11),
-          ),
-          Checkbox(
-            key: Key('subCheckBox.$i'),
-            value: rightDayValueGenerator(i),
-            onChanged: (v) {
-              setState(() => valueControllerMethod(v, i));
-              addIndexToList(val: i);
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  // Returns right value by gave checkbox index.
-  bool rightDayValueGenerator(int index) {
-    var values = {
-      0: monday,
-      1: tuesday,
-      2: wednesday,
-      3: thursday,
-      4: friday,
-      5: saturday,
-      6: sunday,
-    };
-    return values[index]!;
-  }
-
-  // Returns right checkbox value changing by gave checkbox index.
-  void valueControllerMethod(bool? v, int i) {
-    var rightMethodSelector = {
-      0: () => monday = v,
-      1: () => tuesday = v,
-      2: () => wednesday = v,
-      3: () => thursday = v,
-      4: () => friday = v,
-      5: () => saturday = v,
-      6: () => sunday = v,
-    };
-
-    rightMethodSelector[i]!.call();
-  }
-
-  void addIndexToList({dynamic val}) {
-    if (managableDaysIndexes!.contains(val)) {
-      managableDaysIndexes!.remove(val);
-      return;
-    }
-
-    managableDaysIndexes!.add(val);
-  }
-
-  // Creates tasks for appertitate to selected days.
-  void createTask() {
+  saveTask() async {
     if (!formKey.currentState!.validate()) {
       return;
     }
@@ -219,41 +152,18 @@ class CreateTaskPageState extends VTState<CreateTaskPage> {
       return;
     }
 
-    Task task = Task(
-      uniquekey: '',
+    Task editedTask = widget.task.copyWith(
       title: titleTextController.text,
       description: desTextController.text,
       hours: durationOfTask.inHours,
       minutes: durationOfTask.minute,
     );
 
-    for (var i in managableDaysIndexes!) {
-      List<Task> tasksList =
-          localDbService.rightBoxByCheckBoxId(i).values.toList();
-      Duration remainingTime =
-          ViewUtils.fullDay - viewUtils.calculateTotalDuration(tasksList);
-
-      if (task.duration > remainingTime) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.red,
-            content: Text(
-              vt.intl
-                  .of(context)!
-                  .fmt('error.selected_duration_more_than_remaining'),
-            ),
-          ),
-        );
-      } else {
-        localDbService.rightBoxByCheckBoxId(i).add(task.copyWith(
-              uniquekey: localDbService.rightTaskKeyCheckBoxId(i),
-            ));
-        ScaffoldMessenger.of(context).removeCurrentSnackBar();
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Dashboard()),
-        );
-      }
-    }
+    await widget.dayBox.put(widget.task.key, editedTask);
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => Dashboard()),
+    );
   }
 }
