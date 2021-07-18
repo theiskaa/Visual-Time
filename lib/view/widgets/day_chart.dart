@@ -80,6 +80,7 @@ class _DayChartState extends VTState<DayChart> {
 
   TooltipBehavior tooltipBehavior() {
     return TooltipBehavior(
+      color: Colors.black,
       enable: true,
       builder: (dynamic data, dynamic point, dynamic series, int pointIndex,
           int seriesIndex) {
@@ -93,7 +94,7 @@ class _DayChartState extends VTState<DayChart> {
           child: Center(
             child: Text(
               generateTooltipText(data),
-              style: const TextStyle(color: Colors.white, fontSize: 8),
+              style: const TextStyle(color: Colors.white, fontSize: 8.5),
             ),
           ),
         );

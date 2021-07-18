@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
-import 'package:vtime/core/cubits/preference_cubit.dart';
 
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/services/local_db_service.dart';
 import 'package:vtime/core/utils/widgets.dart';
+import 'package:vtime/view/widgets/buttons.dart';
 import 'package:vtime/view/widgets/utils.dart';
 
 import 'dashboard.dart';
@@ -46,7 +45,10 @@ class CreateTaskPageState extends VTState<CreateTaskPage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: appBar(context),
-      bottomNavigationBar: createButton(),
+      bottomNavigationBar: SaveButton(
+        title: vt.intl.of(context)!.fmt('act.create'),
+        onTap: createTask,
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(10),
         child: Form(
@@ -137,29 +139,6 @@ class CreateTaskPageState extends VTState<CreateTaskPage> {
           ),
         );
       },
-    );
-  }
-
-  Widget createButton() {
-    return Transform.translate(
-      offset: Offset(0, -1 * MediaQuery.of(context).viewInsets.bottom),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 30),
-        child: FractionallySizedBox(
-          widthFactor: .8,
-          child: ElevatedButton(
-            onPressed: () => createTask(),
-            child: Text(
-              vt.intl.of(context)!.fmt('act.create'),
-              style: BlocProvider.of<PreferenceCubit>(context)
-                  .state
-                  .theme!
-                  .textTheme
-                  .button,
-            ),
-          ),
-        ),
-      ),
     );
   }
 
