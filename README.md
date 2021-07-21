@@ -41,3 +41,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+## Contributing
+For information regarding contributions, please refer to [CONTRIBUTING.md](https://github.com/theiskaa/VTime/blob/main/CONTRIBUTING.md) file.
