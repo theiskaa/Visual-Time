@@ -26,49 +26,55 @@ class Dashboard extends VTStatefulWidget {
 class _DashboardState extends VTState<Dashboard> {
   final titleTextController = TextEditingController();
   final localDbService = LocalDBService();
-  final viewUtils = ViewUtils();
 
   late Day today = weekDays(vt, context)[0];
   ValueListenable<Box<Task>>? todaysBox;
 
   // Just contains cases appertitate to week days.
-  // And listens now(WeekDay) and makes right fun. calling.
+  // And listens now(WeekDay) and generates right function calling.
   void _refreshContent() {
     var cases = {
       DateTime.monday: () {
         today = weekDays(vt, context)[0];
-        todaysBox =
-            localDbService.rightListenableValue(weekDays(vt, context)[0]);
+        todaysBox = localDbService.rightListenableValue(
+          weekDays(vt, context)[0],
+        );
       },
       DateTime.tuesday: () {
         today = weekDays(vt, context)[1];
-        todaysBox =
-            localDbService.rightListenableValue(weekDays(vt, context)[1]);
+        todaysBox = localDbService.rightListenableValue(
+          weekDays(vt, context)[1],
+        );
       },
       DateTime.wednesday: () {
         today = weekDays(vt, context)[2];
-        todaysBox =
-            localDbService.rightListenableValue(weekDays(vt, context)[2]);
+        todaysBox = localDbService.rightListenableValue(
+          weekDays(vt, context)[2],
+        );
       },
       DateTime.thursday: () {
         today = weekDays(vt, context)[3];
-        todaysBox =
-            localDbService.rightListenableValue(weekDays(vt, context)[3]);
+        todaysBox = localDbService.rightListenableValue(
+          weekDays(vt, context)[3],
+        );
       },
       DateTime.friday: () {
         today = weekDays(vt, context)[4];
-        todaysBox =
-            localDbService.rightListenableValue(weekDays(vt, context)[4]);
+        todaysBox = localDbService.rightListenableValue(
+          weekDays(vt, context)[4],
+        );
       },
       DateTime.saturday: () {
         today = weekDays(vt, context)[5];
-        todaysBox =
-            localDbService.rightListenableValue(weekDays(vt, context)[5]);
+        todaysBox = localDbService.rightListenableValue(
+          weekDays(vt, context)[5],
+        );
       },
       DateTime.sunday: () {
         today = weekDays(vt, context)[6];
-        todaysBox =
-            localDbService.rightListenableValue(weekDays(vt, context)[6]);
+        todaysBox = localDbService.rightListenableValue(
+          weekDays(vt, context)[6],
+        );
       },
     };
 
@@ -83,7 +89,7 @@ class _DashboardState extends VTState<Dashboard> {
         disableLeading: true,
         action: Padding(
           padding: const EdgeInsets.only(right: 15),
-          child: popUpMenuButton(),
+          child: SettingsPopUpMenu(todaysBox: todaysBox!),
         ),
         titleWidget: GestureDetector(
           onTap: () => openNewDay(0, context, day: today, todaysBox: todaysBox),
@@ -114,12 +120,78 @@ class _DashboardState extends VTState<Dashboard> {
       ),
     );
   }
+}
 
-  PopupMenuButton<dynamic> popUpMenuButton() {
+// Method which navigates to DayView with given parameters.
+void openNewDay(
+  int i,
+  BuildContext context, {
+  List? weeks,
+  Day? day,
+  dynamic todaysBox,
+}) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => DayView(
+        day: weeks?[i] ?? day,
+        dayBox: (weeks != null)
+            ? LocalDBService().rightListenableValue(weeks[i])
+            : todaysBox,
+      ),
+    ),
+  );
+}
+
+// A widget which has mini day charts of all week.
+class WeekView extends VTStatelessWidget {
+  final List<Day>? weeks;
+  WeekView({Key? key, this.weeks}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        children: [
+          Wrap(
+            children: [
+              for (var i = 0; i < 4; i++)
+                MiniDayChart(
+                  title: ViewUtils().rightDayNameGenerator(i, vt, context),
+                  onTap: () => openNewDay(i, context, weeks: weeks),
+                  todaysBox: LocalDBService().rightListenableValue(weeks![i]),
+                ),
+            ],
+          ),
+          Wrap(
+            children: [
+              for (var i = 4; i < 7; i++)
+                MiniDayChart(
+                  todaysBox: LocalDBService().rightListenableValue(weeks![i]),
+                  title: ViewUtils().rightDayNameGenerator(i, vt, context),
+                  onTap: () => openNewDay(i, context, weeks: weeks),
+                ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SettingsPopUpMenu extends VTStatelessWidget {
+  final ValueListenable<Box<Task>> todaysBox;
+  SettingsPopUpMenu({Key? key, required this.todaysBox}) : super(key: key);
+
+  final localDbService = LocalDBService();
+  final viewUtils = ViewUtils();
+
+  @override
+  Widget build(BuildContext context) {
     return PopupMenuButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: const Icon(Icons.more_horiz),
-      onSelected: onPopUpItemSelected,
+      onSelected: (val) => onPopUpItemSelected(context, val),
       itemBuilder: (_) => [
         PopupMenuItem(
           value: 0,
@@ -163,90 +235,29 @@ class _DashboardState extends VTState<Dashboard> {
     );
   }
 
-  void onPopUpItemSelected(seleted) {
+  void onPopUpItemSelected(BuildContext context, dynamic seleted) {
     var methods = {
-      0: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Settings()),
-        );
-      },
-      1: () {
-        viewUtils.alert(
-          context,
-          vt,
-          title: vt.intl.of(context)!.fmt('clear.week.title'),
-          onAct: () {
-            localDbService.clearWeek();
-            Navigator.pop(context);
-          },
-        );
-      },
-      2: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => CreateTaskPage(todaysBox: todaysBox!),
+      0: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Settings()),
           ),
-        );
-      },
+      1: () => viewUtils.alert(
+            context,
+            vt,
+            title: vt.intl.of(context)!.fmt('clear.week.title'),
+            onAct: () {
+              localDbService.clearWeek();
+              Navigator.pop(context);
+            },
+          ),
+      2: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CreateTaskPage(todaysBox: todaysBox),
+            ),
+          ),
     };
 
-    return methods[seleted]!.call();
+    methods[seleted]!.call();
   }
-}
-
-class WeekView extends VTStatelessWidget {
-  final List<Day>? weeks;
-  WeekView({Key? key, this.weeks}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          Wrap(
-            children: [
-              for (var i = 0; i < 4; i++)
-                MiniDayChart(
-                  title: ViewUtils().rightDayNameGenerator(i, vt, context),
-                  onTap: () => openNewDay(i, context, weeks: weeks),
-                  todaysBox: LocalDBService().rightListenableValue(weeks![i]),
-                ),
-            ],
-          ),
-          Wrap(
-            children: [
-              for (var i = 4; i < 7; i++)
-                MiniDayChart(
-                  todaysBox: LocalDBService().rightListenableValue(weeks![i]),
-                  title: ViewUtils().rightDayNameGenerator(i, vt, context),
-                  onTap: () => openNewDay(i, context, weeks: weeks),
-                ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-void openNewDay(
-  int i,
-  BuildContext context, {
-  List? weeks,
-  Day? day,
-  dynamic todaysBox,
-}) {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => DayView(
-        day: weeks?[i] ?? day,
-        dayBox: (weeks != null)
-            ? LocalDBService().rightListenableValue(weeks[i])
-            : todaysBox,
-      ),
-    ),
-  );
 }

@@ -21,6 +21,8 @@
     "clear.week.title": "Вы уверены, что хотите очистить всю неделю?",
     "act.start": "Начало",
     "act.stop": "Стоп",
+    "act.clearDay": "Очистить все",
+    "clear.day.title": "Вы уверены, что хотите очистить задачи текущего дня?",
 
     "prefs.settings": "Настройки",
     "prefs.appearance": "Тема",

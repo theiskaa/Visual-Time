@@ -5,12 +5,40 @@ import '../vt.dart';
 // Standart week days list by [Day] class.
 List<Day> weekDays(VT vt, context) {
   return <Day>[
-    Day(title: vt.intl.of(context)?.fmt('monday') ?? 'M', name: 'Monday'),
-    Day(title: vt.intl.of(context)?.fmt('tuesday') ?? 'T', name: 'Tuesday'),
-    Day(title: vt.intl.of(context)?.fmt('wednesday') ?? 'W', name: 'Wednesday'),
-    Day(title: vt.intl.of(context)?.fmt('thursday') ?? 'T', name: 'Thursday'),
-    Day(title: vt.intl.of(context)?.fmt('friday') ?? 'F', name: 'Friday'),
-    Day(title: vt.intl.of(context)?.fmt('saturday') ?? 'S', name: 'Saturday'),
-    Day(title: vt.intl.of(context)?.fmt('sunday') ?? 'S', name: 'Sunday'),
+    Day(
+      title: vt.intl.of(context)?.fmt('monday') ?? 'M',
+      name: 'Monday',
+      dayIndex: 0,
+    ),
+    Day(
+      title: vt.intl.of(context)?.fmt('tuesday') ?? 'T',
+      name: 'Tuesday',
+      dayIndex: 1,
+    ),
+    Day(
+      title: vt.intl.of(context)?.fmt('wednesday') ?? 'W',
+      name: 'Wednesday',
+      dayIndex: 2,
+    ),
+    Day(
+      title: vt.intl.of(context)?.fmt('thursday') ?? 'T',
+      name: 'Thursday',
+      dayIndex: 3,
+    ),
+    Day(
+      title: vt.intl.of(context)?.fmt('friday') ?? 'F',
+      name: 'Friday',
+      dayIndex: 4,
+    ),
+    Day(
+      title: vt.intl.of(context)?.fmt('saturday') ?? 'S',
+      name: 'Saturday',
+      dayIndex: 5,
+    ),
+    Day(
+      title: vt.intl.of(context)?.fmt('sunday') ?? 'S',
+      name: 'Sunday',
+      dayIndex: 6,
+    ),
   ];
 }

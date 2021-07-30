@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:vtime/core/model/day.dart';
 
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/services/local_db_service.dart';
@@ -14,7 +15,13 @@ import 'widgets/appbars.dart';
 
 class CreateTaskPage extends VTStatefulWidget {
   final ValueListenable<Box<Task>> todaysBox;
-  CreateTaskPage({Key? key, required this.todaysBox}) : super(key: key);
+  final Day? selectedDay;
+
+  CreateTaskPage({
+    Key? key,
+    required this.todaysBox,
+    this.selectedDay,
+  }) : super(key: key);
 
   @override
   CreateTaskPageState createState() => CreateTaskPageState();
@@ -39,6 +46,32 @@ class CreateTaskPageState extends VTState<CreateTaskPage> {
       sunday = false;
 
   List<int>? managableDaysIndexes = [];
+
+  @override
+  void initState() {
+    if (widget.selectedDay != null) {
+      setSelectedDay(widget.selectedDay!.dayIndex!);
+    }
+    super.initState();
+  }
+
+  // Sets selected day's value to true.
+  // So it becomes already selected when user navigates here from any concrete day.
+  void setSelectedDay(int i) {
+    var values = {
+      0: () => monday = true,
+      1: () => tuesday = true,
+      2: () => wednesday = true,
+      3: () => thursday = true,
+      4: () => friday = true,
+      5: () => saturday = true,
+      6: () => sunday = true,
+    };
+
+    addIndexToList(val: i);
+
+    values[i]!.call();
+  }
 
   @override
   Widget build(BuildContext context) {
