@@ -7,10 +7,11 @@ void main() {
   Map<String, dynamic> jsonModel = {
     'name': 'Saturday',
     'title': 'Saturday',
+    'dayIndex': 5
   };
 
   setUpAll(() {
-    day = const Day(name: 'Saturday', title: 'Saturday');
+    day = const Day(name: 'Saturday', title: 'Saturday', dayIndex: 5);
   });
 
   group('[Day]', () {
@@ -20,6 +21,7 @@ void main() {
       // Need to match properties rather than instances.
       expect(dayFromJson.name, day.name);
       expect(dayFromJson.title, day.title);
+      expect(dayFromJson.dayIndex, day.dayIndex);
     });
 
     test('converts to json correctly', () {
@@ -33,15 +35,18 @@ void main() {
       final customDay = day.copyWith(
         name: 'different name',
         title: 'different title',
+        dayIndex: 0,
       );
 
       // Expect nothing was changed in for sameCopiedDay.
       expect(sameCopiedDay.name, day.name);
       expect(sameCopiedDay.title, day.title);
+      expect(sameCopiedDay.dayIndex, day.dayIndex);
 
       // Expect difference between [task] and [customTask].
       expect(customDay.name == day.name, false);
       expect(customDay.title == day.title, false);
+      expect(customDay.dayIndex == day.dayIndex, false);
     });
   });
 }

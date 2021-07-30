@@ -21,6 +21,8 @@
     "clear.week.title": "Bütün haftanı temizlemek istediğinden emin misin?",
     "act.start": "Başlat",
     "act.stop": "Durdur",
+    "act.clearDay": "Hepsini sil",
+    "clear.day.title": "Şuanda bulunduğunuz günün görevlerini silmek istediğinizden emin misiniz?",
 
     "prefs.settings": "Ayarlar",
     "prefs.appearance": "Görünüm",

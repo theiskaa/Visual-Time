@@ -21,6 +21,8 @@
     "clear.week.title": "Are you sure you want to clear your whole week?",
     "act.start": "Start",
     "act.stop": "Stop",
+    "act.clearDay": "Clear all",
+    "clear.day.title": "Are you sure you want to clear current day's tasks?",
 
     "prefs.settings": "Settings",
     "prefs.appearance": "Appearance",

@@ -60,6 +60,9 @@ class LocalDBService {
     return values[i]!;
   }
 
+  // Checks if preferences box contains any value, and returns boolean.
+  bool isPreferencesSetted() => preferences().isNotEmpty;
+
   // Clears all boxes' (whole weeks') data.
   Future<void> clearWeek() async {
     for (var i = 0; i < 7; i++) {
@@ -67,6 +70,6 @@ class LocalDBService {
     }
   }
 
-  // Checks if preferences box contains any value, and returns boolean.
-  bool isPreferencesSetted() => preferences().isNotEmpty;
+  // Clears concrete day's all tasks.
+  Future<void> clearDay(int i) async => await rightBoxByCheckBoxId(i).clear();
 }
