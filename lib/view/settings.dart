@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:vtime/core/cubits/preference_cubit.dart';
 import 'package:vtime/core/utils/widgets.dart';
-import 'package:vtime/view/widgets/appbars.dart';
+
+import 'widgets/appbars.dart';
+import 'widgets/utils.dart';
 
 class Settings extends VTStatefulWidget {
   Settings({Key? key}) : super(key: key);
@@ -13,6 +16,10 @@ class Settings extends VTStatefulWidget {
 }
 
 class _SettingsState extends VTState<Settings> {
+  int themeSegmentedValue = 0;
+  int langSegmentedValue = 0;
+  String selected = 'Nonimooley';
+
   final langSegments = const <int, Widget>{
     0: Text('English'),
     1: Text('Türkçe'),
@@ -20,8 +27,13 @@ class _SettingsState extends VTState<Settings> {
     3: Text('ქართული')
   };
 
-  int themeSegmentedValue = 0;
-  int langSegmentedValue = 0;
+  final alarmSounds = [
+    'Nonimooley',
+    'Other 1'
+    'Other 2',
+    'Other 3',
+    'Other 4'
+  ];
 
   dynamic detectTheme() {
     switch (BlocProvider.of<PreferenceCubit>(context).state.themeName) {
@@ -71,17 +83,100 @@ class _SettingsState extends VTState<Settings> {
           child: Column(
             children: [
               const SizedBox(height: 50),
-              themeSelecting(themeSegments),
+              ThemeSelectorWidget(
+                themeSegmentedValue: themeSegmentedValue,
+                themeSegments: themeSegments,
+                updateState: (i) => setState(() => themeSegmentedValue = i),
+              ),
               const SizedBox(height: 50),
-              langSelecting(),
+              LangSelectorWidget(
+                langSegmentedValue: langSegmentedValue,
+                langSegments: langSegments,
+                updateState: (i) => setState(() => langSegmentedValue = i),
+              ),
+              const SizedBox(height: 50),
+              AlarmSongSelectorWidget(updateState: (i) {}, selected: selected),
             ],
           ),
         ),
       ),
     );
   }
+}
 
-  Column themeSelecting(themeSegments) {
+class AlarmSongSelectorWidget extends VTStatelessWidget {
+  final Function(int) updateState;
+  final String selected;
+
+  AlarmSongSelectorWidget({
+    Key? key,
+    required this.updateState,
+    required this.selected,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            vt.intl.of(context)!.fmt('prefs.alarmSound'),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+        ),
+        const SizedBox(height: 15),
+        FractionallySizedBox(
+          widthFactor: .95,
+          child: ElevatedButton(
+            style: ViewUtils().pomodoroButtonStyle,
+            onPressed: () => showPicker(context),
+            child: Text(
+              selected,
+              style: const TextStyle(color: ViewUtils.pomodoroOrange),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Future<void> showPicker(BuildContext context) async {
+    showModalBottomSheet(
+      context: context,
+      builder: (builder) {
+        return SizedBox(
+          height: MediaQuery.of(context).copyWith().size.height / 3,
+          child: SizedBox.expand(
+            child: CupertinoPicker.builder(
+              itemExtent: 30,
+              onSelectedItemChanged: (index) {},
+              itemBuilder: (context, index) {
+                return Text('- $index -');
+              },
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class ThemeSelectorWidget extends VTStatelessWidget {
+  final Function(int) updateState;
+  final Map<int, Widget> themeSegments;
+  final int themeSegmentedValue;
+
+  ThemeSelectorWidget({
+    Key? key,
+    required this.updateState,
+    required this.themeSegments,
+    required this.themeSegmentedValue,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -106,15 +201,29 @@ class _SettingsState extends VTState<Settings> {
               } else {
                 BlocProvider.of<PreferenceCubit>(context).changeTheme('dark');
               }
-              setState(() => themeSegmentedValue = i);
+              updateState.call(i);
             },
           ),
         ),
       ],
     );
   }
+}
 
-  Column langSelecting() {
+class LangSelectorWidget extends VTStatelessWidget {
+  final Function(int) updateState;
+  final Map<int, Widget> langSegments;
+  final int langSegmentedValue;
+
+  LangSelectorWidget({
+    Key? key,
+    required this.updateState,
+    required this.langSegments,
+    required this.langSegmentedValue,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -133,8 +242,8 @@ class _SettingsState extends VTState<Settings> {
             groupValue: langSegmentedValue,
             children: langSegments,
             onValueChanged: (dynamic i) {
-              changeLanguage(i);
-              setState(() => langSegmentedValue = i);
+              changeLanguage(i, context);
+              updateState.call(i);
             },
           ),
         ),
@@ -142,7 +251,7 @@ class _SettingsState extends VTState<Settings> {
     );
   }
 
-  void changeLanguage(int i) {
+  void changeLanguage(int i, BuildContext context) {
     var args = {
       0: () => BlocProvider.of<PreferenceCubit>(context).changeLang('en'),
       1: () => BlocProvider.of<PreferenceCubit>(context).changeLang('tr'),

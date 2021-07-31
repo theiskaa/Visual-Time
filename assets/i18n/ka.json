@@ -29,6 +29,7 @@
     "prefs.appearance.light": "ღია",
     "prefs.appearance.dark": "მუქი",
     "prefs.lang": "Ენა",
+    "prefs.alarmSound": "განგაშის ხმა",
 
     "live_work.selected_task": "ამორჩეული დავალება",
     "live_work.removeTaskAfterCompleting": "წაშალე დავალება დამთავრების შემდეგ",

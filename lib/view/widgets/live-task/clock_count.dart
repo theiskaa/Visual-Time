@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vtime/core/utils/widgets.dart';
+import 'package:vtime/view/widgets/utils.dart';
 
 import '../loadings.dart';
-
-const pomodoroOrange = Color(0xffFF6347);
 
 class ClockCount extends VTStatelessWidget {
   final bool disabled;
@@ -24,17 +23,17 @@ class ClockCount extends VTStatelessWidget {
         child: DoubleBounce(
           disabled: disabled,
           size: size - 50,
-          color: const Color(0xffFF6347),
+          color: ViewUtils.pomodoroOrange,
           child: AnimatedContainer(
             duration: const Duration(seconds: 1),
             child: (time == 'dn')
-                ? const Icon(Icons.done, size: 50, color: Color(0xffFF6347))
+                ? const Icon(Icons.done, size: 50, color: ViewUtils.pomodoroOrange)
                 : Text(
                     time,
                     style: TextStyle(
                       fontSize: 35,
                       fontWeight: FontWeight.bold,
-                      color: disabled ? const Color(0xffFF6347) : Colors.white,
+                      color: disabled ? ViewUtils.pomodoroOrange : Colors.white,
                     ),
                   ),
           ),
@@ -60,7 +59,7 @@ class _ThreeRoundCircleGrid extends StatelessWidget {
       height: generalSize + 5,
       width: generalSize + 5,
       decoration: BoxDecoration(
-        border: Border.all(width: 3, color: pomodoroOrange.withOpacity(.1)),
+        border: Border.all(width: 3, color: ViewUtils.pomodoroOrange.withOpacity(.1)),
         shape: BoxShape.circle,
       ),
       padding: const EdgeInsets.all(3),
@@ -68,7 +67,7 @@ class _ThreeRoundCircleGrid extends StatelessWidget {
         height: generalSize,
         width: generalSize,
         decoration: BoxDecoration(
-          border: Border.all(width: 3, color: pomodoroOrange.withOpacity(.1)),
+          border: Border.all(width: 3, color: ViewUtils.pomodoroOrange.withOpacity(.1)),
           shape: BoxShape.circle,
         ),
         child: child,
