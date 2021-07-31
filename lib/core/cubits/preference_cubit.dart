@@ -45,12 +45,26 @@ class PreferenceCubit extends Cubit<PreferenceState> {
     emit(state.copyWith(langCode: newLang));
   }
 
-  // Method to change language and emit new language to cubit state.
   Future<String?> getCurrentLang() async {
     var lang = await LocalDBService.preferences().get('lang');
 
     emit(state.copyWith(langCode: lang ?? 'en'));
 
     return lang ?? 'en';
+  }
+
+  // Method to change alarm sound and emit it to cubit state.
+  Future<void> changeAlarmSound(String alarmSound) async {
+    await LocalDBService.preferences().put('alarmSound', alarmSound);
+
+    emit(state.copyWith(selectedAlarmSound: alarmSound));
+  }
+
+  Future<String?> getAlarmSound() async {
+    var alarmSound = await LocalDBService.preferences().get('alarmSound');
+
+    emit(state.copyWith(selectedAlarmSound: alarmSound ?? 'Nonimooley'));
+
+    return alarmSound ?? 'Nonimooley';
   }
 }

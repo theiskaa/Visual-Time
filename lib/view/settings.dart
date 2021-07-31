@@ -29,7 +29,7 @@ class _SettingsState extends VTState<Settings> {
 
   final alarmSounds = [
     'Nonimooley',
-    'Other 1'
+    'Other 1',
     'Other 2',
     'Other 3',
     'Other 4'
@@ -59,10 +59,18 @@ class _SettingsState extends VTState<Settings> {
     return 0;
   }
 
+  void detectAlarmSound() async {
+    var val = await BlocProvider.of<PreferenceCubit>(context).getAlarmSound();
+
+    selected = val!;
+  }
+
   @override
   void initState() {
     detectTheme();
     detectLang();
+    detectAlarmSound();
+
     super.initState();
   }
 
@@ -95,7 +103,11 @@ class _SettingsState extends VTState<Settings> {
                 updateState: (i) => setState(() => langSegmentedValue = i),
               ),
               const SizedBox(height: 50),
-              AlarmSongSelectorWidget(updateState: (i) {}, selected: selected),
+              AlarmSongSelectorWidget(
+                updateState: (val) => setState(() => selected = val),
+                selected: selected,
+                alarmSounds: alarmSounds,
+              ),
             ],
           ),
         ),
@@ -105,13 +117,15 @@ class _SettingsState extends VTState<Settings> {
 }
 
 class AlarmSongSelectorWidget extends VTStatelessWidget {
-  final Function(int) updateState;
+  final Function(dynamic) updateState;
   final String selected;
+  final List<String> alarmSounds;
 
   AlarmSongSelectorWidget({
     Key? key,
     required this.updateState,
     required this.selected,
+    required this.alarmSounds,
   }) : super(key: key);
 
   @override
@@ -150,11 +164,25 @@ class AlarmSongSelectorWidget extends VTStatelessWidget {
           height: MediaQuery.of(context).copyWith().size.height / 3,
           child: SizedBox.expand(
             child: CupertinoPicker.builder(
-              itemExtent: 30,
-              onSelectedItemChanged: (index) {},
-              itemBuilder: (context, index) {
-                return Text('- $index -');
+              itemExtent: 40,
+              childCount: alarmSounds.length,
+              onSelectedItemChanged: (index) {
+                BlocProvider.of<PreferenceCubit>(context).changeAlarmSound(
+                  alarmSounds[index],
+                );
+                updateState.call(alarmSounds[index]);
               },
+              itemBuilder: (_, i) => Center(
+                child: Text(
+                  alarmSounds[i],
+                  style: context
+                      .read<PreferenceCubit>()
+                      .state
+                      .theme!
+                      .primaryTextTheme
+                      .headline6,
+                ),
+              ),
             ),
           ),
         );
