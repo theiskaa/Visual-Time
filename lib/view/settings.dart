@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,10 +30,15 @@ class _SettingsState extends VTState<Settings> {
 
   final alarmSounds = [
     'Nonimooley',
-    'Nonimooley',
-    'Nonimooley',
-    'Nonimooley',
-    'Nonimooley'
+    'Crystalie',
+    'Favour',
+    'Violet',
+    'SMS',
+    'Points',
+    'Iris',
+    'Crystal',
+    'Harmonics',
+    'Marigold'
   ];
 
   dynamic detectTheme() {
@@ -116,7 +122,7 @@ class _SettingsState extends VTState<Settings> {
   }
 }
 
-class AlarmSongSelectorWidget extends VTStatelessWidget {
+class AlarmSongSelectorWidget extends VTStatefulWidget {
   final Function(dynamic) updateState;
   final String selected;
   final List<String> alarmSounds;
@@ -127,6 +133,21 @@ class AlarmSongSelectorWidget extends VTStatelessWidget {
     required this.selected,
     required this.alarmSounds,
   }) : super(key: key);
+
+  @override
+  _AlarmSongSelectorWidgetState createState() =>
+      _AlarmSongSelectorWidgetState();
+}
+
+class _AlarmSongSelectorWidgetState extends VTState<AlarmSongSelectorWidget> {
+  final audioPlayer = AudioPlayer();
+  final player = AudioCache(prefix: 'assets/alarms/');
+
+  @override
+  void initState() {
+    player.fixedPlayer = audioPlayer;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -147,7 +168,7 @@ class AlarmSongSelectorWidget extends VTStatelessWidget {
             style: ViewUtils().pomodoroButtonStyle,
             onPressed: () => showPicker(context),
             child: Text(
-              selected,
+              widget.selected,
               style: const TextStyle(color: ViewUtils.pomodoroOrange),
             ),
           ),
@@ -165,16 +186,17 @@ class AlarmSongSelectorWidget extends VTStatelessWidget {
           child: SizedBox.expand(
             child: CupertinoPicker.builder(
               itemExtent: 40,
-              childCount: alarmSounds.length,
+              childCount: widget.alarmSounds.length,
               onSelectedItemChanged: (index) {
+                player.play('${widget.alarmSounds[index]}.mp3');
                 BlocProvider.of<PreferenceCubit>(context).changeAlarmSound(
-                  alarmSounds[index],
+                  widget.alarmSounds[index],
                 );
-                updateState.call(alarmSounds[index]);
+                widget.updateState.call(widget.alarmSounds[index]);
               },
               itemBuilder: (_, i) => Center(
                 child: Text(
-                  alarmSounds[i],
+                  widget.alarmSounds[i],
                   style: context
                       .read<PreferenceCubit>()
                       .state

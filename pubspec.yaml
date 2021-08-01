@@ -38,4 +38,14 @@ flutter:
     - assets/i18n/tr.json
     - assets/i18n/ru.json
     - assets/i18n/ka.json
+
     - assets/alarms/Nonimooley.mp3
+    - assets/alarms/Crystalie.mp3
+    - assets/alarms/Favour.mp3
+    - assets/alarms/Violet.mp3
+    - assets/alarms/SMS.mp3
+    - assets/alarms/Points.mp3
+    - assets/alarms/Iris.mp3
+    - assets/alarms/Crystal.mp3
+    - assets/alarms/Harmonics.mp3
+    - assets/alarms/Marigold.mp3
