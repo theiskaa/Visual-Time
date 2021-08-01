@@ -78,9 +78,13 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
   void onTaskEnd() async {
     stopTimer();
     setState(() => time = 'dn');
-    player.play('0.mp3');
-    await Future.delayed(const Duration(seconds: 2));
+
+    // Get's setted alarm sound and plays it
+    var val = await BlocProvider.of<PreferenceCubit>(context).getAlarmSound();
+    player.play('$val.mp3');
+
     if (removeTaskAfterCompletation) {
+      await Future.delayed(const Duration(seconds: 2));
       widget.dayBox!.delete(widget.task!.key);
       Navigator.pushAndRemoveUntil(
         context,

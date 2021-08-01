@@ -29,10 +29,10 @@ class _SettingsState extends VTState<Settings> {
 
   final alarmSounds = [
     'Nonimooley',
-    'Other 1',
-    'Other 2',
-    'Other 3',
-    'Other 4'
+    'Nonimooley',
+    'Nonimooley',
+    'Nonimooley',
+    'Nonimooley'
   ];
 
   dynamic detectTheme() {
