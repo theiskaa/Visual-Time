@@ -29,6 +29,7 @@
     "prefs.appearance.light": "Açık Tema",
     "prefs.appearance.dark": "Karanlık Tema",
     "prefs.lang": "Dil",
+    "prefs.alarmSound": "Alarm Sesi",
 
     "live_work.selected_task": "Seçilen Görev",
     "live_work.removeTaskAfterCompleting": "Tamamladıktan sonra görevi kaldır",

@@ -7,6 +7,22 @@ import 'themes.dart';
 const remainingTimeFillerTaskCode = 'Remaining Time {#@!@#!@#8&**%@#%}';
 
 class ViewUtils {
+  static const pomodoroOrange = Color(0xffFF6347);
+
+  // Style shortcut which is used for live-task start/stop button and setting's alarm sound button.
+  ButtonStyle pomodoroButtonStyle = ButtonStyle(
+    overlayColor: MaterialStateProperty.all(pomodoroOrange.withOpacity(.1)),
+    fixedSize: MaterialStateProperty.all(const Size(0, 40)),
+    elevation: MaterialStateProperty.all(0),
+    backgroundColor: MaterialStateProperty.all(Colors.transparent),
+    shape: MaterialStateProperty.all(
+      const RoundedRectangleBorder(
+        side: BorderSide(color: pomodoroOrange),
+        borderRadius: BorderRadius.all(Radius.circular(30)),
+      ),
+    ),
+  );
+
   // A shortcut style method to show full functional alert dialog.
   alert(
     BuildContext context,
