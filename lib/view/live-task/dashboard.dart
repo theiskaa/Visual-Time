@@ -79,7 +79,7 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
     stopTimer();
     setState(() => time = 'dn');
 
-    // Get's setted alarm sound and plays it
+    // Get's setted alarm sound and plays it.
     var val = await BlocProvider.of<PreferenceCubit>(context).getAlarmSound();
     player.play('$val.mp3');
 
@@ -96,24 +96,30 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: startButton(),
-      appBar: TransparentAppBar(onLeadingTap: navigateBack),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(10),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: 30),
-              ClockCount(time: time, disabled: !watch.isRunning),
-              const SizedBox(height: 40),
-              ViewUtils.divider,
-              const SizedBox(height: 20),
-              removeAfterSelectorWidget(),
-              const SizedBox(height: 40),
-              _SelectedTask(task: widget.task ?? Task()),
-            ],
+    return WillPopScope(
+      onWillPop: () async {
+        navigateBack();
+        return true;
+      },
+      child: Scaffold(
+        bottomNavigationBar: startButton(),
+        appBar: TransparentAppBar(onLeadingTap: navigateBack),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(10),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 30),
+                ClockCount(time: time, disabled: !watch.isRunning),
+                const SizedBox(height: 40),
+                ViewUtils.divider,
+                const SizedBox(height: 20),
+                removeAfterSelectorWidget(),
+                const SizedBox(height: 40),
+                _SelectedTask(task: widget.task ?? Task()),
+              ],
+            ),
           ),
         ),
       ),
