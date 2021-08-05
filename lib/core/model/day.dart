@@ -10,9 +10,10 @@ class Day extends VTModel {
   @override
   Day copyWith({String? name, String? title, int? dayIndex}) {
     return Day(
-        name: name ?? this.name,
-        title: title ?? this.title,
-        dayIndex: dayIndex);
+      name: name ?? this.name,
+      title: title ?? this.title,
+      dayIndex: dayIndex ?? this.dayIndex,
+    );
   }
 
   @override

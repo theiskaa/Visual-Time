@@ -7,11 +7,11 @@ import 'package:vtime/core/model/day.dart';
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/services/local_db_service.dart';
 import 'package:vtime/core/utils/widgets.dart';
-import 'package:vtime/view/widgets/buttons.dart';
+import 'package:vtime/view/widgets/components/buttons.dart';
 import 'package:vtime/view/widgets/utils.dart';
 
 import 'dashboard.dart';
-import 'widgets/appbars.dart';
+import 'widgets/components/appbars.dart';
 
 class CreateTaskPage extends VTStatefulWidget {
   final ValueListenable<Box<Task>> todaysBox;

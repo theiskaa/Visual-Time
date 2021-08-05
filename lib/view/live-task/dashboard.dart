@@ -10,9 +10,10 @@ import 'package:vtime/core/cubits/preference_cubit.dart';
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/utils/widgets.dart';
 import 'package:vtime/view/dashboard.dart';
-import 'package:vtime/view/widgets/appbars.dart';
+import 'package:vtime/view/widgets/components/appbars.dart';
+import 'package:vtime/view/widgets/components/custom_switchers.dart';
 import 'package:vtime/view/widgets/live-task/clock_count.dart';
-import 'package:vtime/view/widgets/themes.dart';
+import 'package:vtime/view/widgets/components/themes.dart';
 import 'package:vtime/view/widgets/utils.dart';
 
 class LiveTaskDashboard extends VTStatefulWidget {
@@ -115,7 +116,16 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
                 const SizedBox(height: 40),
                 ViewUtils.divider,
                 const SizedBox(height: 20),
-                removeAfterSelectorWidget(),
+                SwitcherTile(
+                  title: vt.intl
+                      .of(context)!
+                      .fmt('live_work.removeTaskAfterCompleting'),
+                  switcherValue: removeTaskAfterCompletation,
+                  onChanged: (val) {
+                    setState(() => removeTaskAfterCompletation = val);
+                  },
+                  switcherColor: ViewUtils.pomodoroOrange,
+                ),
                 const SizedBox(height: 40),
                 _SelectedTask(task: widget.task ?? Task()),
               ],
@@ -123,29 +133,6 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
           ),
         ),
       ),
-    );
-  }
-
-  Row removeAfterSelectorWidget() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            vt.intl.of(context)!.fmt('live_work.removeTaskAfterCompleting'),
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ),
-        const SizedBox(width: 10),
-        CupertinoSwitch(
-          activeColor: ViewUtils.pomodoroOrange,
-          value: removeTaskAfterCompletation,
-          onChanged: (val) {
-            setState(() => removeTaskAfterCompletation = val);
-          },
-        ),
-      ],
     );
   }
 

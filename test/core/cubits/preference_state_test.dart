@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vtime/core/cubits/preference_state.dart';
-import 'package:vtime/view/widgets/themes.dart';
+import 'package:vtime/view/widgets/components/themes.dart';
 
 void main() {
   late PreferenceState preferenceState;

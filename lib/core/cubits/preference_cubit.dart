@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vtime/core/cubits/preference_state.dart';
 import 'package:vtime/core/services/local_db_service.dart';
-import 'package:vtime/view/widgets/themes.dart';
+import 'package:vtime/view/widgets/components/themes.dart';
 
 class PreferenceCubit extends Cubit<PreferenceState> {
   final LocalDBService? localDBService = LocalDBService();

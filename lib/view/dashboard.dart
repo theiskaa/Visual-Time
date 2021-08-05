@@ -12,7 +12,7 @@ import 'day_view.dart';
 import 'create.dart';
 import 'settings.dart';
 import 'widgets/mini_day_card.dart';
-import 'widgets/appbars.dart';
+import 'widgets/components/appbars.dart';
 import 'widgets/day_chart.dart';
 import 'widgets/utils.dart';
 

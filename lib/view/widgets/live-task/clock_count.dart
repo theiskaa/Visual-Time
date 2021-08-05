@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vtime/core/utils/widgets.dart';
 import 'package:vtime/view/widgets/utils.dart';
 
-import '../loadings.dart';
+import '../components/loadings.dart';
 
 class ClockCount extends VTStatelessWidget {
   final bool disabled;

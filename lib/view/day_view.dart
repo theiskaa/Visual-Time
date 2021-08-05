@@ -10,7 +10,7 @@ import 'package:vtime/core/utils/widgets.dart';
 import 'create.dart';
 import 'widgets/day_chart.dart';
 import 'widgets/task_card.dart';
-import 'widgets/appbars.dart';
+import 'widgets/components/appbars.dart';
 import 'widgets/utils.dart';
 
 class DayView extends VTStatefulWidget {

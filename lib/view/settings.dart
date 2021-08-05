@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vtime/core/cubits/preference_cubit.dart';
 import 'package:vtime/core/utils/widgets.dart';
 
-import 'widgets/appbars.dart';
+import 'widgets/components/appbars.dart';
 import 'widgets/utils.dart';
 
 class Settings extends VTStatefulWidget {
