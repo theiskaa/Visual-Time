@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:vtime/core/cubits/preference_cubit.dart';
 import 'package:vtime/core/utils/widgets.dart';
+import 'package:vtime/view/widgets/components/custom_switchers.dart';
 
 import 'widgets/components/appbars.dart';
 import 'widgets/utils.dart';
@@ -17,8 +18,9 @@ class Settings extends VTStatefulWidget {
 }
 
 class _SettingsState extends VTState<Settings> {
-  int themeSegmentedValue = 0;
-  int langSegmentedValue = 0;
+  int themeSegmentedValue = 0, langSegmentedValue = 0;
+
+  bool isAnimationsEnabled = true;
   String selected = 'Nonimooley';
 
   final langSegments = const <int, Widget>{
@@ -113,6 +115,24 @@ class _SettingsState extends VTState<Settings> {
                 updateState: (val) => setState(() => selected = val),
                 selected: selected,
                 alarmSounds: alarmSounds,
+              ),
+              const SizedBox(height: 30),
+              ViewUtils.divider,
+              const SizedBox(height: 30),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: SwitcherTile(
+                  title: vt.intl.of(context)!.fmt('prefs.animations'),
+                  switcherValue: isAnimationsEnabled,
+                  onChanged: (v) {
+                    setState(() => isAnimationsEnabled = v);
+                  },
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  titleStyle: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ],
           ),

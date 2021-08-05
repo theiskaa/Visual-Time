@@ -121,10 +121,8 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
                       .of(context)!
                       .fmt('live_work.removeTaskAfterCompleting'),
                   switcherValue: removeTaskAfterCompletation,
-                  onChanged: (val) {
-                    setState(() => removeTaskAfterCompletation = val);
-                  },
-                  switcherColor: ViewUtils.pomodoroOrange,
+                  onChanged: (v) =>
+                      setState(() => removeTaskAfterCompletation = v),
                 ),
                 const SizedBox(height: 40),
                 _SelectedTask(task: widget.task ?? Task()),

@@ -30,6 +30,7 @@
     "prefs.appearance.dark": "Dark Theme",
     "prefs.lang": "Language",
     "prefs.alarmSound": "Alarm Sound",
+    "prefs.animations": "Animations",
 
     "live_work.selected_task": "Selected Task",
     "live_work.removeTaskAfterCompleting": "Remove task after completing",
