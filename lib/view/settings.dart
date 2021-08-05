@@ -18,8 +18,9 @@ class Settings extends VTStatefulWidget {
 }
 
 class _SettingsState extends VTState<Settings> {
-  int themeSegmentedValue = 0, langSegmentedValue = 0;
+  late PreferenceCubit preferenceCubit;
 
+  int themeSegmentedValue = 0, langSegmentedValue = 0;
   bool isAnimationsEnabled = true;
   String selected = 'Nonimooley';
 
@@ -44,7 +45,7 @@ class _SettingsState extends VTState<Settings> {
   ];
 
   dynamic detectTheme() {
-    switch (BlocProvider.of<PreferenceCubit>(context).state.themeName) {
+    switch (preferenceCubit.state.themeName) {
       case 'default':
         return themeSegmentedValue = 0;
       case 'dark':
@@ -54,7 +55,7 @@ class _SettingsState extends VTState<Settings> {
   }
 
   dynamic detectLang() {
-    switch (BlocProvider.of<PreferenceCubit>(context).state.langCode) {
+    switch (preferenceCubit.state.langCode) {
       case 'en':
         return langSegmentedValue = 0;
       case 'tr':
@@ -68,16 +69,23 @@ class _SettingsState extends VTState<Settings> {
   }
 
   void detectAlarmSound() async {
-    var val = await BlocProvider.of<PreferenceCubit>(context).getAlarmSound();
-
+    var val = await preferenceCubit.currentAlarmSound;
     selected = val!;
+  }
+
+  void detectStateOfAnimations() async {
+    var val = await preferenceCubit.isAnimationsEnabled;
+    isAnimationsEnabled = val!;
   }
 
   @override
   void initState() {
+    preferenceCubit = BlocProvider.of<PreferenceCubit>(context);
+
     detectTheme();
     detectLang();
     detectAlarmSound();
+    detectStateOfAnimations();
 
     super.initState();
   }
@@ -126,6 +134,7 @@ class _SettingsState extends VTState<Settings> {
                   switcherValue: isAnimationsEnabled,
                   onChanged: (v) {
                     setState(() => isAnimationsEnabled = v);
+                    preferenceCubit.changeStateOfAnimations(v);
                   },
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   titleStyle: const TextStyle(

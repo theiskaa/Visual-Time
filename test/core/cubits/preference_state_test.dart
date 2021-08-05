@@ -11,6 +11,7 @@ void main() {
       themeName: 'default',
       theme: Themes().defaultTheme,
       selectedAlarmSound: 'Sound 1',
+      isAnimationsEnabled: true,
     );
   });
 
@@ -18,10 +19,12 @@ void main() {
     test('executes copyWith correctly', () {
       final sameCopiedState = preferenceState.copyWith();
       final customState = preferenceState.copyWith(
-          theme: Themes().dark,
-          themeName: 'dark',
-          langCode: 'ka', // ka = kartuli -> Georgian language
-          selectedAlarmSound: 'Sound 2');
+        theme: Themes().dark,
+        themeName: 'dark',
+        langCode: 'ka', // ka = kartuli -> Georgian language
+        selectedAlarmSound: 'Sound 2',
+        isAnimationsEnabled: false,
+      );
 
       // Expect nothing was changed in for sameCopiedDay.
       expect(sameCopiedState.theme, preferenceState.theme);
@@ -31,6 +34,10 @@ void main() {
         sameCopiedState.selectedAlarmSound,
         preferenceState.selectedAlarmSound,
       );
+      expect(
+        sameCopiedState.isAnimationsEnabled,
+        preferenceState.isAnimationsEnabled,
+      );
 
       // Expect difference between [task] and [customTask].
       expect(customState.theme == preferenceState.theme, false);
@@ -38,6 +45,10 @@ void main() {
       expect(customState.langCode == preferenceState.langCode, false);
       expect(
         customState.selectedAlarmSound == preferenceState.selectedAlarmSound,
+        false,
+      );
+      expect(
+        customState.isAnimationsEnabled == preferenceState.isAnimationsEnabled,
         false,
       );
     });

@@ -11,12 +11,14 @@ class MiniDayChart extends StatelessWidget {
   final String title;
   final Function? onTap;
   final ValueListenable<Box<Task>> todaysBox;
+  final bool isAnimationsEnabled;
 
   const MiniDayChart({
     Key? key,
     required this.title,
     required this.onTap,
     required this.todaysBox,
+    required this.isAnimationsEnabled,
   }) : super(key: key);
 
   @override

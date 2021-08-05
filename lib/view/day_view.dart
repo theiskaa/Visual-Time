@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'package:vtime/core/cubits/preference_cubit.dart';
 import 'package:vtime/core/model/day.dart';
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/services/local_db_service.dart';
@@ -60,13 +62,13 @@ class _DayViewState extends VTState<DayView> {
       ),
       body: ValueListenableBuilder<Box<Task>>(
         valueListenable: widget.dayBox!,
-        builder: (context, box, _) {
+        builder: (contxt, box, _) {
           tasks = box.values.toList().cast<Task>();
 
           return SingleChildScrollView(
             child: Column(
               children: [
-                DayChart(tasks: tasks, tooltipBehaviorEnabled: true),
+                DayChart(tasks: tasks, isTooltipBehaviorEnabled: true),
                 const SizedBox(height: 15),
                 const Divider(),
                 const SizedBox(height: 15),

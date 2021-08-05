@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vtime/core/cubits/preference_cubit.dart';
 import 'package:vtime/core/model/day.dart';
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/services/local_db_service.dart';
@@ -108,7 +110,10 @@ class _DashboardState extends VTState<Dashboard> {
               valueListenable: todaysBox!,
               builder: (context, box, _) {
                 final tasks = box.values.toList().cast<Task>();
-                return DayChart(tasks: tasks, tooltipBehaviorEnabled: true);
+                return DayChart(
+                  tasks: tasks,
+                  isTooltipBehaviorEnabled: true,
+                );
               },
             ),
             const SizedBox(height: 30),
@@ -150,6 +155,8 @@ class WeekView extends VTStatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isAnimationsEnabled =
+        context.read<PreferenceCubit>().state.isAnimationsEnabled!;
     return Center(
       child: Column(
         children: [
@@ -157,6 +164,7 @@ class WeekView extends VTStatelessWidget {
             children: [
               for (var i = 0; i < 4; i++)
                 MiniDayChart(
+                  isAnimationsEnabled: isAnimationsEnabled,
                   title: ViewUtils().rightDayNameGenerator(i, vt, context),
                   onTap: () => openNewDay(i, context, weeks: weeks),
                   todaysBox: LocalDBService().rightListenableValue(weeks![i]),
@@ -167,6 +175,7 @@ class WeekView extends VTStatelessWidget {
             children: [
               for (var i = 4; i < 7; i++)
                 MiniDayChart(
+                  isAnimationsEnabled: isAnimationsEnabled,
                   todaysBox: LocalDBService().rightListenableValue(weeks![i]),
                   title: ViewUtils().rightDayNameGenerator(i, vt, context),
                   onTap: () => openNewDay(i, context, weeks: weeks),

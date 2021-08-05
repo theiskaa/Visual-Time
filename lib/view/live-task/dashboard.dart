@@ -27,6 +27,7 @@ class LiveTaskDashboard extends VTStatefulWidget {
 
 class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
   final viewUtils = ViewUtils();
+  late bool isAnimationsEnabled;
 
   static const oneSecond = Duration(seconds: 1);
   Timer? timer;
@@ -45,6 +46,8 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
       minutes: widget.task!.minutes!,
     );
     time = duration!.toHMS;
+    isAnimationsEnabled =
+        BlocProvider.of<PreferenceCubit>(context).state.isAnimationsEnabled!;
   }
 
   @override
@@ -81,7 +84,7 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
     setState(() => time = 'dn');
 
     // Get's setted alarm sound and plays it.
-    var val = await BlocProvider.of<PreferenceCubit>(context).getAlarmSound();
+    var val = await BlocProvider.of<PreferenceCubit>(context).currentAlarmSound;
     player.play('$val.mp3');
 
     if (removeTaskAfterCompletation) {
@@ -112,7 +115,11 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 30),
-                ClockCount(time: time, disabled: !watch.isRunning),
+                ClockCount(
+                  time: time,
+                  disabled: !watch.isRunning,
+                  isAnimationDisabled: !isAnimationsEnabled,
+                ),
                 const SizedBox(height: 40),
                 ViewUtils.divider,
                 const SizedBox(height: 20),
