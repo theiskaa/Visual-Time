@@ -12,13 +12,11 @@ import 'package:vtime/view/widgets/utils.dart';
 class DayChart extends VTStatefulWidget {
   List<Task> tasks;
   final bool isTooltipBehaviorEnabled;
-  // final bool isAnimationsEnabled;
 
   DayChart({
     Key? key,
     required this.tasks,
     this.isTooltipBehaviorEnabled = false,
-    // required this.isAnimationsEnabled,
   }) : super(key: key);
 
   @override
@@ -73,7 +71,7 @@ class _DayChartState extends VTState<DayChart> {
               dataSource: widget.tasks,
               xValueMapper: (Task data, _) => data.totalTime.toString(),
               yValueMapper: (Task data, _) => data.totalTime,
-              // animationDuration: widget.isAnimationsEnabled ? 1500 : null,
+              animationDuration: state.isAnimationsEnabled! ? 1500 : 0,
             ),
           ],
         );
