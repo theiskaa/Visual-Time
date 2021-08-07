@@ -25,8 +25,6 @@ class PreferenceCubit extends Cubit<PreferenceState> {
     var alarmSound = await LocalDBService.preferences().get('alarmSound');
     var value = await LocalDBService.preferences().get('isAnimationsEnabled');
 
-    print('isAnimationsEnabled is $value');
-
     var themes = {
       'dark': Themes().dark,
       'default': Themes().defaultTheme,
