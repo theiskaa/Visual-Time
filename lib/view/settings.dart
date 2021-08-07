@@ -50,6 +50,8 @@ class _SettingsState extends VTState<Settings> {
         return themeSegmentedValue = 0;
       case 'dark':
         return themeSegmentedValue = 1;
+      case 's/2':
+        return themeSegmentedValue = 2;
     }
     return 0;
   }
@@ -94,7 +96,8 @@ class _SettingsState extends VTState<Settings> {
   Widget build(BuildContext context) {
     var themeSegments = <int, Widget>{
       0: Text(vt.intl.of(context)!.fmt('prefs.appearance.light')),
-      1: Text(vt.intl.of(context)!.fmt('prefs.appearance.dark'))
+      1: Text(vt.intl.of(context)!.fmt('prefs.appearance.dark')),
+      2: const Text('S/2')
     };
     return Scaffold(
       appBar: TransparentAppBar(
@@ -194,11 +197,11 @@ class _AlarmSongSelectorWidgetState extends VTState<AlarmSongSelectorWidget> {
         FractionallySizedBox(
           widthFactor: .95,
           child: ElevatedButton(
-            style: ViewUtils().pomodoroButtonStyle,
+            style: ViewUtils().pomodoroButtonStyle(context),
             onPressed: () => showPicker(context),
             child: Text(
               widget.selected,
-              style: const TextStyle(color: ViewUtils.pomodoroOrange),
+              style: TextStyle(color: ViewUtils().pomodoroOrange(context)),
             ),
           ),
         ),
@@ -274,12 +277,20 @@ class ThemeSelectorWidget extends VTStatelessWidget {
             groupValue: themeSegmentedValue,
             children: themeSegments,
             onValueChanged: (dynamic i) {
-              if (i == 0) {
-                BlocProvider.of<PreferenceCubit>(context)
-                    .changeTheme('default');
-              } else {
-                BlocProvider.of<PreferenceCubit>(context).changeTheme('dark');
-              }
+              final values = {
+                0: () {
+                  BlocProvider.of<PreferenceCubit>(context)
+                      .changeTheme('default');
+                },
+                1: () {
+                  BlocProvider.of<PreferenceCubit>(context).changeTheme('dark');
+                },
+                2: () {
+                  BlocProvider.of<PreferenceCubit>(context).changeTheme('s/2');
+                }
+              };
+
+              values[i]!.call();
               updateState.call(i);
             },
           ),

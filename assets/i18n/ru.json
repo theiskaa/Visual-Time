@@ -26,8 +26,8 @@
 
     "prefs.settings": "Настройки",
     "prefs.appearance": "Тема",
-    "prefs.appearance.light": "Светлая тема",
-    "prefs.appearance.dark": "Темная тема",
+    "prefs.appearance.light": "Светлая",
+    "prefs.appearance.dark": "Темная",
     "prefs.lang": "Язык",
     "prefs.alarmSound": "Сигнал Tревоги",
     "prefs.animations": "Анимации",

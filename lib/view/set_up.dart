@@ -27,7 +27,8 @@ class _AppSetupState extends VTState<AppSetup> {
   Widget build(BuildContext context) {
     var themeSegments = <int, Widget>{
       0: Text(vt.intl.of(context)!.fmt('prefs.appearance.light')),
-      1: Text(vt.intl.of(context)!.fmt('prefs.appearance.dark'))
+      1: Text(vt.intl.of(context)!.fmt('prefs.appearance.dark')),
+      2: const Text('S/2')
     };
 
     return Scaffold(
@@ -132,10 +133,18 @@ class _AppSetupState extends VTState<AppSetup> {
   }
 
   void changeTheme(int i) {
-    if (i == 0) {
-      BlocProvider.of<PreferenceCubit>(context).changeTheme('default');
-    } else {
-      BlocProvider.of<PreferenceCubit>(context).changeTheme('dark');
-    }
+    final values = {
+      0: () {
+        BlocProvider.of<PreferenceCubit>(context).changeTheme('default');
+      },
+      1: () {
+        BlocProvider.of<PreferenceCubit>(context).changeTheme('dark');
+      },
+      2: () {
+        BlocProvider.of<PreferenceCubit>(context).changeTheme('s/2');
+      }
+    };
+
+    values[i]!.call();
   }
 }

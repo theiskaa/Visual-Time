@@ -26,8 +26,8 @@
 
     "prefs.settings": "Settings",
     "prefs.appearance": "Appearance",
-    "prefs.appearance.light": "Light Theme",
-    "prefs.appearance.dark": "Dark Theme",
+    "prefs.appearance.light": "Light",
+    "prefs.appearance.dark": "Dark",
     "prefs.lang": "Language",
     "prefs.alarmSound": "Alarm Sound",
     "prefs.animations": "Animations",

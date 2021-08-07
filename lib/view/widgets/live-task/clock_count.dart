@@ -26,21 +26,22 @@ class ClockCount extends VTStatelessWidget {
           isAnimationsDisabled: isAnimationDisabled,
           disabled: disabled,
           size: size - 50,
-          color: ViewUtils.pomodoroOrange,
+          color: ViewUtils().pomodoroOrange(context),
           child: AnimatedContainer(
             duration: const Duration(seconds: 1),
             child: (time == 'dn')
-                ? const Icon(
+                ? Icon(
                     Icons.done,
                     size: 50,
-                    color: ViewUtils.pomodoroOrange,
+                    color: ViewUtils().pomodoroOrange(context),
                   )
                 : Text(
                     time,
                     style: TextStyle(
                       fontSize: 35,
                       fontWeight: FontWeight.bold,
-                      color: disabled ? ViewUtils.pomodoroOrange : null,
+                      color:
+                          disabled ? ViewUtils().pomodoroOrange(context) : null,
                     ),
                   ),
           ),
@@ -68,7 +69,7 @@ class _ThreeRoundCircleGrid extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(
           width: 3,
-          color: ViewUtils.pomodoroOrange.withOpacity(.1),
+          color: ViewUtils().pomodoroOrange(context).withOpacity(.1),
         ),
         shape: BoxShape.circle,
       ),
@@ -79,7 +80,7 @@ class _ThreeRoundCircleGrid extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border.all(
             width: 3,
-            color: ViewUtils.pomodoroOrange.withOpacity(.1),
+            color: ViewUtils().pomodoroOrange(context).withOpacity(.1),
           ),
           shape: BoxShape.circle,
         ),
