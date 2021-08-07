@@ -58,6 +58,7 @@ class Themes {
     primaryTextTheme: const TextTheme(
       headline6: TextStyle(color: Colors.black),
     ),
+    buttonColor: const Color(0xffFF6347),
     appBarTheme: const AppBarTheme(
       elevation: 0,
       backgroundColor: Colors.transparent,
@@ -122,12 +123,75 @@ class Themes {
     primaryTextTheme: const TextTheme(
       headline6: TextStyle(color: Colors.white),
     ),
+    buttonColor: const Color(0xffFF6347),
     appBarTheme: const AppBarTheme(
       elevation: 0,
       backgroundColor: Colors.transparent,
       centerTitle: true,
       iconTheme: IconThemeData(color: Colors.white),
       actionsIconTheme: IconThemeData(color: Colors.white),
+    ),
+  );
+
+  // A special edition theme. Which was deisgned first when app idea had come.
+  // See for additional information about minimalist theme - https://github.com/theiskaa/Visual-Time/issues/32
+  final minimalist = ThemeData(
+    brightness: Brightness.light,
+    primaryColor: Colors.black,
+    accentColor: Colors.black,
+    primarySwatch: Colors.grey,
+    hoverColor: Colors.grey.shade300,
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ButtonStyle(
+        textStyle:
+            MaterialStateProperty.all(const TextStyle(color: Colors.white)),
+        backgroundColor: MaterialStateProperty.all(const Color(0xFF000000)),
+      ),
+    ),
+    iconTheme: const IconThemeData(color: Colors.black),
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: Colors.black,
+      selectionColor: const Color(0xFF000000).withOpacity(.3),
+      selectionHandleColor: const Color(0xFF000000).withOpacity(.3),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+        textStyle: MaterialStateProperty.all(
+          const TextStyle(color: Colors.white),
+        ),
+        overlayColor: MaterialStateProperty.all(
+          const Color(0xFF000000).withOpacity(.3),
+        ),
+      ),
+    ),
+    bottomSheetTheme: const BottomSheetThemeData(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+      ),
+      backgroundColor: Colors.white,
+    ),
+    textTheme: const TextTheme(
+      headline1: TextStyle(color: Colors.black, fontWeight: FontWeight.w800),
+      headline2: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+      headline3: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
+      headline4: TextStyle(color: Colors.black),
+      headline5: TextStyle(color: Colors.black),
+      headline6: TextStyle(color: Colors.black),
+      button: TextStyle(color: Colors.white),
+    ),
+    primaryTextTheme: const TextTheme(
+      headline6: TextStyle(color: Colors.black),
+    ),
+    buttonColor: Colors.black,
+    appBarTheme: const AppBarTheme(
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      centerTitle: true,
+      iconTheme: IconThemeData(color: Colors.black),
+      actionsIconTheme: IconThemeData(color: Colors.black),
     ),
   );
 }

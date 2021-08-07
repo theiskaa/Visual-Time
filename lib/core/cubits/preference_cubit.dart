@@ -28,6 +28,7 @@ class PreferenceCubit extends Cubit<PreferenceState> {
     var themes = {
       'dark': Themes().dark,
       'default': Themes().defaultTheme,
+      's/2': Themes().minimalist,
     };
 
     emit(state.copyWith(
@@ -44,8 +45,10 @@ class PreferenceCubit extends Cubit<PreferenceState> {
 
     var themes = {
       'dark': Themes().dark,
+      's/2': Themes().minimalist,
       'default': Themes().defaultTheme,
     };
+
     emit(state.copyWith(
       theme: themes[newTheme] ?? themes['default'],
       themeName: newTheme,
@@ -57,6 +60,7 @@ class PreferenceCubit extends Cubit<PreferenceState> {
 
     var themes = {
       'dark': Themes().dark,
+      's/2': Themes().minimalist,
       'default': Themes().defaultTheme,
     };
 

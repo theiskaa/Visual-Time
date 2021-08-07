@@ -7,7 +7,7 @@ class SwitcherTile extends VTStatelessWidget {
   final String title;
   final bool switcherValue;
   final Function(bool) onChanged;
-  final Color switcherColor;
+  final Color? switcherColor;
   final double spaceAround;
   final MainAxisAlignment mainAxisAlignment;
   final TextStyle titleStyle;
@@ -17,7 +17,7 @@ class SwitcherTile extends VTStatelessWidget {
     required this.title,
     required this.switcherValue,
     required this.onChanged,
-    this.switcherColor = ViewUtils.pomodoroOrange,
+    this.switcherColor,
     this.spaceAround = 10,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.titleStyle = const TextStyle(fontWeight: FontWeight.bold),
@@ -34,7 +34,7 @@ class SwitcherTile extends VTStatelessWidget {
         ),
         SizedBox(width: spaceAround),
         CupertinoSwitch(
-          activeColor: switcherColor,
+          activeColor: switcherColor ?? ViewUtils().pomodoroOrange(context),
           value: switcherValue,
           onChanged: onChanged,
         ),

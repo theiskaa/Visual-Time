@@ -147,13 +147,13 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
       child: FractionallySizedBox(
         widthFactor: .8,
         child: ElevatedButton(
-          style: ViewUtils().pomodoroButtonStyle,
+          style: ViewUtils().pomodoroButtonStyle(context),
           onPressed: watch.isRunning ? stopTimer : startTimer,
           child: Text(
             watch.isRunning
                 ? vt.intl.of(context)!.fmt('act.stop')
                 : vt.intl.of(context)!.fmt('act.start'),
-            style: const TextStyle(color: ViewUtils.pomodoroOrange),
+            style: TextStyle(color: ViewUtils().pomodoroOrange(context)),
           ),
         ),
       ),
@@ -169,11 +169,11 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
         onAct: navigateToDashboard,
         buttons: [
           TextButton(
-            style: simpleButtonStyle(ViewUtils.pomodoroOrange),
+            style: simpleButtonStyle(ViewUtils().pomodoroOrange(context)),
             onPressed: leaveItHalf,
             child: Text(
               vt.intl.of(context)!.fmt('live_work.leaveItHalf'),
-              style: const TextStyle(color: ViewUtils.pomodoroOrange),
+              style: TextStyle(color: ViewUtils().pomodoroOrange(context)),
             ),
           ),
         ],
@@ -238,14 +238,17 @@ class _SelectedTask extends VTStatelessWidget {
                   .state
                   .theme!
                   .scaffoldBackgroundColor,
-              border: Border.all(width: .6, color: ViewUtils.pomodoroOrange),
+              border: Border.all(
+                width: .6,
+                color: ViewUtils().pomodoroOrange(context),
+              ),
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
                   spreadRadius: 1,
                   offset: const Offset(0, 10),
                   blurRadius: 15,
-                  color: ViewUtils.pomodoroOrange.withOpacity(.2),
+                  color: ViewUtils().pomodoroOrange(context).withOpacity(.2),
                 )
               ],
             ),
