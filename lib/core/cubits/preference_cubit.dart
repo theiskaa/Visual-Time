@@ -2,12 +2,42 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vtime/core/cubits/preference_state.dart';
 import 'package:vtime/core/services/local_db_service.dart';
-import 'package:vtime/view/widgets/themes.dart';
+import 'package:vtime/view/widgets/components/themes.dart';
 
 class PreferenceCubit extends Cubit<PreferenceState> {
   final LocalDBService? localDBService = LocalDBService();
 
-  PreferenceCubit() : super(PreferenceState(theme: null, themeName: null));
+  PreferenceCubit()
+      : super(
+          PreferenceState(
+            theme: null,
+            themeName: null,
+            isAnimationsEnabled: true,
+            selectedAlarmSound: 'Nonimooley',
+          ),
+        );
+
+  // It used to initialize preferences of application.
+  // Just looks at every preference setup and emit them to actual state.
+  Future<void> initApp() async {
+    var themeName = await LocalDBService.preferences().get('theme');
+    var lang = await LocalDBService.preferences().get('lang');
+    var alarmSound = await LocalDBService.preferences().get('alarmSound');
+    var value = await LocalDBService.preferences().get('isAnimationsEnabled');
+
+    var themes = {
+      'dark': Themes().dark,
+      'default': Themes().defaultTheme,
+    };
+
+    emit(state.copyWith(
+      theme: themes[themeName] ?? themes['default'],
+      themeName: themeName,
+      langCode: lang ?? 'en',
+      selectedAlarmSound: alarmSound ?? 'Nonimooley',
+      isAnimationsEnabled: value ?? true,
+    ));
+  }
 
   Future<void> changeTheme(dynamic newTheme) async {
     await LocalDBService.preferences().put('theme', newTheme);
@@ -22,7 +52,7 @@ class PreferenceCubit extends Cubit<PreferenceState> {
     ));
   }
 
-  Future<ThemeData?> getCurrentTheme() async {
+  Future<ThemeData?> get currentTheme async {
     var themeName = await LocalDBService.preferences().get('theme');
 
     var themes = {
@@ -45,7 +75,7 @@ class PreferenceCubit extends Cubit<PreferenceState> {
     emit(state.copyWith(langCode: newLang));
   }
 
-  Future<String?> getCurrentLang() async {
+  Future<String?> get currentLang async {
     var lang = await LocalDBService.preferences().get('lang');
 
     emit(state.copyWith(langCode: lang ?? 'en'));
@@ -60,11 +90,29 @@ class PreferenceCubit extends Cubit<PreferenceState> {
     emit(state.copyWith(selectedAlarmSound: alarmSound));
   }
 
-  Future<String?> getAlarmSound() async {
+  Future<String?> get currentAlarmSound async {
     var alarmSound = await LocalDBService.preferences().get('alarmSound');
 
     emit(state.copyWith(selectedAlarmSound: alarmSound ?? 'Nonimooley'));
 
     return alarmSound ?? 'Nonimooley';
+  }
+
+  // Method to make disable/enable animations.
+  Future<void> changeStateOfAnimations(bool isAnimationsEnabled) async {
+    await LocalDBService.preferences().put(
+      'isAnimationsEnabled',
+      isAnimationsEnabled,
+    );
+
+    emit(state.copyWith(isAnimationsEnabled: isAnimationsEnabled));
+  }
+
+  Future<bool?> get isAnimationsEnabled async {
+    var value = await LocalDBService.preferences().get('isAnimationsEnabled');
+
+    emit(state.copyWith(isAnimationsEnabled: value ?? true));
+
+    return value ?? true;
   }
 }

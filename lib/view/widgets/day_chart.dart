@@ -11,12 +11,12 @@ import 'package:vtime/view/widgets/utils.dart';
 // ignore: must_be_immutable
 class DayChart extends VTStatefulWidget {
   List<Task> tasks;
-  final bool tooltipBehaviorEnabled;
+  final bool isTooltipBehaviorEnabled;
 
   DayChart({
     Key? key,
     required this.tasks,
-    this.tooltipBehaviorEnabled = false,
+    this.isTooltipBehaviorEnabled = false,
   }) : super(key: key);
 
   @override
@@ -65,12 +65,13 @@ class _DayChartState extends VTState<DayChart> {
         return SfCircularChart(
           palette: (state.themeName == 'dark') ? darkPalette : lightPalette,
           tooltipBehavior:
-              widget.tooltipBehaviorEnabled ? tooltipBehavior() : null,
+              widget.isTooltipBehaviorEnabled ? tooltipBehavior() : null,
           series: <PieSeries<Task, String>>[
             PieSeries<Task, String>(
               dataSource: widget.tasks,
               xValueMapper: (Task data, _) => data.totalTime.toString(),
               yValueMapper: (Task data, _) => data.totalTime,
+              animationDuration: state.isAnimationsEnabled! ? 1500 : 0,
             ),
           ],
         );

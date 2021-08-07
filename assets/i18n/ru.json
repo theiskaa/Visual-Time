@@ -30,6 +30,7 @@
     "prefs.appearance.dark": "Темная тема",
     "prefs.lang": "Язык",
     "prefs.alarmSound": "Сигнал Tревоги",
+    "prefs.animations": "Анимации",
 
     "live_work.selected_task": "Выбранная задача",
     "live_work.removeTaskAfterCompleting": "Удалить задачу после завершения",

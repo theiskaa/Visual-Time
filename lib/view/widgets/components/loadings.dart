@@ -8,6 +8,7 @@ class DoubleBounce extends StatefulWidget {
   final AnimationController? controller;
   final Widget? child;
   final bool disabled;
+  final bool isAnimationsDisabled;
 
   const DoubleBounce({
     Key? key,
@@ -18,6 +19,7 @@ class DoubleBounce extends StatefulWidget {
     this.controller,
     this.child = const SizedBox(),
     this.disabled = false,
+    this.isAnimationsDisabled = false,
   })  : assert(size != null),
         assert(
           !(itemBuilder is IndexedWidgetBuilder && color is Color) &&
@@ -63,7 +65,7 @@ class _DoubleBounceState extends State<DoubleBounce>
     return Center(
       child: Stack(
         children: [
-          animation(),
+          widget.isAnimationsDisabled ? const SizedBox.shrink() : animation(),
           Align(
             alignment: Alignment.center,
             child: widget.child ?? const SizedBox.shrink(),

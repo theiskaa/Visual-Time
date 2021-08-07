@@ -5,8 +5,8 @@ import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/services/local_db_service.dart';
 import 'package:vtime/core/utils/widgets.dart';
 
-import 'widgets/appbars.dart';
-import 'widgets/buttons.dart';
+import 'widgets/components/appbars.dart';
+import 'widgets/components/buttons.dart';
 import 'widgets/utils.dart';
 
 class EditPage extends VTStatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vtime/view/widgets/appbars.dart';
+import 'package:vtime/view/widgets/components/appbars.dart';
 
 void main() {
   late TransparentAppBar transparentAppBar;

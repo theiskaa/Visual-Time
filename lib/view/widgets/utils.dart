@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/vt.dart';
 
-import 'themes.dart';
+import 'components/themes.dart';
 
 const remainingTimeFillerTaskCode = 'Remaining Time {#@!@#!@#8&**%@#%}';
 

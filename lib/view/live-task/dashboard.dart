@@ -10,9 +10,10 @@ import 'package:vtime/core/cubits/preference_cubit.dart';
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/utils/widgets.dart';
 import 'package:vtime/view/dashboard.dart';
-import 'package:vtime/view/widgets/appbars.dart';
+import 'package:vtime/view/widgets/components/appbars.dart';
+import 'package:vtime/view/widgets/components/custom_switchers.dart';
 import 'package:vtime/view/widgets/live-task/clock_count.dart';
-import 'package:vtime/view/widgets/themes.dart';
+import 'package:vtime/view/widgets/components/themes.dart';
 import 'package:vtime/view/widgets/utils.dart';
 
 class LiveTaskDashboard extends VTStatefulWidget {
@@ -26,6 +27,7 @@ class LiveTaskDashboard extends VTStatefulWidget {
 
 class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
   final viewUtils = ViewUtils();
+  late bool isAnimationsEnabled;
 
   static const oneSecond = Duration(seconds: 1);
   Timer? timer;
@@ -44,6 +46,8 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
       minutes: widget.task!.minutes!,
     );
     time = duration!.toHMS;
+    isAnimationsEnabled =
+        BlocProvider.of<PreferenceCubit>(context).state.isAnimationsEnabled!;
   }
 
   @override
@@ -80,7 +84,7 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
     setState(() => time = 'dn');
 
     // Get's setted alarm sound and plays it.
-    var val = await BlocProvider.of<PreferenceCubit>(context).getAlarmSound();
+    var val = await BlocProvider.of<PreferenceCubit>(context).currentAlarmSound;
     player.play('$val.mp3');
 
     if (removeTaskAfterCompletation) {
@@ -111,11 +115,22 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 30),
-                ClockCount(time: time, disabled: !watch.isRunning),
+                ClockCount(
+                  time: time,
+                  disabled: !watch.isRunning,
+                  isAnimationDisabled: !isAnimationsEnabled,
+                ),
                 const SizedBox(height: 40),
                 ViewUtils.divider,
                 const SizedBox(height: 20),
-                removeAfterSelectorWidget(),
+                SwitcherTile(
+                  title: vt.intl
+                      .of(context)!
+                      .fmt('live_work.removeTaskAfterCompleting'),
+                  switcherValue: removeTaskAfterCompletation,
+                  onChanged: (v) =>
+                      setState(() => removeTaskAfterCompletation = v),
+                ),
                 const SizedBox(height: 40),
                 _SelectedTask(task: widget.task ?? Task()),
               ],
@@ -123,29 +138,6 @@ class LiveTaskDashboardState extends VTState<LiveTaskDashboard> {
           ),
         ),
       ),
-    );
-  }
-
-  Row removeAfterSelectorWidget() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            vt.intl.of(context)!.fmt('live_work.removeTaskAfterCompleting'),
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ),
-        const SizedBox(width: 10),
-        CupertinoSwitch(
-          activeColor: ViewUtils.pomodoroOrange,
-          value: removeTaskAfterCompletation,
-          onChanged: (val) {
-            setState(() => removeTaskAfterCompletation = val);
-          },
-        ),
-      ],
     );
   }
 

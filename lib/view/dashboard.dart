@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vtime/core/cubits/preference_cubit.dart';
 import 'package:vtime/core/model/day.dart';
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/services/local_db_service.dart';
@@ -12,7 +14,7 @@ import 'day_view.dart';
 import 'create.dart';
 import 'settings.dart';
 import 'widgets/mini_day_card.dart';
-import 'widgets/appbars.dart';
+import 'widgets/components/appbars.dart';
 import 'widgets/day_chart.dart';
 import 'widgets/utils.dart';
 
@@ -108,7 +110,7 @@ class _DashboardState extends VTState<Dashboard> {
               valueListenable: todaysBox!,
               builder: (context, box, _) {
                 final tasks = box.values.toList().cast<Task>();
-                return DayChart(tasks: tasks, tooltipBehaviorEnabled: true);
+                return DayChart(tasks: tasks, isTooltipBehaviorEnabled: true);
               },
             ),
             const SizedBox(height: 30),

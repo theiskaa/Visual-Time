@@ -33,9 +33,7 @@ class _AppState extends VTState<App> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<PreferenceCubit>(
-      create: (BuildContext context) => PreferenceCubit()
-        ..getCurrentTheme()
-        ..getCurrentLang(),
+      create: (BuildContext context) => PreferenceCubit()..initApp(),
       child: BlocBuilder<PreferenceCubit, PreferenceState>(
         builder: (context, state) {
           return MaterialApp(
