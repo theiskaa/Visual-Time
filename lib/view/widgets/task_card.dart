@@ -38,7 +38,7 @@ class TaskCard extends VTStatelessWidget {
       actions: [
         IconSlideAction(
           caption: vt.intl.of(context)!.fmt('act.start'),
-          color: const Color(0xffFF6347),
+          color: ViewUtils().pomodoroOrange(context),
           icon: CupertinoIcons.time_solid,
           onTap: () => Navigator.push(
             context,

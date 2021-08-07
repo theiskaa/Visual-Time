@@ -195,3 +195,48 @@ class Themes {
     ),
   );
 }
+
+class DayChartColorPalettes {
+  final darkPalette = <Color>[
+    Colors.grey.shade900,
+    Colors.red,
+    Colors.purple.shade400,
+    const Color.fromRGBO(246, 114, 128, 1),
+    const Color.fromRGBO(248, 177, 149, 1),
+    const Color.fromRGBO(116, 180, 155, 1),
+    const Color.fromRGBO(0, 168, 181, 1),
+    const Color.fromRGBO(73, 76, 162, 1),
+    const Color.fromRGBO(255, 205, 96, 1),
+    const Color.fromRGBO(255, 240, 219, 1),
+    const Color.fromRGBO(238, 238, 238, 1)
+  ];
+
+  final lightPalette = <Color>[
+    Colors.grey.shade300,
+    Colors.red.shade400,
+    const Color.fromRGBO(192, 108, 132, 1),
+    const Color.fromRGBO(246, 114, 128, 1),
+    const Color.fromRGBO(248, 177, 149, 1),
+    const Color.fromRGBO(116, 180, 155, 1),
+    const Color.fromRGBO(0, 168, 181, 1),
+    const Color.fromRGBO(73, 76, 162, 1),
+    const Color.fromRGBO(255, 205, 96, 1),
+    const Color.fromRGBO(255, 240, 219, 1),
+    const Color.fromRGBO(238, 238, 238, 1)
+  ];
+
+  static const s2Palette = <Color>[
+    Color(0xFF858585),
+    Color(0xFF1B1B1B),
+    Color(0xFF303030),
+    Color(0xFF474747),
+    Color(0xFF2C2C2C),
+    Color(0xFF5E5E5E),
+    Color(0xFF1D1D1D),
+    Color(0xFF777777),
+    Color(0xFF777777),
+    Color(0xFF919191),
+    Color(0xFF383838),
+    Color(0xFF1D1D1D),
+  ];
+}

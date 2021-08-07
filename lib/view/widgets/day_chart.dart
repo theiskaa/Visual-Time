@@ -8,6 +8,8 @@ import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/utils/widgets.dart';
 import 'package:vtime/view/widgets/utils.dart';
 
+import 'components/themes.dart';
+
 // ignore: must_be_immutable
 class DayChart extends VTStatefulWidget {
   List<Task> tasks;
@@ -26,33 +28,15 @@ class DayChart extends VTStatefulWidget {
 class _DayChartState extends VTState<DayChart> {
   final viewUtils = ViewUtils();
 
-  var darkPalette = <Color>[
-    Colors.grey.shade900,
-    Colors.red,
-    Colors.purple.shade400,
-    const Color.fromRGBO(246, 114, 128, 1),
-    const Color.fromRGBO(248, 177, 149, 1),
-    const Color.fromRGBO(116, 180, 155, 1),
-    const Color.fromRGBO(0, 168, 181, 1),
-    const Color.fromRGBO(73, 76, 162, 1),
-    const Color.fromRGBO(255, 205, 96, 1),
-    const Color.fromRGBO(255, 240, 219, 1),
-    const Color.fromRGBO(238, 238, 238, 1)
-  ];
+  dynamic currentPalette(String? themeName) {
+    var palettes = {
+      's/2': DayChartColorPalettes.s2Palette,
+      'dark': DayChartColorPalettes().darkPalette,
+      'default': DayChartColorPalettes().lightPalette
+    };
 
-  var lightPalette = <Color>[
-    Colors.grey.shade300,
-    Colors.red.shade400,
-    const Color.fromRGBO(192, 108, 132, 1),
-    const Color.fromRGBO(246, 114, 128, 1),
-    const Color.fromRGBO(248, 177, 149, 1),
-    const Color.fromRGBO(116, 180, 155, 1),
-    const Color.fromRGBO(0, 168, 181, 1),
-    const Color.fromRGBO(73, 76, 162, 1),
-    const Color.fromRGBO(255, 205, 96, 1),
-    const Color.fromRGBO(255, 240, 219, 1),
-    const Color.fromRGBO(238, 238, 238, 1)
-  ];
+    return palettes[themeName];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +47,7 @@ class _DayChartState extends VTState<DayChart> {
         widget.tasks.add(Task().remainingTimeFiller(total));
 
         return SfCircularChart(
-          palette: (state.themeName == 'dark') ? darkPalette : lightPalette,
+          palette: currentPalette(state.themeName),
           tooltipBehavior:
               widget.isTooltipBehaviorEnabled ? tooltipBehavior() : null,
           series: <PieSeries<Task, String>>[
