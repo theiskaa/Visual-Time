@@ -5,12 +5,15 @@
  <img width="300" src="https://user-images.githubusercontent.com/59066341/128612033-0ac8033b-727c-4307-80f0-65124322a5f2.png" alt="VT's Logo">
 </p>
 
-<a href="https://github.com/theiskaa/Visual-Time/blob/main/LICENSE">
+<p align="center">
+ <a href="https://github.com/theiskaa/Visual-Time/blob/main/LICENSE">
    <img src="https://img.shields.io/badge/License-MIT-red.svg" alt="License: MIT"/>
 </a>
 <a href="https://github.com/theiskaa/Visual-Time/tree/main/assets/release/visual-time.apk">
    <img src="https://img.shields.io/badge/Visual%20Time-Download%20APK-blueviolet" alt="Apk of Visual Time"/>
 </a>
+</p>
+
 
 ## Info
 An advanced, minimalist, and powerful time management application. Where you can create the task, give it a duration, and select which weekdays you wanna do it.
@@ -19,11 +22,13 @@ Of course, you can start using concrete tasks as a timer, it will make noise whe
 
 ## Overview 
 #### 
-<p align="center">
-<b>S/2</b>
-</p>
-
-<img width="1000" src="https://user-images.githubusercontent.com/59066341/128611324-8c5d5806-2a18-483a-8c5e-eff45fbfd618.png" alt="Special edition theme [S/2]">
+<details>
+ <summary> S/2 </summary>
+ <p align="center">
+ <b> Special minimalist theme S/2 </b>
+ </p>
+ <img width="1000" src="https://user-images.githubusercontent.com/59066341/128611324-8c5d5806-2a18-483a-8c5e-eff45fbfd618.png" alt="Special edition theme [S/2]">
+</details>
 
 <p align="center">
 <b>Default</b>
