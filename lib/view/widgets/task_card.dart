@@ -25,49 +25,52 @@ class TaskCard extends VTStatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Slidable(
-      key: key,
-      actionPane: const SlidableDrawerActionPane(),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        child: ListTile(
-          title: Text(task.title!),
-          subtitle: Text(ViewUtils().generateSubtitle(context, task, vt)),
+    return  GestureDetector(
+      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => TaskDetailSS(task: task,)));},
+      child: Slidable(
+        key: key,
+        actionPane: const SlidableDrawerActionPane(),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: ListTile(
+            title: Text(task.title!),
+            subtitle: Text(ViewUtils().generateSubtitle(context, task, vt)),
+          ),
         ),
+        actions: [
+          IconSlideAction(
+            caption: vt.intl.of(context)!.fmt('act.start'),
+            color: ViewUtils().pomodoroOrange(context),
+            icon: CupertinoIcons.time_solid,
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    LiveTaskDashboard(task: task, dayBox: dayBox),
+              ),
+            ),
+          ),
+        ],
+        secondaryActions: <Widget>[
+          IconSlideAction(
+            caption: vt.intl.of(context)!.fmt('act.edit'),
+            color: const Color(0xFF07B307),
+            icon: Icons.edit,
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EditPage(task: task, dayBox: dayBox),
+              ),
+            ),
+          ),
+          IconSlideAction(
+            caption: vt.intl.of(context)!.fmt('act.delete'),
+            color: const Color(0xffff0000),
+            icon: Icons.delete,
+            onTap: () => onDismissed(),
+          ),
+        ],
       ),
-      actions: [
-        IconSlideAction(
-          caption: vt.intl.of(context)!.fmt('act.start'),
-          color: ViewUtils().pomodoroOrange(context),
-          icon: CupertinoIcons.time_solid,
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  LiveTaskDashboard(task: task, dayBox: dayBox),
-            ),
-          ),
-        ),
-      ],
-      secondaryActions: <Widget>[
-        IconSlideAction(
-          caption: vt.intl.of(context)!.fmt('act.edit'),
-          color: const Color(0xFF07B307),
-          icon: Icons.edit,
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => EditPage(task: task, dayBox: dayBox),
-            ),
-          ),
-        ),
-        IconSlideAction(
-          caption: vt.intl.of(context)!.fmt('act.delete'),
-          color: const Color(0xffff0000),
-          icon: Icons.delete,
-          onTap: () => onDismissed(),
-        ),
-      ],
     );
   }
 }
