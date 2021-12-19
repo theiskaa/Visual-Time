@@ -14,7 +14,6 @@
 </a>
 </p>
 
-
 ## Info
 An advanced, minimalist, and powerful time management application. Where you can create the task, give it a duration, and select which weekdays you wanna do it.
 By doing this you can easily manage a whole week or a concrete day, or a concrete task. The application sets "Today" automatically. You can see your 24 hours as a circle which is divided by tasks. Also, you can see the task's duration by tapping the divided item on the day circle. Application has a light, dark, and one special **S/2** theme, and supports four languages: *"English, Turkish, Russian, and Georgian"*. <br>
@@ -46,3 +45,7 @@ Of course, you can start using concrete tasks as a timer, it will make noise whe
 
 ## Contributing
 For information regarding contributions, please refer to [CONTRIBUTING.md](https://github.com/theiskaa/VTime/blob/main/CONTRIBUTING.md) file.
+
+---
+
+**Inispired from [Kalle Hallden](https://github.com/KalleHallden)'s [time management app](https://github.com/KalleHallden/Time-management-app)**
