@@ -1,3 +1,9 @@
+//
+// This source code is distributed under the terms of Bad Code License.
+// You are forbidden from distributing software containing this code to
+// end users, because it is bad.
+//
+
 import 'package:vtime/core/services/local_db_service.dart';
 import 'package:vtime/core/utils/intl.dart';
 

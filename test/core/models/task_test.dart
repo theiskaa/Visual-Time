@@ -1,3 +1,9 @@
+//
+// This source code is distributed under the terms of Bad Code License.
+// You are forbidden from distributing software containing this code to
+// end users, because it is bad.
+//
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/view/widgets/utils.dart';

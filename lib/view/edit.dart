@@ -1,3 +1,9 @@
+//
+// This source code is distributed under the terms of Bad Code License.
+// You are forbidden from distributing software containing this code to
+// end users, because it is bad.
+//
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -62,11 +68,10 @@ class _EditPageState extends VTState<EditPage> {
                   hint: vt.intl.of(context)!.fmt('task.title.hint'),
                 ),
                 validator: (v) {
-                  if (v!.isEmpty) {
-                    return vt.intl
-                        .of(context)!
-                        .fmt('error.title_field_validation');
-                  }
+                  if (v!.isNotEmpty) return null;
+                  return vt.intl
+                      .of(context)!
+                      .fmt('error.title_field_validation');
                 },
               ),
               const SizedBox(width: 15),

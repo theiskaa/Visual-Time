@@ -1,7 +1,14 @@
 //
+// This source code is distributed under the terms of Bad Code License.
+// You are forbidden from distributing software containing this code to
+// end users, because it is bad.
+//
+
+//
 // Generated file. Do not edit.
 //
 
+// ignore_for_file: directives_ordering
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'package:audioplayers/web/audioplayers_web.dart';
