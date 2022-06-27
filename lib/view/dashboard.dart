@@ -1,8 +1,12 @@
+//
+// This source code is distributed under the terms of Bad Code License.
+// You are forbidden from distributing software containing this code to
+// end users, because it is bad.
+//
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vtime/core/cubits/preference_cubit.dart';
 import 'package:vtime/core/model/day.dart';
 import 'package:vtime/core/model/task.dart';
 import 'package:vtime/core/services/local_db_service.dart';

@@ -1,3 +1,9 @@
+//
+// This source code is distributed under the terms of Bad Code License.
+// You are forbidden from distributing software containing this code to
+// end users, because it is bad.
+//
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

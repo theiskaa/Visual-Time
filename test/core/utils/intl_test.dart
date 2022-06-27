@@ -1,4 +1,9 @@
-import 'package:flutter/painting.dart';
+//
+// This source code is distributed under the terms of Bad Code License.
+// You are forbidden from distributing software containing this code to
+// end users, because it is bad.
+//
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';

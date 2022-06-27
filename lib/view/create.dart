@@ -1,3 +1,9 @@
+//
+// This source code is distributed under the terms of Bad Code License.
+// You are forbidden from distributing software containing this code to
+// end users, because it is bad.
+//
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -106,6 +112,8 @@ class CreateTaskPageState extends VTState<CreateTaskPage> {
                         .of(context)!
                         .fmt('error.title_field_validation');
                   }
+
+                  return null;
                 },
               ),
               const SizedBox(width: 15),

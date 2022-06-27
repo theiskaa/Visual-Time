@@ -1,3 +1,9 @@
+//
+// This source code is distributed under the terms of Bad Code License.
+// You are forbidden from distributing software containing this code to
+// end users, because it is bad.
+//
+
 import 'dart:convert';
 import 'dart:async' show Future;
 import 'package:flutter/material.dart';
@@ -26,7 +32,7 @@ class Intl {
   // Example:
   /// ```dart
   /// "account.hello": "Hello %1, your age is %2"
-  /// lomsa.intl.of(context).fmt('account.hello', ['Ismael', '16'])
+  /// vt.intl.of(context).fmt('account.hello', ['Ismael', '16'])
   /// ```
   // Output should be: [Hello Ismael, your age is 16].
   String fmt(String key, [List<dynamic>? args]) {
